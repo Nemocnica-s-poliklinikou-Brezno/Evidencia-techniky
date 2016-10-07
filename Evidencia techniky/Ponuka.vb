@@ -33,33 +33,43 @@ Public Class Ponuka
                 If data("Admin").ToString = 1 Then 'Admin
                     ADMINISTRÁCIAToolStripMenuItem.Visible = True
                 End If
+
                 If data("Pocitace").ToString > 0 Then 'Technika
                     tsm_Technika.Visible = True
                 End If
+
                 If data("Prace").ToString > 0 Then 'Práce
                     tsm_Prace.Visible = True
                 End If
+
                 If data("PraceSprava").ToString > 0 Then 'Práce správa
                     tsm_PraceSprava.Visible = True
                 End If
+
                 If data("Ziadanky").ToString > 0 Then 'Ziadanky
                     tsm_Ziadanky.Visible = True
                 End If
+
                 If data("Doprava").ToString > 0 Then 'Doprava
                     tsm_Doprava.Visible = True
                 End If
+
                 If data("DopravaOdosielatelia").ToString > 0 Then 'Doprava podľa odosielatelov
                     tsm_PrehladPodlaOdosielatela.Visible = True
                 End If
+
                 If data("DopravaPoistovne").ToString > 0 Then 'Ročný prehľad podla poistovni
                     tsm_DopravaPoistovne.Visible = True
                 End If
+
                 If data("Labaky").ToString > 0 Then 'Labaky
                     tsm_Labaky.Visible = True
                 End If
+
                 If data("Skumavky").ToString > 0 Then 'Skumavky
                     tsm_Skumavky.Visible = True
                 End If
+
             End While
             data.Close()
             con.Close()
@@ -78,15 +88,11 @@ Public Class Ponuka
         NastavenieUzivatela.Show()
     End Sub
 
-    Private Sub AmbulancieToolStripMenuItem_Click(sender As Object, e As EventArgs)
-    End Sub
-
     Private Sub tsm_Skumavky_Click(sender As Object, e As EventArgs) Handles tsm_Skumavky.Click
         Skumavky.Show()
     End Sub
 
     Private Sub TransfúzneToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TransfúzneToolStripMenuItem.Click
-
     End Sub
 
     Private Sub tsm_PrehladPodlaOdosielatela_Click(sender As Object, e As EventArgs) Handles tsm_PrehladPodlaOdosielatela.Click
@@ -138,7 +144,6 @@ Public Class Ponuka
     End Sub
 
     Private Sub KrátkodobéToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
     End Sub
 
     Private Sub TESTMAILToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TESTMAILToolStripMenuItem.Click
