@@ -24,10 +24,8 @@ Module Ciselnik_funk
                     ds2.Tables.Add(dtOddlenia)
 
                 End Using
-
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-
             End Try
             con.Close()
 
@@ -39,10 +37,8 @@ Module Ciselnik_funk
             sqlCiselnik.CommandTimeout = 1200
             Try
                 PCiselnik = sqlCiselnik.ExecuteScalar()
-
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-
             End Try
             con.Close()
 
@@ -54,14 +50,13 @@ Module Ciselnik_funk
             sqlCiselnik.CommandTimeout = 1200
             Try
                 PCiselnik = sqlCiselnik.ExecuteScalar()
-
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-
             End Try
             con.Close()
         End If
 
         Return PCiselnik
+
     End Function
 End Module
