@@ -1,0 +1,10 @@
+Zjedniti ve¾kos a umiestnenie prvkov
+Ak po presunu má PC viac tlaèiarni alebo monitorov tak je potrebné upozorni èi je to tak správne èi netreba presunu pôvodnú na IT
+
+zistenie a nastavenie potrebnych stlpov pri importe skumaviek
+zistenie a nastavenie skumaviek pre HTO
+zmenit tabulku prava tak aby boli jednotlive prava v riadkoch a vedla hodnoty (0 - 4)
+
+doprogramova uèotavnie hodin
+roztiahnut polia na exceli
+doplni vykaz hodin, namiesto poznamky podpis
