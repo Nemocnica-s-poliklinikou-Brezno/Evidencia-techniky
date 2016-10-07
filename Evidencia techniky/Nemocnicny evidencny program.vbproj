@@ -141,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
-    <Compile Include="Funkcie\UnHashHeslo.vb" />
     <Compile Include="Funkcie\Notifikacia.vb" />
     <Compile Include="Funkcie\UpravaDatumu.vb" />
     <Compile Include="Funkcie\HashHeslo.vb" />
