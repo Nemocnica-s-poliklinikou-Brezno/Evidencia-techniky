@@ -63,10 +63,12 @@ Public Class NastavenieUzivatela
                 Loop
 
             End Using
+            con.Close()
         Catch ex As Exception
+            con.Close()
             MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
-        con.Close()
+
 
         con.Open()
         Dim StrSql As String =
@@ -200,13 +202,13 @@ Public Class NastavenieUzivatela
                                                             Dim sql As MySqlCommand = New MySqlCommand(Query, con)
                                                             Try
                                                                 sql.ExecuteNonQuery()
-                                                                MessageBox.Show("Užívateľ bol pridaný do systému", "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                                 con.Close()
+                                                                MessageBox.Show("Užívateľ bol pridaný do systému", "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                                 logy(4, 1, "")
                                                                 Notifikacia(1, tb_Email.Text, 2)
                                                             Catch ex As Exception
-                                                                MessageBox.Show(ex.Message, "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                                 con.Close()
+                                                                MessageBox.Show(ex.Message, "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                                 logy(4, 2, ex.Message)
                                                             End Try
 
@@ -223,11 +225,12 @@ Public Class NastavenieUzivatela
                                                             Dim sqlINT As MySqlCommand = New MySqlCommand(QueryINS, con)
                                                             Try
                                                                 sqlINT.ExecuteNonQuery()
+                                                                con.Close()
                                                                 MessageBox.Show("Práva boli pridadené k užívateľovi", "ETECH - Pridanie práv", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                             Catch ex As Exception
+                                                                con.Close()
                                                                 MessageBox.Show(ex.Message, "ETECH - Pridanie práv", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                             End Try
-                                                            con.Close()
 
                                                             Dim QueryODD As String
                                                             QueryODD = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, hlavne, Vlozil_meno, Vlozil_dna) values ((Select id_uzivatela from uzivatelia where zablokovany = 0 order by 1 desc limit 1), '" & oddelenie(cb_Oddelenie.Text) & "', 1, '" & Ponuka.Meno_uzivatela & "', now());"
@@ -235,11 +238,12 @@ Public Class NastavenieUzivatela
                                                             Dim sqlODD As MySqlCommand = New MySqlCommand(QueryODD, con)
                                                             Try
                                                                 sqlODD.ExecuteNonQuery()
+                                                                con.Close()
                                                                 MessageBox.Show("Oddelenie bolo pridadené k užívateľovi", "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                             Catch ex As Exception
+                                                                con.Close()
                                                                 MessageBox.Show(ex.Message, "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                             End Try
-                                                            con.Close()
 
                                                             tb_Hladaj.Text = ""
                                                             tb_UzivatelMeno.Text = ""
@@ -340,13 +344,14 @@ Public Class NastavenieUzivatela
             Dim sqlDEL As MySqlCommand = New MySqlCommand(QueryDEL, con)
             Try
                 sqlDEL.ExecuteNonQuery()
+                con.Close()
                 MessageBox.Show("Užívateľa BOL vymazaný!", "ETECH - Vymazanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 logy(5, 1, "")
             Catch ex As Exception
+                con.Close()
                 MessageBox.Show(ex.Message, "ETECH - Vymazanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 logy(5, 2, ex.Message)
             End Try
-            con.Close()
 
             tb_Hladaj.Text = ""
             tb_UzivatelMeno.Text = ""
@@ -393,13 +398,14 @@ Public Class NastavenieUzivatela
                 Dim sqlUZI As MySqlCommand = New MySqlCommand(QueryUZI, con)
                 Try
                     sqlUZI.ExecuteNonQuery()
+                    con.Close()
                     MessageBox.Show("Užívateľa BOL upravený!", "ETECH - Zmena v užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     logy(12, 1, "")
                 Catch ex As Exception
+                    con.Close()
                     MessageBox.Show(ex.Message, "Zmena v užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     logy(12, 2, ex.Message)
                 End Try
-                con.Close()
             Else
             End If
 
@@ -410,11 +416,12 @@ Public Class NastavenieUzivatela
                 Dim sqlHES As MySqlCommand = New MySqlCommand(QueryHES, con)
                 Try
                     sqlHES.ExecuteNonQuery()
+                    con.Close()
                     logy(1, 1, "Administratorom")
                 Catch ex As Exception
+                    con.Close()
                     logy(1, 2, ex.Message)
                 End Try
-                con.Close()
             Else
             End If
 
@@ -426,13 +433,14 @@ Public Class NastavenieUzivatela
                 Dim sqlPRA As MySqlCommand = New MySqlCommand(QueryPRA, con)
                 Try
                     sqlPRA.ExecuteNonQuery()
+                    con.Close()
                     MessageBox.Show("Práva BOLI upravené!", "ETECH - Zmena práv v užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     logy(3, 1, "")
                 Catch ex As Exception
+                    con.Close()
                     MessageBox.Show(ex.Message, "Zmena práv v užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     logy(3, 2, ex.Message)
                 End Try
-                con.Close()
             Else
             End If
 
@@ -444,12 +452,12 @@ Public Class NastavenieUzivatela
                 Dim sqlPRA As MySqlCommand = New MySqlCommand(QueryPRA, con)
                 Try
                     sqlPRA.ExecuteNonQuery()
-                    MessageBox.Show("Oddelenie BOLO zmenené!", "ETECH - Zmena oddelenia pri užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     con.Close()
+                    MessageBox.Show("Oddelenie BOLO zmenené!", "ETECH - Zmena oddelenia pri užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     logy(13, 1, "Administratorom")
                 Catch ex As Exception
-                    MessageBox.Show(ex.Message, "Zmena oddelenia pri užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     con.Close()
+                    MessageBox.Show(ex.Message, "Zmena oddelenia pri užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     logy(13, 2, ex.Message)
                 End Try
             Else
