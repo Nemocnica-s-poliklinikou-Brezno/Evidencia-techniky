@@ -59,6 +59,9 @@ Partial Class Ponuka
         Me.TESTMAILToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OdlásiťToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PriestupkyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NahlásenieToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EvidenciaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,7 +85,7 @@ Partial Class Ponuka
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsm_Technika, Me.tsm_Prace, Me.tsm_Ziadanky, Me.tsm_Doprava, Me.tsm_Labaky, Me.NastaveniaToolStripMenuItem, Me.OdlásiťToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsm_Technika, Me.tsm_Prace, Me.tsm_Ziadanky, Me.tsm_Doprava, Me.tsm_Labaky, Me.PriestupkyToolStripMenuItem, Me.NastaveniaToolStripMenuItem, Me.OdlásiťToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(719, 24)
@@ -313,6 +316,26 @@ Partial Class Ponuka
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
+        'PriestupkyToolStripMenuItem
+        '
+        Me.PriestupkyToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NahlásenieToolStripMenuItem, Me.EvidenciaToolStripMenuItem})
+        Me.PriestupkyToolStripMenuItem.Name = "PriestupkyToolStripMenuItem"
+        Me.PriestupkyToolStripMenuItem.Size = New System.Drawing.Size(74, 20)
+        Me.PriestupkyToolStripMenuItem.Text = "Priestupky"
+        Me.PriestupkyToolStripMenuItem.Visible = False
+        '
+        'NahlásenieToolStripMenuItem
+        '
+        Me.NahlásenieToolStripMenuItem.Name = "NahlásenieToolStripMenuItem"
+        Me.NahlásenieToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.NahlásenieToolStripMenuItem.Text = "Nahlásenie"
+        '
+        'EvidenciaToolStripMenuItem
+        '
+        Me.EvidenciaToolStripMenuItem.Name = "EvidenciaToolStripMenuItem"
+        Me.EvidenciaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EvidenciaToolStripMenuItem.Text = "Evidencia"
+        '
         'Ponuka
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -374,4 +397,7 @@ Partial Class Ponuka
     Friend WithEvents VerziaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ČíselníkyToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TESTMAILToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PriestupkyToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NahlásenieToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EvidenciaToolStripMenuItem As ToolStripMenuItem
 End Class

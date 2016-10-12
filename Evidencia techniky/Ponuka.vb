@@ -12,6 +12,12 @@ Public Class Ponuka
     Dim MyDataAdapter As New MySqlDataAdapter()
     Dim MyDataset As DataSet = New DataSet()
 
+    Public Sub Ponuka_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
+        If e.KeyCode = Keys.F5 Then
+            Ponuka_Load(sender, e)
+        End If
+    End Sub
+
     Public Sub Ponuka_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         pata_text.Text = pata_programu()
@@ -36,6 +42,8 @@ Public Class Ponuka
 
                 If data("Pocitace").ToString > 0 Then 'Technika
                     tsm_Technika.Visible = True
+                Else
+                    tsm_Technika.Visible = False
                 End If
 
                 If data("Prace").ToString > 0 Then 'Práce
@@ -77,7 +85,7 @@ Public Class Ponuka
             MessageBox.Show("Nemáte práva k ničomu !", "ETECH - Práva užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
-        Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
+        Me.Text = hlavicka_programu("Ponuka", Ponuka.Meno_uzivatela)
     End Sub
 
     Private Sub ZmenaHeslaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZmenaHeslaToolStripMenuItem.Click
@@ -153,4 +161,5 @@ Public Class Ponuka
     Private Sub ZadanePraceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsm_PraceSprava.Click
         Zoznam_zadanych_prac.Show()
     End Sub
+
 End Class

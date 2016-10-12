@@ -7,7 +7,6 @@ Public Class Ziadanky_zoznam
     Private Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
     End Sub
-
     Public Sub b_NacitatData_Click(sender As Object, e As EventArgs) Handles b_NacitatData.Click
         ProgressBar1.Maximum = 0
         Spracovanie_dat.Show()
@@ -96,13 +95,13 @@ Public Class Ziadanky_zoznam
 	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 '|' as '|',
-                p.Cislo_prace as 'Číslo práce',
+                CONCAT_WS('', cd_prace.Popis, p.Cislo_prace) as 'Číslo práce',
 				date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Zadané', 
                 CONCAT_WS(' ', up.meno, up.Priezvisko) as 'Priradené'
             From uloha u
             left join uloha_x_prace uxp on u.id_ulohy = uxp.id_uloha and uxp.stav = 0
             left join prace p on uxp.id_prace = p.id_prace and p.stav = 0
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziaadavka.stav = 0
+            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
             Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0 and oddelenia.stav = 0
             left join uzivatelia up on p.id_uzivatela = up.id_uzivatela
@@ -347,6 +346,68 @@ Public Class Ziadanky_zoznam
         End Using
         con.Close()
 
+        'Data pre naplnenie tabulky UKONCENIE ZADAVATELOM
+        Using cmd As New MySqlCommand("Select
+	            Uloha_cislo as 'Žiadanka číslo',
+                cd_poziadavka.Nazov_hodnoty as 'Typ požiadavky', 
+	            cd_prace.Nazov_hodnoty as 'Typ práce', 
+	            date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Dátum', 
+                case 
+	            when Urgencia = 0 then 'Nie' 
+	            Else 'Áno' 
+                        End As 'Urgencia', 
+	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
+            From uloha u
+            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            WHERE
+            Typ_ulohy = 0 and Stav_ulohy = 5 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            ;")
+            cmd.Connection = con
+            cmd.CommandTimeout = 1200
+            con.Open()
+            Using sdr As MySqlDataReader = cmd.ExecuteReader()
+
+                'Vytvorenie tabulky
+                Dim dtCustomers As New DataTable("Poziadavky")
+                Dim ds As New DataSet()
+
+                'Nacitanie dat
+                dtCustomers.Load(sdr)
+
+                'Pridanie dat do tabulky
+                ds.Tables.Add(dtCustomers)
+
+                dgv_UkoncenieZadavatelom.ColumnCount = 7
+                dgv_UkoncenieZadavatelom.Columns(0).Name = "Úloha číslo"
+                dgv_UkoncenieZadavatelom.Columns(1).Name = "Typ požiadavky"
+                dgv_UkoncenieZadavatelom.Columns(2).Name = "Typ práce"
+                dgv_UkoncenieZadavatelom.Columns(3).Name = "Dátum"
+                dgv_UkoncenieZadavatelom.Columns(4).Name = "Urgencia"
+                dgv_UkoncenieZadavatelom.Columns(5).Name = "Oddelenie"
+                dgv_UkoncenieZadavatelom.Columns(6).Name = "Zadávateľ"
+
+                ProgressBar1.Maximum = ProgressBar1.Maximum + 1
+                ProgressBar1.Value = ProgressBar1.Value + 1
+
+                Dim i As Integer = 0
+
+                Do Until i = ds.Tables(0).Rows.Count
+                    dgv_UkoncenieZadavatelom.Rows.Add(ds.Tables(0).Rows(i).Item(0).ToString, ds.Tables(0).Rows(i).Item(1).ToString, ds.Tables(0).Rows(i).Item(2).ToString, ds.Tables(0).Rows(i).Item(3).ToString, ds.Tables(0).Rows(i).Item(4).ToString, ds.Tables(0).Rows(i).Item(5).ToString, ds.Tables(0).Rows(i).Item(6).ToString)
+                    ProgressBar1.Maximum = ProgressBar1.Maximum + 1
+                    ProgressBar1.Value = ProgressBar1.Value + 1
+                    i = i + 1
+                Loop
+
+            End Using
+            Spracovanie_dat.Close()
+            con.Close()
+        End Using
+        con.Close()
+
         'Data pre naplnenie tabulky UKONCENE UDRZBA
         Using cmd As New MySqlCommand("Select
 	            Uloha_cislo as 'Žiadanka číslo',
@@ -362,10 +423,10 @@ Public Class Ziadanky_zoznam
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
             Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenie.stav = 0
+            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 5 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 6 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -424,10 +485,10 @@ Public Class Ziadanky_zoznam
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
             Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenie.stav = 0
+            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 1 and u.stav = 0 (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -508,9 +569,13 @@ Public Class Ziadanky_zoznam
         Poziadavka_cislo = dgv_VrateneUdrzbe.CurrentRow.Cells("Úloha číslo").Value
         Ziadanky_sprava.Show()
     End Sub
+    Public Sub selectedRowsButton_Click_UkoncenieZadavatelom(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_UkoncenieZadavatelom.Click
+        Poziadavka_cislo = dgv_UkoncenieZadavatelom.CurrentRow.Cells("Úloha číslo").Value
+        Ziadanky_sprava.Show()
+    End Sub
 
     Public Sub selectedRowsButton_Click_UkonceneUdrzba(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_UkonceneUdrzba.Click
-        Poziadavka_cislo = dgv_VrateneUdrzbe.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_UkonceneUdrzba.CurrentRow.Cells("Úloha číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 

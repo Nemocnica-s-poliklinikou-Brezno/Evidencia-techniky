@@ -18,10 +18,10 @@ Public Class ZadanePrace_sprava
 
         con.Open()
         Dim sqlquery As String =
-        "SELECT p.ID_prace, p.Cislo_prace, date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Datum zadania prace', date_format(p.Odovzdat_do, GET_FORMAT(DATE,'EUR')) as 'Odovzdat pracu do', date_format(p.Spracovane, GET_FORMAT(DATE,'EUR')) as 'Praca spracovana', cd2.Nazov_hodnoty as Typ_prace, cd4.Nazov_hodnoty as Stav_prace, p.Popis_prace, CONCAT_WS(' ', uz.Priezvisko, uz.meno) as 'Priradene'
+        "SELECT p.ID_prace, CONCAT_WS('', cd2.Popis, p.Cislo_prace) as 'Cislo_prace', date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Datum zadania prace', date_format(p.Odovzdat_do, GET_FORMAT(DATE,'EUR')) as 'Odovzdat pracu do', date_format(p.Spracovane, GET_FORMAT(DATE,'EUR')) as 'Praca spracovana', cd2.Nazov_hodnoty as Typ_prace, cd4.Nazov_hodnoty as Stav_prace, p.Popis_prace, CONCAT_WS(' ', uz.Priezvisko, uz.meno) as 'Priradene'
         FROM prace p
         join ciselnik_data cd2 on p.Druh_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
-        join ciselnik_data cd4 on p.stav_prace = cd4.Hodnota and cd4.idciselnik = 11 and cd3.stav = 0
+        join ciselnik_data cd4 on p.stav_prace = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
         join uzivatelia uz on p.id_uzivatela = uz.id_uzivatela
         WHERE p.id_prace = '" & Zoznam_zadanych_prac.id_prace & "' and p.stav = 0"
         Dim data As MySqlDataReader
@@ -49,7 +49,7 @@ Public Class ZadanePrace_sprava
                     cb_DruhPrace.Text = PTypPrace
                     dtp_OdovzdatDo.Text = POdovzdatDo
                     cb_StavPrace.Text = PStavPrace
-                    tb_PopisPrace.Text = PPopisPrace
+                    rtb_PopisPrace.Text = PPopisPrace
                     cb_Priradene.Text = PPriradene
 
                     If PSpracovane = "" Then
@@ -178,7 +178,7 @@ Public Class ZadanePrace_sprava
     Private Sub b_Ulozit_Click(sender As Object, e As EventArgs) Handles b_Ulozit.Click
 
         Dim QueryPrace As String
-        QueryPrace = "UPDATE prace SET Odovzdat_do = '" & uprava_datumu(dtp_OdovzdatDo.Text) & "', id_uzivatela = '" & uzivatel(cb_Priradene.Text) & "', Druh_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DruhPrace.Text & "'), Popis_prace = '" & tb_PopisPrace.Text & "', Stav_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavPrace.Text & "'), Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_prace = '" & Zoznam_zadanych_prac.id_prace & "';"
+        QueryPrace = "UPDATE prace SET Odovzdat_do = '" & uprava_datumu(dtp_OdovzdatDo.Text) & "', id_uzivatela = '" & uzivatel(cb_Priradene.Text) & "', Druh_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DruhPrace.Text & "'), Popis_prace = '" & rtb_PopisPrace.Text & "', Stav_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavPrace.Text & "'), Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_prace = '" & Zoznam_zadanych_prac.id_prace & "';"
         con.Open()
         Dim sqlPrace As MySqlCommand = New MySqlCommand(QueryPrace, con)
         Try

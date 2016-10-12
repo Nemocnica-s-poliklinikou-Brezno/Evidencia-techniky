@@ -28,7 +28,6 @@ Partial Class ZadanePrace_sprava
         Me.l_PPracaCislo = New System.Windows.Forms.Label()
         Me.l_Priradene = New System.Windows.Forms.Label()
         Me.cb_Priradene = New System.Windows.Forms.ComboBox()
-        Me.tb_PopisPrace = New System.Windows.Forms.TextBox()
         Me.l_PopisPrace = New System.Windows.Forms.Label()
         Me.cb_DruhPrace = New System.Windows.Forms.ComboBox()
         Me.l_DruhPrace = New System.Windows.Forms.Label()
@@ -42,6 +41,8 @@ Partial Class ZadanePrace_sprava
         Me.l_Spracovane = New System.Windows.Forms.Label()
         Me.b_Spracovane = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rtb_PopisPrace = New System.Windows.Forms.RichTextBox()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'b_Ulozit
@@ -88,14 +89,6 @@ Partial Class ZadanePrace_sprava
         Me.cb_Priradene.Name = "cb_Priradene"
         Me.cb_Priradene.Size = New System.Drawing.Size(121, 21)
         Me.cb_Priradene.TabIndex = 6
-        '
-        'tb_PopisPrace
-        '
-        Me.tb_PopisPrace.Location = New System.Drawing.Point(132, 84)
-        Me.tb_PopisPrace.Multiline = True
-        Me.tb_PopisPrace.Name = "tb_PopisPrace"
-        Me.tb_PopisPrace.Size = New System.Drawing.Size(242, 83)
-        Me.tb_PopisPrace.TabIndex = 8
         '
         'l_PopisPrace
         '
@@ -204,11 +197,20 @@ Partial Class ZadanePrace_sprava
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.rtb_PopisPrace)
         Me.GroupBox1.Location = New System.Drawing.Point(11, 5)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(383, 359)
         Me.GroupBox1.TabIndex = 22
         Me.GroupBox1.TabStop = False
+        '
+        'rtb_PopisPrace
+        '
+        Me.rtb_PopisPrace.Location = New System.Drawing.Point(121, 79)
+        Me.rtb_PopisPrace.Name = "rtb_PopisPrace"
+        Me.rtb_PopisPrace.Size = New System.Drawing.Size(256, 83)
+        Me.rtb_PopisPrace.TabIndex = 23
+        Me.rtb_PopisPrace.Text = ""
         '
         'ZadanePrace_sprava
         '
@@ -226,7 +228,6 @@ Partial Class ZadanePrace_sprava
         Me.Controls.Add(Me.l_DatumZadania)
         Me.Controls.Add(Me.cb_DruhPrace)
         Me.Controls.Add(Me.l_DruhPrace)
-        Me.Controls.Add(Me.tb_PopisPrace)
         Me.Controls.Add(Me.l_PopisPrace)
         Me.Controls.Add(Me.cb_Priradene)
         Me.Controls.Add(Me.l_Priradene)
@@ -239,6 +240,7 @@ Partial Class ZadanePrace_sprava
         Me.MaximizeBox = False
         Me.Name = "ZadanePrace_sprava"
         Me.Text = "Zadané práce správa"
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -249,7 +251,6 @@ Partial Class ZadanePrace_sprava
     Friend WithEvents l_PPracaCislo As Label
     Friend WithEvents l_Priradene As Label
     Friend WithEvents cb_Priradene As ComboBox
-    Friend WithEvents tb_PopisPrace As TextBox
     Friend WithEvents l_PopisPrace As Label
     Friend WithEvents cb_DruhPrace As ComboBox
     Friend WithEvents l_DruhPrace As Label
@@ -263,4 +264,5 @@ Partial Class ZadanePrace_sprava
     Friend WithEvents l_Spracovane As Label
     Friend WithEvents b_Spracovane As Button
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rtb_PopisPrace As RichTextBox
 End Class

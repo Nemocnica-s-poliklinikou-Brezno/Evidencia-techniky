@@ -183,4 +183,18 @@ Public Class Zariadenia
         End If
     End Sub
 
+    Public Sub DataGridView2_MouseUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles DataGridView2.MouseUp
+        If e.Button <> Windows.Forms.MouseButtons.Right Then Return
+        Dim cms = New ContextMenuStrip
+        Dim item1 = cms.Items.Add("Vymazať")
+        item1.Tag = 1
+        AddHandler item1.Click, AddressOf menuChoice
+        cms.Show(DataGridView2, e.Location)
+    End Sub
+
+    Private Sub menuChoice(ByVal sender As Object, ByVal e As EventArgs)
+        Dim item = CType(sender, ToolStripMenuItem)
+        Dim selection = CInt(item.Tag)
+        '-- etc
+    End Sub
 End Class

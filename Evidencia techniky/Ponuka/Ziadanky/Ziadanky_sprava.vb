@@ -395,4 +395,8 @@ Public Class Ziadanky_sprava
             logy(14, 2, ex.Message)
         End Try
     End Sub
+
+    Private Sub b_Hodiny_Click(sender As Object, e As EventArgs) Handles b_Hodiny.Click
+        Vykaz_hodin.Show()
+    End Sub
 End Class

@@ -24,7 +24,6 @@ Partial Class Ziadanky_zoznam
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ziadanky_zoznam))
-        Me.UlohaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.b_NacitatData = New System.Windows.Forms.Button()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.tp_Investicie = New System.Windows.Forms.TabPage()
@@ -42,7 +41,9 @@ Partial Class Ziadanky_zoznam
         Me.tp_Nove = New System.Windows.Forms.TabPage()
         Me.dgv_Nove = New System.Windows.Forms.DataGridView()
         Me.tb_Ziadanky = New System.Windows.Forms.TabControl()
-        CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_UkoncenieZadavatelom = New System.Windows.Forms.TabPage()
+        Me.dgv_UkoncenieZadavatelom = New System.Windows.Forms.DataGridView()
+        Me.UlohaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tp_Investicie.SuspendLayout()
         CType(Me.dgv_Investicie, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tp_UkonceneUdrzba.SuspendLayout()
@@ -58,6 +59,9 @@ Partial Class Ziadanky_zoznam
         Me.tp_Nove.SuspendLayout()
         CType(Me.dgv_Nove, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tb_Ziadanky.SuspendLayout()
+        Me.tp_UkoncenieZadavatelom.SuspendLayout()
+        CType(Me.dgv_UkoncenieZadavatelom, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'b_NacitatData
@@ -262,6 +266,7 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky.Controls.Add(Me.tp_Odlozene)
         Me.tb_Ziadanky.Controls.Add(Me.tp_VrateneZadavatelovi)
         Me.tb_Ziadanky.Controls.Add(Me.tp_VrateneUdrzbe)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_UkoncenieZadavatelom)
         Me.tb_Ziadanky.Controls.Add(Me.tp_UkonceneUdrzba)
         Me.tb_Ziadanky.Controls.Add(Me.tp_Investicie)
         Me.tb_Ziadanky.Location = New System.Drawing.Point(12, 12)
@@ -269,6 +274,30 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky.SelectedIndex = 0
         Me.tb_Ziadanky.Size = New System.Drawing.Size(1008, 389)
         Me.tb_Ziadanky.TabIndex = 7
+        '
+        'tp_UkoncenieZadavatelom
+        '
+        Me.tp_UkoncenieZadavatelom.Controls.Add(Me.dgv_UkoncenieZadavatelom)
+        Me.tp_UkoncenieZadavatelom.Location = New System.Drawing.Point(4, 22)
+        Me.tp_UkoncenieZadavatelom.Name = "tp_UkoncenieZadavatelom"
+        Me.tp_UkoncenieZadavatelom.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_UkoncenieZadavatelom.TabIndex = 7
+        Me.tp_UkoncenieZadavatelom.Text = "Ukončenie zadávateľom"
+        Me.tp_UkoncenieZadavatelom.UseVisualStyleBackColor = True
+        '
+        'dgv_UkoncenieZadavatelom
+        '
+        Me.dgv_UkoncenieZadavatelom.AllowUserToAddRows = False
+        Me.dgv_UkoncenieZadavatelom.AllowUserToDeleteRows = False
+        Me.dgv_UkoncenieZadavatelom.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_UkoncenieZadavatelom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_UkoncenieZadavatelom.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_UkoncenieZadavatelom.Name = "dgv_UkoncenieZadavatelom"
+        Me.dgv_UkoncenieZadavatelom.ReadOnly = True
+        Me.dgv_UkoncenieZadavatelom.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_UkoncenieZadavatelom.TabIndex = 16
         '
         'Ziadanky_zoznam
         '
@@ -281,7 +310,6 @@ Partial Class Ziadanky_zoznam
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Ziadanky_zoznam"
         Me.Text = "Zoznam žiadaniek"
-        CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp_Investicie.ResumeLayout(False)
         CType(Me.dgv_Investicie, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp_UkonceneUdrzba.ResumeLayout(False)
@@ -297,6 +325,9 @@ Partial Class Ziadanky_zoznam
         Me.tp_Nove.ResumeLayout(False)
         CType(Me.dgv_Nove, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tb_Ziadanky.ResumeLayout(False)
+        Me.tp_UkoncenieZadavatelom.ResumeLayout(False)
+        CType(Me.dgv_UkoncenieZadavatelom, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -318,4 +349,6 @@ Partial Class Ziadanky_zoznam
     Friend WithEvents tp_Nove As TabPage
     Friend WithEvents dgv_Nove As DataGridView
     Friend WithEvents tb_Ziadanky As TabControl
+    Friend WithEvents tp_UkoncenieZadavatelom As TabPage
+    Friend WithEvents dgv_UkoncenieZadavatelom As DataGridView
 End Class

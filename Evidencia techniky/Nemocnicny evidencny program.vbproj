@@ -163,6 +163,12 @@
     <Compile Include="Ponuka\Prace\Prace_zadanie.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ponuka\Ziadanky\Vykaz_hodin.Designer.vb">
+      <DependentUpon>Vykaz_hodin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ponuka\Ziadanky\Vykaz_hodin.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="prava.Designer.vb">
       <DependentUpon>prava.vb</DependentUpon>
     </Compile>
@@ -337,6 +343,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Ponuka\Prace\Prace_zadanie.resx">
       <DependentUpon>Prace_zadanie.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ponuka\Ziadanky\Vykaz_hodin.resx">
+      <DependentUpon>Vykaz_hodin.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="prava.resx">
       <DependentUpon>prava.vb</DependentUpon>

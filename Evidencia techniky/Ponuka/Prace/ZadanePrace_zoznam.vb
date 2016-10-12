@@ -16,7 +16,7 @@ Public Class Zoznam_zadanych_prac
         'Data pre naplnenie tabulky ZADANÉ PRÁCE
         Using cmd As New MySqlCommand("Select
                 id_prace,
-	            Cislo_prace as 'Čislo práce',
+	            CONCAT_WS('', cd_prace.Popis, p.Cislo_prace) as 'Číslo práce',
                 CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Priradené',
                 p.Popis_prace as 'Popis práce',
                 cd_prace.Nazov_Hodnoty as 'Druh práce',
@@ -73,7 +73,7 @@ Public Class Zoznam_zadanych_prac
         'Data pre naplnenie tabulky UKONČENÉ PRÁCE
         Using cmd As New MySqlCommand("Select
                 id_prace,
-	            Cislo_prace as 'Čislo práce',
+	            CONCAT_WS('', cd_prace.Popis, p.Cislo_prace) as 'Číslo práce',
                 CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Priradené',
                 p.Popis_prace as 'Popis práce',
                 cd_prace.Nazov_Hodnoty as 'Druh práce',
