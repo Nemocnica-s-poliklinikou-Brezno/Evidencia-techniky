@@ -1,5 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Evidencia_techniky.pripojenie
+Imports Evidencia_techniky.pripojenieTest
 Imports Evidencia_techniky.Zariadenia
 Public Class ZariadeniaPresunVloz
 
@@ -77,7 +77,7 @@ Public Class ZariadeniaPresunVloz
         End If
 
         Dim cmdDEL As String = "UPDATE zariadenia_x_oddelenie SET stav = 1, Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_zariadenia = " & id_zariadenia & " and stav = 0;"
-        Dim cmdINT As String = "INSERT INTO zariadenia_x_oddelenie(id_zariadenia, id_oddelenia, Miestnost, Presunute_dna, Servisny, Zapozicka, stav, Vlozil_meno, Vlozil_dna) values (" & id_zariadenia & ", '" & oddelenie(cb_NaOddelenie.Text) & "', '" & tb_NaOddelenieMiestnost.Text & "', '" & dtp_PresunutyDna.Text & "', '" & PServisny & "', '" & PZapozicka & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        Dim cmdINT As String = "INSERT INTO zariadenia_x_oddelenie(id_zariadenia, id_oddelenia, Miestnost, Presunute_dna, Servisny, Zapozicka, stav, Vlozil_meno, Vlozil_dna) values (" & id_zariadenia & ", '" & oddelenie(cb_NaOddelenie.Text) & "', '" & tb_NaOddelenieMiestnost.Text & "', '" & uprava_datumu(dtp_PresunutyDna.Text) & "', '" & PServisny & "', '" & PZapozicka & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
 
         con.Open()
         Dim sqlDEL As MySqlCommand = New MySqlCommand(cmdDEL, con)

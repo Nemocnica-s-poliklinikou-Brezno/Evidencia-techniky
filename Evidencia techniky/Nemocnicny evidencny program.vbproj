@@ -34,7 +34,7 @@
     <SuiteName>Nemocnica s Poliklinou Brezno n.o.</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -235,6 +235,12 @@
     <Compile Include="VstupneDataTextBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ponuka\Ziadanky\Vykaz_materialu.Designer.vb">
+      <DependentUpon>Vykaz_materialu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ponuka\Ziadanky\Vykaz_materialu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ZariadeniaServisVloz.Designer.vb">
       <DependentUpon>ZariadeniaServisVloz.vb</DependentUpon>
     </Compile>
@@ -379,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VstupneDataTextBox.resx">
       <DependentUpon>VstupneDataTextBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ponuka\Ziadanky\Vykaz_materialu.resx">
+      <DependentUpon>Vykaz_materialu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZariadeniaServisVloz.resx">
       <DependentUpon>ZariadeniaServisVloz.vb</DependentUpon>

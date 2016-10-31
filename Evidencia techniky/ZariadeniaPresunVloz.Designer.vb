@@ -68,7 +68,7 @@ Partial Class ZariadeniaPresunVloz
         '
         'dtp_PresunutyDna
         '
-        Me.dtp_PresunutyDna.CustomFormat = "yyyy-MM-dd"
+        Me.dtp_PresunutyDna.CustomFormat = ""
         Me.dtp_PresunutyDna.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtp_PresunutyDna.Location = New System.Drawing.Point(91, 103)
         Me.dtp_PresunutyDna.Name = "dtp_PresunutyDna"

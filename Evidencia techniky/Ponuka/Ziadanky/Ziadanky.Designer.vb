@@ -26,6 +26,8 @@ Partial Class Ziadanky
         Me.cb_ZOddelenia = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.gb_Zadavatel = New System.Windows.Forms.GroupBox()
+        Me.chb_Zeny = New System.Windows.Forms.CheckBox()
+        Me.chb_Muzi = New System.Windows.Forms.CheckBox()
         Me.l_TypPrace = New System.Windows.Forms.Label()
         Me.cb_TypPrace = New System.Windows.Forms.ComboBox()
         Me.l_TypPoziadavky = New System.Windows.Forms.Label()
@@ -40,6 +42,7 @@ Partial Class Ziadanky
         Me.b_Zadat = New System.Windows.Forms.Button()
         Me.chb_Urgentne = New System.Windows.Forms.CheckBox()
         Me.MessageQueue1 = New System.Messaging.MessageQueue()
+        Me.ll_PridatOdd = New System.Windows.Forms.LinkLabel()
         Me.gb_Zadavatel.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -62,6 +65,9 @@ Partial Class Ziadanky
         '
         'gb_Zadavatel
         '
+        Me.gb_Zadavatel.Controls.Add(Me.ll_PridatOdd)
+        Me.gb_Zadavatel.Controls.Add(Me.chb_Zeny)
+        Me.gb_Zadavatel.Controls.Add(Me.chb_Muzi)
         Me.gb_Zadavatel.Controls.Add(Me.l_TypPrace)
         Me.gb_Zadavatel.Controls.Add(Me.cb_TypPrace)
         Me.gb_Zadavatel.Controls.Add(Me.l_TypPoziadavky)
@@ -83,6 +89,26 @@ Partial Class Ziadanky
         Me.gb_Zadavatel.TabIndex = 2
         Me.gb_Zadavatel.TabStop = False
         Me.gb_Zadavatel.Text = "Zadávateľ"
+        '
+        'chb_Zeny
+        '
+        Me.chb_Zeny.AutoSize = True
+        Me.chb_Zeny.Location = New System.Drawing.Point(362, 238)
+        Me.chb_Zeny.Name = "chb_Zeny"
+        Me.chb_Zeny.Size = New System.Drawing.Size(50, 17)
+        Me.chb_Zeny.TabIndex = 16
+        Me.chb_Zeny.Text = "Ženy"
+        Me.chb_Zeny.UseVisualStyleBackColor = True
+        '
+        'chb_Muzi
+        '
+        Me.chb_Muzi.AutoSize = True
+        Me.chb_Muzi.Location = New System.Drawing.Point(308, 238)
+        Me.chb_Muzi.Name = "chb_Muzi"
+        Me.chb_Muzi.Size = New System.Drawing.Size(48, 17)
+        Me.chb_Muzi.TabIndex = 15
+        Me.chb_Muzi.Text = "Muži"
+        Me.chb_Muzi.UseVisualStyleBackColor = True
         '
         'l_TypPrace
         '
@@ -196,7 +222,7 @@ Partial Class Ziadanky
         '
         Me.chb_Urgentne.AutoSize = True
         Me.chb_Urgentne.ForeColor = System.Drawing.Color.Red
-        Me.chb_Urgentne.Location = New System.Drawing.Point(320, 237)
+        Me.chb_Urgentne.Location = New System.Drawing.Point(308, 274)
         Me.chb_Urgentne.Name = "chb_Urgentne"
         Me.chb_Urgentne.Size = New System.Drawing.Size(70, 17)
         Me.chb_Urgentne.TabIndex = 2
@@ -207,6 +233,18 @@ Partial Class Ziadanky
         '
         Me.MessageQueue1.MessageReadPropertyFilter.LookupId = True
         Me.MessageQueue1.SynchronizingObject = Me
+        '
+        'll_PridatOdd
+        '
+        Me.ll_PridatOdd.AutoSize = True
+        Me.ll_PridatOdd.Location = New System.Drawing.Point(332, 222)
+        Me.ll_PridatOdd.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ll_PridatOdd.Name = "ll_PridatOdd"
+        Me.ll_PridatOdd.Size = New System.Drawing.Size(35, 13)
+        Me.ll_PridatOdd.TabIndex = 36
+        Me.ll_PridatOdd.TabStop = True
+        Me.ll_PridatOdd.Text = "Pridať"
+        Me.ll_PridatOdd.Visible = False
         '
         'Ziadanky
         '
@@ -242,4 +280,7 @@ Partial Class Ziadanky
     Friend WithEvents l_TypPrace As Label
     Friend WithEvents cb_TypPrace As ComboBox
     Friend WithEvents MessageQueue1 As Messaging.MessageQueue
+    Friend WithEvents chb_Zeny As CheckBox
+    Friend WithEvents chb_Muzi As CheckBox
+    Friend WithEvents ll_PridatOdd As LinkLabel
 End Class

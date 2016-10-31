@@ -303,6 +303,7 @@ Partial Class Ziadanky_zoznam
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1032, 443)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.b_NacitatData)
@@ -310,6 +311,7 @@ Partial Class Ziadanky_zoznam
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Ziadanky_zoznam"
         Me.Text = "Zoznam žiadaniek"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.tp_Investicie.ResumeLayout(False)
         CType(Me.dgv_Investicie, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp_UkonceneUdrzba.ResumeLayout(False)

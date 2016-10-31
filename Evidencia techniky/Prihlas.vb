@@ -27,9 +27,11 @@ Public Class Prihlasenie
 
         If Result > 0 Then
             Ponuka.Show()
+            logy(15, 1, "Úspešné")
             Me.Hide()
         Else
             MessageBox.Show("Nepoznám Vás, kontaktujte:" & vbCr & "Lašut Viktor, klapka: 242, email: etech@nspbr.sk", "ETECH - Prihlásnie", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            logy(15, 1, "Neúspešné - '" & tb_Meno.Text & " - " & tb_Heslo.Text & "")
         End If
 
     End Sub

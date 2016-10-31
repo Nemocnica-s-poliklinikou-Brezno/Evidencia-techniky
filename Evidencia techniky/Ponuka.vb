@@ -4,10 +4,13 @@ Imports Evidencia_techniky.pripojenie
 Public Class Ponuka
 
     Public Shared id_uzivatela As String
+    Public Shared PridajSQL As String
+    Public Shared Druh_zariadenia As String
     Public Shared Meno_uzivatela As String
     Public Shared HladajV As String
     Public Shared HladajCo As String
     Public Shared Zariadenie As String
+    Public Shared ZiadankySprava As String
 
     Dim MyDataAdapter As New MySqlDataAdapter()
     Dim MyDataset As DataSet = New DataSet()
@@ -35,6 +38,7 @@ Public Class Ponuka
             While data.Read()
                 id_uzivatela = data("id_uzivatela").ToString()
                 Meno_uzivatela = data("UzivatelMeno").ToString()
+                ZiadankySprava = data("ZiadankySprava").ToString()
 
                 If data("Admin").ToString = 1 Then 'Admin
                     ADMINISTRÁCIAToolStripMenuItem.Visible = True
@@ -111,14 +115,22 @@ Public Class Ponuka
     End Sub
 
     Public Sub tsm_Pocitac_Click(sender As Object, e As EventArgs) Handles tsm_Pocitac.Click
+        PridajSQL = " and z.Typ_zariadenia = 1"
         Zariadenia.Show()
     End Sub
 
     Public Sub tsm_Monitor_Click(sender As Object, e As EventArgs) Handles tsm_Monitor.Click
+        PridajSQL = " and z.Typ_zariadenia = 2"
         Zariadenia.Show()
     End Sub
 
     Public Sub tsm_Tlaciaren_Click(sender As Object, e As EventArgs) Handles tsm_Tlaciaren.Click
+        PridajSQL = " and z.Typ_zariadenia = 3"
+        Zariadenia.Show()
+    End Sub
+
+    Public Sub tsm_Ostatne_Click(sender As Object, e As EventArgs) Handles tsm_Ostatne.Click
+        PridajSQL = ""
         Zariadenia.Show()
     End Sub
 
@@ -128,6 +140,7 @@ Public Class Ponuka
     Private Sub OdlásiťToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OdlásiťToolStripMenuItem.Click
         MessageBox.Show("Boli ste odhlásený !", "ETECH - Odhlásenie", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Application.Exit()
+        logy(16, 1, "")
     End Sub
 
     Private Sub PripomienkyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PripomienkyToolStripMenuItem.Click

@@ -29,7 +29,7 @@ Public Class Zoznam_zadanych_prac
             Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav = 0
             Join uzivatelia On p.id_uzivatela = uzivatelia.id_uzivatela
             WHERE
-            p.Stav_prace != 5 and p.stav = 0 and (p.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
+            p.Stav_prace != 6 and p.stav = 0 and (p.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
             order by 3 desc            
             ;")
             cmd.Connection = con
@@ -86,7 +86,7 @@ Public Class Zoznam_zadanych_prac
             Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav = 0
             Join uzivatelia On p.id_uzivatela = uzivatelia.id_uzivatela
             WHERE
-            p.Stav_prace = 5 and p.stav = 0 and (p.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
+            p.Stav_prace = 6 and p.stav = 0 and (p.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
             order by 3 desc            
             ;")
             cmd.Connection = con

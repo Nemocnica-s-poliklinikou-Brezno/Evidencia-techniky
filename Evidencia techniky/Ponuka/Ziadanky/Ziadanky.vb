@@ -4,9 +4,13 @@ Imports Evidencia_techniky.pripojenie
 Public Class Ziadanky
 
     Public Sub Ziadanky_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
+        Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
 
         dtp_SpracovatDo.Text = Now
+
+        If Ponuka.ZiadankySprava = 1 Then
+            ll_PridatOdd.Visible = True
+        End If
 
         Dim Query As String
         Query = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 8 ;"
@@ -107,18 +111,56 @@ Public Class Ziadanky
             Urgencia = 0
         End If
 
+        Dim Cast As String = ""
+        If chb_Zeny.Checked = True And chb_Muzi.Checked = True Then
+            Cast = "Muži, Ženy"
+        ElseIf chb_Zeny.Checked = True And chb_Muzi.Checked = False Then
+            Cast = "Ženy"
+        ElseIf chb_Muzi.Checked = True And chb_Zeny.Checked = False Then
+            Cast = "Muži"
+        End If
+
         Dim UlohaCislo As String = Uloha_Cislo() + 1
         If cb_TypPrace.Text <> "" Then
             If rtb_Popis.Text <> "" Then
                 If cb_TypPoziadavky.Text <> "" And cb_TypPoziadavky.Text <> "Žiadanka na montáž" Then
                     Dim Query As String
-                    Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & tb_Miestnost.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', '" & Urgencia & "', '" & Ponuka.Meno_uzivatela & "', now());"
+                    Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Cast, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & Cast & "', '" & tb_Miestnost.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
                     con.Open()
+            Dim sql As MySqlCommand = New MySqlCommand(Query, con)
+            Try
+                sql.ExecuteNonQuery()
+                con.Close()
+                MessageBox.Show("Požiadavka bola pridaná do systému", "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                logy(6, 1, "")
+                Notifikacia(0, "", 1)
+            Catch ex As Exception
+                con.Close()
+                MessageBox.Show(ex.Message, "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                logy(6, 2, ex.Message)
+            End Try
+
+            cb_TypPoziadavky.Text = ""
+            cb_TypPrace.Text = ""
+            rtb_Popis.Text = ""
+            tb_Miestnost.Text = ""
+                    chb_Urgentne.Checked = False
+                    chb_Zeny.Checked = False
+                    chb_Muzi.Checked = False
+                ElseIf cb_TypPoziadavky.Text <> "" And cb_TypPoziadavky.Text = "Žiadanka na montáž" Then
+
+            Select Case MessageBox.Show("Je daný materiál na sklade ?" & vbCr & "Tel. č. na Sklad MTZ - 258", "ETECH - Materiál na sklade", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+                Case MsgBoxResult.No
+                    MessageBox.Show("Žiadanka nebola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Case MsgBoxResult.Yes
+                    Dim Query As String
+                            Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & tb_Miestnost.Text & "', '" & dtp_SpracovatDo.Text & "', '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
+                            con.Open()
                     Dim sql As MySqlCommand = New MySqlCommand(Query, con)
                     Try
                         sql.ExecuteNonQuery()
                         con.Close()
-                        MessageBox.Show("Požiadavka bola pridaná do systému", "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show("Žiadanka bola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         logy(6, 1, "")
                         Notifikacia(0, "", 1)
                     Catch ex As Exception
@@ -127,43 +169,18 @@ Public Class Ziadanky
                         logy(6, 2, ex.Message)
                     End Try
 
+
                     cb_TypPoziadavky.Text = ""
                     cb_TypPrace.Text = ""
                     rtb_Popis.Text = ""
                     tb_Miestnost.Text = ""
-                    chb_Urgentne.Checked = False
-                ElseIf cb_TypPoziadavky.Text <> "" And cb_TypPoziadavky.Text = "Žiadanka na montáž" Then
-
-                    Select Case MessageBox.Show("Je daný materiál na sklade ?" & vbCr & "Tel. č. na Sklad MTZ - 258", "ETECH - Materiál na sklade", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-                        Case MsgBoxResult.No
-                            MessageBox.Show("Žiadanka nebola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        Case MsgBoxResult.Yes
-                            Dim Query As String
-                            Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & tb_Miestnost.Text & "', '" & dtp_SpracovatDo.Text & "', '" & Urgencia & "', '" & Ponuka.Meno_uzivatela & "', now());"
-                            con.Open()
-                            Dim sql As MySqlCommand = New MySqlCommand(Query, con)
-                            Try
-                                sql.ExecuteNonQuery()
-                                con.Close()
-                                MessageBox.Show("Žiadanka bola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                logy(6, 1, "")
-                                Notifikacia(0, "", 1)
-                            Catch ex As Exception
-                                con.Close()
-                                MessageBox.Show(ex.Message, "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                                logy(6, 2, ex.Message)
-                            End Try
-
-
-                            cb_TypPoziadavky.Text = ""
-                            cb_TypPrace.Text = ""
-                            rtb_Popis.Text = ""
-                            tb_Miestnost.Text = ""
                             chb_Urgentne.Checked = False
+                            chb_Zeny.Checked = False
+                            chb_Muzi.Checked = False
                     End Select
 
-                Else
-                    MessageBox.Show("Nevyplnil si " & UCase(l_TypPoziadavky.Text), "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            MessageBox.Show("Nevyplnil si " & UCase(l_TypPoziadavky.Text), "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
                 Else
                 MessageBox.Show("Nevyplnil si " & UCase(l_PopisZiadanejPrace.Text), "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -173,4 +190,7 @@ Public Class Ziadanky
         End If
     End Sub
 
+    Private Sub ll_PridatOdd_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_PridatOdd.LinkClicked
+        Pridat_oddelenie.Show()
+    End Sub
 End Class

@@ -6,11 +6,12 @@ Public Class Ziadanky_sprava
     Public Shared PUlohaCislo As String
     Dim PNahlaseneDna As String
     Dim PUrgencia As String
+    Dim PCast As String
     Dim PTypPoziadavky As String
     Dim PTypPrace As String
     Dim PTypUlohy As String
     Dim PStavUlohy As String
-    Dim PNazovOddelenia As String
+    Public Shared PNazovOddelenia As String
     Dim PMiestnost As String
     Dim PPopisUlohy As String
     Dim PZadavatel As String
@@ -18,28 +19,10 @@ Public Class Ziadanky_sprava
     Public Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
 
-        Dim PZiadankySprava As String = ""
-        con.Open()
-        Dim sqlPrava As String = "SELECT ZiadankySprava FROM prava WHERE id_uzivatela = '" & Ponuka.id_uzivatela & "'"
-        Dim dataPrava As MySqlDataReader
-        Dim adapterPrava As New MySqlDataAdapter
-        Dim commandPrava As New MySqlCommand
-        commandPrava.CommandText = sqlPrava
-        commandPrava.Connection = con
-        adapterPrava.SelectCommand = commandPrava
-        dataPrava = commandPrava.ExecuteReader
-        If dataPrava.HasRows Then
-            While dataPrava.Read()
-                PZiadankySprava = dataPrava("ZiadankySprava").ToString()
-            End While
-            dataPrava.Close()
-            con.Close()
-        End If
-
-        If PZiadankySprava = 1 Then
+        If Ponuka.ZiadankySprava = 1 Then
             cb_TypUlohy.Enabled = True
-            cb_StavUlohy.Enabled = True
             b_Pridat.Visible = True
+            b_Tlac.Visible = True
             b_Material.Visible = True
             b_Hodiny.Visible = True
             ll_PridatOdd.Visible = True
@@ -48,7 +31,7 @@ Public Class Ziadanky_sprava
 
         con.Open()
         Dim sqlquery As String =
-        "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon
+        "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon
         FROM uloha u
         join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav = 0
         join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
@@ -76,6 +59,7 @@ Public Class Ziadanky_sprava
                     PTypUlohy = data("Typ_ulohy").ToString
                     PStavUlohy = data("Stav_ulohy").ToString
                     PNazovOddelenia = data("Nazov_oddelenia").ToString
+                    PCast = data("Cast").ToString
                     PMiestnost = data("Miestnost").ToString
                     PPopisUlohy = data("Popis_ulohy").ToString
                     PZadavatel = data("Zadavatel").ToString + " " + data("Telefon").ToString
@@ -98,6 +82,15 @@ Public Class Ziadanky_sprava
                         chb_Urgencia.Checked = False
                     End If
 
+                    If PCast = "Muži" Then
+                        chb_Muzi.Checked = True
+                    ElseIf PCast = "Ženy" Then
+                        chb_Zeny.Checked = True
+                    ElseIf PCast = "Muži, Ženy" Then
+                        chb_Zeny.Checked = True
+                        chb_Muzi.Checked = True
+                    End If
+
                 End While
                 data.Close()
             End If
@@ -106,6 +99,14 @@ Public Class Ziadanky_sprava
             con.Close()
             MessageBox.Show(ex.Message, "ETECH - Vytiahnutie údajov ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
+
+        If cb_StavUlohy.Text = "Ukončená" Or cb_StavUlohy.Text = "Ukončenie zadávateľom" Then
+            b_Hodiny.Enabled = True
+            b_Material.Enabled = True
+        End If
+        If cb_StavUlohy.Text = "Rozpracovaná" Then
+            b_Tlac.Enabled = True
+        End If
 
         'Vytiahnutie udajov z ciselnika -- TYP POZIADAVKY
         Dim QueryPoziadavky As String
@@ -299,8 +300,17 @@ Public Class Ziadanky_sprava
             Urgencia = 0
         End If
 
+        Dim Cast As String = ""
+        If chb_Zeny.Checked = True And chb_Muzi.Checked = True Then
+            Cast = "Muži, Ženy"
+        ElseIf chb_Zeny.Checked = True And chb_Muzi.Checked = False Then
+            Cast = "Ženy"
+        ElseIf chb_Muzi.Checked = True And chb_Zeny.Checked = False Then
+            Cast = "Muži"
+        End If
+        MsgBox(UCase(Ponuka.Meno_uzivatela))
         Dim QueryUloha As String
-        QueryUloha = "UPDATE uloha SET Typ_poziadavky = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), Typ_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), Popis_ulohy = '" & rtb_PopisPoziadavky.Text & "', Oddelenie = (SELECT id_oddelenia FROM oddelenia WHERE Nazov_oddelenia = '" & cb_ZOddelenia.Text & "' and stav = 0), Miestnost = '" & tb_Miestnost.Text & "', Typ_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 10 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypUlohy.Text & "'), Stav_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavUlohy.Text & "'), Urgencia = '" & Urgencia & "', Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
+        QueryUloha = "UPDATE uloha SET Typ_poziadavky = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), Typ_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), Popis_ulohy = '" & rtb_PopisPoziadavky.Text & "', Oddelenie = (SELECT id_oddelenia FROM oddelenia WHERE Nazov_oddelenia = '" & cb_ZOddelenia.Text & "' and stav = 0), Cast = '" & Cast & "', Miestnost = '" & tb_Miestnost.Text & "', Typ_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 10 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypUlohy.Text & "'), Stav_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavUlohy.Text & "'), Urgencia = '" & Urgencia & "', Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
         con.Open()
         Dim sqlUloha As MySqlCommand = New MySqlCommand(QueryUloha, con)
         Try
@@ -314,6 +324,7 @@ Public Class Ziadanky_sprava
             logy(10, 2, ex.Message)
         End Try
 
+        vratenie_na_oddelenie(id_ulohy, oddelenie(cb_ZOddelenia.Text), ciselnik(1, 11, cb_StavUlohy.Text), "")
     End Sub
 
 
@@ -326,6 +337,13 @@ Public Class Ziadanky_sprava
     Private Sub cb_StavUlohy_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cb_StavUlohy.SelectedIndexChanged
         If cb_StavUlohy.Text = "Vrátená - zadávateľovi" Or cb_StavUlohy.Text = "Odložené" Then
             VstupneDataTextBox.Show()
+        End If
+        If cb_StavUlohy.Text = "Ukončená" Or cb_StavUlohy.Text = "Ukončenie zadávateľom" Then
+            b_Hodiny.Enabled = True
+            b_Material.Enabled = True
+        End If
+        If cb_StavUlohy.Text = "Rozpracovaná" Then
+            b_Tlac.Enabled = True
         End If
     End Sub
 
@@ -381,7 +399,7 @@ Public Class Ziadanky_sprava
 
     Private Sub l_Vymazat_Click(sender As Object, e As EventArgs) Handles l_Vymazat.Click
         Dim QueryMazanie As String
-        QueryMazanie = "UPDATE uloha SET stav = 1, Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
+        QueryMazanie = "UPDATE uloha SET stav = 1, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
         con.Open()
         Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
         Try
@@ -398,5 +416,9 @@ Public Class Ziadanky_sprava
 
     Private Sub b_Hodiny_Click(sender As Object, e As EventArgs) Handles b_Hodiny.Click
         Vykaz_hodin.Show()
+    End Sub
+
+    Private Sub b_Material_Click(sender As Object, e As EventArgs) Handles b_Material.Click
+        Vykaz_materialu.Show()
     End Sub
 End Class

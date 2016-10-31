@@ -108,7 +108,7 @@ Public Class ZadanePrace_sprava
         QueryStavUloh =
         "SELECT cd.Nazov_hodnoty FROM uloha_x_uzivatel uxu
         join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav = 0
-        where uxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' and uxu.idciselnik = 11 and uxu.Hodnota in (0, 1, 2, 5) and uxu.stav = 0;"
+        where uxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' and uxu.idciselnik = 11 and uxu.Hodnota in (0, 1, 2, 6) and uxu.stav = 0;"
         con.Open()
         Dim sqlStavUloh As MySqlCommand = New MySqlCommand(QueryStavUloh, con)
         Try

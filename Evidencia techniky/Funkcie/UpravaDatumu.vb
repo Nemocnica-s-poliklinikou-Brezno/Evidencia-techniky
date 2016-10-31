@@ -10,7 +10,6 @@ Module UpravaDatumu_funk
             MessageBox.Show(ex.Message, "ETECH - Chyba pri zmene datumu", MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
             End Try
-            con.Close()
 
 
         Return Zmena_datumu

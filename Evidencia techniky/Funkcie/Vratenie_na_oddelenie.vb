@@ -18,7 +18,7 @@ Module Vratenie_na_oddelenie_funk
         End Try
 
         Dim QuerySTAV As String
-        QuerySTAV = "UPDATE uloha SET Stav_ulohy = '" & stav_ulohy & "', Upravil_meno = '" & Prihlasenie.tb_Meno.Text & "', Upravil_dna = now() WHERE id_ulohy = '" & cislo_ulohy & "';"
+        QuerySTAV = "UPDATE uloha SET Stav_ulohy = '" & stav_ulohy & "', Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE id_ulohy = '" & cislo_ulohy & "';"
         con.Open()
         Dim sqlSTAV As MySqlCommand = New MySqlCommand(QuerySTAV, con)
         sqlSTAV.CommandTimeout = 1200

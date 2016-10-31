@@ -22,10 +22,11 @@ Partial Class Zariadenia
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Zariadenia))
         Me.gb_ZakladneUdaje = New System.Windows.Forms.GroupBox()
+        Me.cb_TypZariadenia = New System.Windows.Forms.ComboBox()
+        Me.l_TypZariadenia = New System.Windows.Forms.Label()
+        Me.cb_Vyrobca = New System.Windows.Forms.ComboBox()
         Me.l_p_Teamviewer = New System.Windows.Forms.Label()
         Me.l_Teamviewer = New System.Windows.Forms.Label()
         Me.tb_EvidencneCislo = New System.Windows.Forms.TextBox()
@@ -33,7 +34,6 @@ Partial Class Zariadenia
         Me.tb_VyrobneCislo = New System.Windows.Forms.TextBox()
         Me.tb_SerioveCislo = New System.Windows.Forms.TextBox()
         Me.tb_Model = New System.Windows.Forms.TextBox()
-        Me.tb_Vyrobca = New System.Windows.Forms.TextBox()
         Me.l_Vyradeny = New System.Windows.Forms.Label()
         Me.l_EvidencneCislo = New System.Windows.Forms.Label()
         Me.l_VyrobneCislo = New System.Windows.Forms.Label()
@@ -50,14 +50,8 @@ Partial Class Zariadenia
         Me.b_Hardware = New System.Windows.Forms.Button()
         Me.tp_HistoriaPresunov = New System.Windows.Forms.TabPage()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-        Me.DatumPresunu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Oddelenie = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Miestnost = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tp_HistoriaOprav = New System.Windows.Forms.TabPage()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.DatumOpravy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Typ_opravy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PopisOpravy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tc_Historia = New System.Windows.Forms.TabControl()
         Me.b_Presun = New System.Windows.Forms.Button()
         Me.b_Servis = New System.Windows.Forms.Button()
@@ -71,6 +65,9 @@ Partial Class Zariadenia
         '
         'gb_ZakladneUdaje
         '
+        Me.gb_ZakladneUdaje.Controls.Add(Me.cb_TypZariadenia)
+        Me.gb_ZakladneUdaje.Controls.Add(Me.l_TypZariadenia)
+        Me.gb_ZakladneUdaje.Controls.Add(Me.cb_Vyrobca)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_p_Teamviewer)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_Teamviewer)
         Me.gb_ZakladneUdaje.Controls.Add(Me.tb_EvidencneCislo)
@@ -78,7 +75,6 @@ Partial Class Zariadenia
         Me.gb_ZakladneUdaje.Controls.Add(Me.tb_VyrobneCislo)
         Me.gb_ZakladneUdaje.Controls.Add(Me.tb_SerioveCislo)
         Me.gb_ZakladneUdaje.Controls.Add(Me.tb_Model)
-        Me.gb_ZakladneUdaje.Controls.Add(Me.tb_Vyrobca)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_Vyradeny)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_EvidencneCislo)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_VyrobneCislo)
@@ -91,6 +87,31 @@ Partial Class Zariadenia
         Me.gb_ZakladneUdaje.TabIndex = 18
         Me.gb_ZakladneUdaje.TabStop = False
         Me.gb_ZakladneUdaje.Text = "Základné údaje"
+        '
+        'cb_TypZariadenia
+        '
+        Me.cb_TypZariadenia.FormattingEnabled = True
+        Me.cb_TypZariadenia.Location = New System.Drawing.Point(97, 149)
+        Me.cb_TypZariadenia.Name = "cb_TypZariadenia"
+        Me.cb_TypZariadenia.Size = New System.Drawing.Size(121, 21)
+        Me.cb_TypZariadenia.TabIndex = 22
+        '
+        'l_TypZariadenia
+        '
+        Me.l_TypZariadenia.AutoSize = True
+        Me.l_TypZariadenia.Location = New System.Drawing.Point(15, 152)
+        Me.l_TypZariadenia.Name = "l_TypZariadenia"
+        Me.l_TypZariadenia.Size = New System.Drawing.Size(76, 13)
+        Me.l_TypZariadenia.TabIndex = 21
+        Me.l_TypZariadenia.Text = "Typ zariadenia"
+        '
+        'cb_Vyrobca
+        '
+        Me.cb_Vyrobca.FormattingEnabled = True
+        Me.cb_Vyrobca.Location = New System.Drawing.Point(97, 19)
+        Me.cb_Vyrobca.Name = "cb_Vyrobca"
+        Me.cb_Vyrobca.Size = New System.Drawing.Size(226, 21)
+        Me.cb_Vyrobca.TabIndex = 20
         '
         'l_p_Teamviewer
         '
@@ -125,7 +146,7 @@ Partial Class Zariadenia
         'dtp_Vyradeny
         '
         Me.dtp_Vyradeny.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtp_Vyradeny.Location = New System.Drawing.Point(97, 149)
+        Me.dtp_Vyradeny.Location = New System.Drawing.Point(392, 45)
         Me.dtp_Vyradeny.Name = "dtp_Vyradeny"
         Me.dtp_Vyradeny.Size = New System.Drawing.Size(76, 20)
         Me.dtp_Vyradeny.TabIndex = 17
@@ -152,17 +173,10 @@ Partial Class Zariadenia
         Me.tb_Model.Size = New System.Drawing.Size(226, 20)
         Me.tb_Model.TabIndex = 3
         '
-        'tb_Vyrobca
-        '
-        Me.tb_Vyrobca.Location = New System.Drawing.Point(97, 19)
-        Me.tb_Vyrobca.Name = "tb_Vyrobca"
-        Me.tb_Vyrobca.Size = New System.Drawing.Size(226, 20)
-        Me.tb_Vyrobca.TabIndex = 2
-        '
         'l_Vyradeny
         '
         Me.l_Vyradeny.AutoSize = True
-        Me.l_Vyradeny.Location = New System.Drawing.Point(40, 149)
+        Me.l_Vyradeny.Location = New System.Drawing.Point(335, 48)
         Me.l_Vyradeny.Name = "l_Vyradeny"
         Me.l_Vyradeny.Size = New System.Drawing.Size(51, 13)
         Me.l_Vyradeny.TabIndex = 6
@@ -225,6 +239,7 @@ Partial Class Zariadenia
         '
         'b_Zmenit
         '
+        Me.b_Zmenit.Enabled = False
         Me.b_Zmenit.Location = New System.Drawing.Point(872, 257)
         Me.b_Zmenit.Name = "b_Zmenit"
         Me.b_Zmenit.Size = New System.Drawing.Size(75, 23)
@@ -305,33 +320,10 @@ Partial Class Zariadenia
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DatumPresunu, Me.Oddelenie, Me.Miestnost})
         Me.DataGridView2.Location = New System.Drawing.Point(6, 7)
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.Size = New System.Drawing.Size(443, 164)
         Me.DataGridView2.TabIndex = 9
-        '
-        'DatumPresunu
-        '
-        DataGridViewCellStyle1.Format = "d"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.DatumPresunu.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DatumPresunu.HeaderText = "Dátum presunu"
-        Me.DatumPresunu.Name = "DatumPresunu"
-        Me.DatumPresunu.ReadOnly = True
-        '
-        'Oddelenie
-        '
-        Me.Oddelenie.HeaderText = "Oddelenie"
-        Me.Oddelenie.Name = "Oddelenie"
-        Me.Oddelenie.ReadOnly = True
-        Me.Oddelenie.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'Miestnost
-        '
-        Me.Miestnost.HeaderText = "Miestnosť"
-        Me.Miestnost.Name = "Miestnost"
-        Me.Miestnost.ReadOnly = True
         '
         'tp_HistoriaOprav
         '
@@ -350,32 +342,10 @@ Partial Class Zariadenia
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DatumOpravy, Me.Typ_opravy, Me.PopisOpravy})
         Me.DataGridView1.Location = New System.Drawing.Point(7, 8)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(473, 164)
         Me.DataGridView1.TabIndex = 10
-        '
-        'DatumOpravy
-        '
-        DataGridViewCellStyle2.Format = "d"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.DatumOpravy.DefaultCellStyle = DataGridViewCellStyle2
-        Me.DatumOpravy.HeaderText = "Dátum opravy"
-        Me.DatumOpravy.Name = "DatumOpravy"
-        Me.DatumOpravy.ReadOnly = True
-        '
-        'Typ_opravy
-        '
-        Me.Typ_opravy.HeaderText = "Typ opravy"
-        Me.Typ_opravy.Name = "Typ_opravy"
-        '
-        'PopisOpravy
-        '
-        Me.PopisOpravy.HeaderText = "Popis opravy"
-        Me.PopisOpravy.Name = "PopisOpravy"
-        Me.PopisOpravy.ReadOnly = True
-        Me.PopisOpravy.Width = 200
         '
         'tc_Historia
         '
@@ -457,7 +427,6 @@ Partial Class Zariadenia
     Friend WithEvents tb_VyrobneCislo As TextBox
     Friend WithEvents tb_SerioveCislo As TextBox
     Friend WithEvents tb_Model As TextBox
-    Friend WithEvents tb_Vyrobca As TextBox
     Friend WithEvents b_Fakturacne As Button
     Friend WithEvents b_Software As Button
     Friend WithEvents b_Hardware As Button
@@ -468,12 +437,9 @@ Partial Class Zariadenia
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents b_Presun As Button
     Friend WithEvents b_Servis As Button
-    Friend WithEvents Miestnost As DataGridViewTextBoxColumn
-    Friend WithEvents Oddelenie As DataGridViewTextBoxColumn
-    Friend WithEvents DatumPresunu As DataGridViewTextBoxColumn
     Friend WithEvents l_p_Teamviewer As Label
     Friend WithEvents l_Teamviewer As Label
-    Friend WithEvents Typ_opravy As DataGridViewTextBoxColumn
-    Friend WithEvents PopisOpravy As DataGridViewTextBoxColumn
-    Friend WithEvents DatumOpravy As DataGridViewTextBoxColumn
+    Friend WithEvents cb_Vyrobca As ComboBox
+    Friend WithEvents cb_TypZariadenia As ComboBox
+    Friend WithEvents l_TypZariadenia As Label
 End Class

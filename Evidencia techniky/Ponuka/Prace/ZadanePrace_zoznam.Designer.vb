@@ -26,9 +26,9 @@ Partial Class Zoznam_zadanych_prac
         Me.tp_ZadanePrace = New System.Windows.Forms.TabPage()
         Me.dgv_ZadanePrace = New System.Windows.Forms.DataGridView()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.b_NacitatUdaje = New System.Windows.Forms.Button()
         Me.tp_UkoncenePrace = New System.Windows.Forms.TabPage()
         Me.dgv_UkoncenePrace = New System.Windows.Forms.DataGridView()
+        Me.b_NacitatUdaje = New System.Windows.Forms.Button()
         Me.tp_ZadanePrace.SuspendLayout()
         CType(Me.dgv_ZadanePrace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
@@ -74,16 +74,6 @@ Partial Class Zoznam_zadanych_prac
         Me.TabControl1.Size = New System.Drawing.Size(1012, 299)
         Me.TabControl1.TabIndex = 0
         '
-        'b_NacitatUdaje
-        '
-        Me.b_NacitatUdaje.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.b_NacitatUdaje.Location = New System.Drawing.Point(931, 319)
-        Me.b_NacitatUdaje.Name = "b_NacitatUdaje"
-        Me.b_NacitatUdaje.Size = New System.Drawing.Size(86, 23)
-        Me.b_NacitatUdaje.TabIndex = 1
-        Me.b_NacitatUdaje.Text = "Načítať údaje"
-        Me.b_NacitatUdaje.UseVisualStyleBackColor = True
-        '
         'tp_UkoncenePrace
         '
         Me.tp_UkoncenePrace.Controls.Add(Me.dgv_UkoncenePrace)
@@ -109,6 +99,16 @@ Partial Class Zoznam_zadanych_prac
         Me.dgv_UkoncenePrace.Size = New System.Drawing.Size(998, 267)
         Me.dgv_UkoncenePrace.TabIndex = 1
         '
+        'b_NacitatUdaje
+        '
+        Me.b_NacitatUdaje.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.b_NacitatUdaje.Location = New System.Drawing.Point(931, 319)
+        Me.b_NacitatUdaje.Name = "b_NacitatUdaje"
+        Me.b_NacitatUdaje.Size = New System.Drawing.Size(86, 23)
+        Me.b_NacitatUdaje.TabIndex = 1
+        Me.b_NacitatUdaje.Text = "Načítať údaje"
+        Me.b_NacitatUdaje.UseVisualStyleBackColor = True
+        '
         'Zoznam_zadanych_prac
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -119,6 +119,7 @@ Partial Class Zoznam_zadanych_prac
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Zoznam_zadanych_prac"
         Me.Text = "Zadané práce"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.tp_ZadanePrace.ResumeLayout(False)
         CType(Me.dgv_ZadanePrace, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl1.ResumeLayout(False)

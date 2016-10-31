@@ -4,13 +4,13 @@ Imports Evidencia_techniky.pripojenie
 
 Public Class Ziadanky_zoznam
     Public Shared Poziadavka_cislo As String
+
     Private Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
     End Sub
     Public Sub b_NacitatData_Click(sender As Object, e As EventArgs) Handles b_NacitatData.Click
         ProgressBar1.Maximum = 0
         Spracovanie_dat.Show()
-        Threading.Thread.Sleep(100)
 
         'Vyčistenie vyslednej tabuliek
         dgv_Nove.Rows.Clear()
@@ -18,6 +18,7 @@ Public Class Ziadanky_zoznam
         dgv_Odlozene.Rows.Clear()
         dgv_VrateneZadavatelovi.Rows.Clear()
         dgv_VrateneUdrzbe.Rows.Clear()
+        dgv_UkoncenieZadavatelom.Rows.Clear()
         dgv_UkonceneUdrzba.Rows.Clear()
         dgv_Investicie.Rows.Clear()
 
@@ -31,7 +32,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
@@ -79,6 +80,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_Nove.Rows.Count - 1
+                If dgv_Nove.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_Nove.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -92,7 +101,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 '|' as '|',
                 CONCAT_WS('', cd_prace.Popis, p.Cislo_prace) as 'Číslo práce',
@@ -153,6 +162,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_Rozpracovane.Rows.Count - 1
+                If dgv_Rozpracovane.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_Rozpracovane.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -166,7 +183,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 (select dovod_stav from uloha_x_stav uxs where u.id_ulohy = uxs.id_ulohy and stav = 0 order by 1 desc limit 1) as 'Stav'
             From uloha u
@@ -217,6 +234,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_Odlozene.Rows.Count - 1
+                If dgv_Odlozene.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_Odlozene.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -230,7 +255,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie', 
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 (select dovod_stav from uloha_x_stav uxs where u.id_ulohy = uxs.id_ulohy and stav = 0 order by 1 desc limit 1) as 'Dôvod vrátenia'
             From uloha u
@@ -281,6 +306,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_VrateneZadavatelovi.Rows.Count - 1
+                If dgv_VrateneZadavatelovi.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_VrateneZadavatelovi.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -294,7 +327,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
@@ -343,6 +376,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_VrateneUdrzbe.Rows.Count - 1
+                If dgv_VrateneUdrzbe.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_VrateneUdrzbe.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -356,7 +397,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
@@ -405,6 +446,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_UkoncenieZadavatelom.Rows.Count - 1
+                If dgv_UkoncenieZadavatelom.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_UkoncenieZadavatelom.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -418,7 +467,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
@@ -467,6 +516,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_UkonceneUdrzba.Rows.Count - 1
+                If dgv_UkonceneUdrzba.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_UkonceneUdrzba.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -480,7 +537,7 @@ Public Class Ziadanky_zoznam
 	            when Urgencia = 0 then 'Nie' 
 	            Else 'Áno' 
                         End As 'Urgencia', 
-	            oddelenia.Nazov_oddelenia as 'Oddelenie', 
+	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
@@ -529,6 +586,14 @@ Public Class Ziadanky_zoznam
             End Using
             Spracovanie_dat.Close()
             con.Close()
+
+            'Zvyraznenie riadku pri splneni podmienky
+            For i = 0 To dgv_Investicie.Rows.Count - 1
+                If dgv_Investicie.Rows(i).Cells("Urgencia").Value = "Áno" Then
+                    dgv_Investicie.Rows(i).DefaultCellStyle.BackColor = Color.LightSkyBlue
+                End If
+            Next
+
         End Using
         con.Close()
 
@@ -538,8 +603,10 @@ Public Class Ziadanky_zoznam
         dgv_Odlozene.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         dgv_VrateneUdrzbe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         dgv_VrateneZadavatelovi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+        dgv_UkoncenieZadavatelom.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         dgv_UkonceneUdrzba.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         dgv_Investicie.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+
         ProgressBar1.Maximum = ProgressBar1.Maximum + 1
         ProgressBar1.Value = ProgressBar1.Value + 1
 

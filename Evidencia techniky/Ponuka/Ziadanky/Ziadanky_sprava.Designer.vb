@@ -52,6 +52,8 @@ Partial Class Ziadanky_sprava
         Me.b_Pridat = New System.Windows.Forms.Button()
         Me.ll_PridatOdd = New System.Windows.Forms.LinkLabel()
         Me.l_Vymazat = New System.Windows.Forms.Label()
+        Me.chb_Zeny = New System.Windows.Forms.CheckBox()
+        Me.chb_Muzi = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'cb_TypUlohy
@@ -201,32 +203,34 @@ Partial Class Ziadanky_sprava
         '
         'b_Tlac
         '
+        Me.b_Tlac.Enabled = False
         Me.b_Tlac.Location = New System.Drawing.Point(313, 419)
         Me.b_Tlac.Name = "b_Tlac"
         Me.b_Tlac.Size = New System.Drawing.Size(75, 23)
         Me.b_Tlac.TabIndex = 23
         Me.b_Tlac.Text = "Tlač"
         Me.b_Tlac.UseVisualStyleBackColor = True
+        Me.b_Tlac.Visible = False
         '
         'b_Hodiny
         '
+        Me.b_Hodiny.Enabled = False
         Me.b_Hodiny.Location = New System.Drawing.Point(92, 420)
         Me.b_Hodiny.Name = "b_Hodiny"
         Me.b_Hodiny.Size = New System.Drawing.Size(75, 23)
         Me.b_Hodiny.TabIndex = 24
         Me.b_Hodiny.Text = "Hodiny"
         Me.b_Hodiny.UseVisualStyleBackColor = True
-        Me.b_Hodiny.Visible = False
         '
         'b_Material
         '
+        Me.b_Material.Enabled = False
         Me.b_Material.Location = New System.Drawing.Point(11, 419)
         Me.b_Material.Name = "b_Material"
         Me.b_Material.Size = New System.Drawing.Size(75, 23)
         Me.b_Material.TabIndex = 25
         Me.b_Material.Text = "Materiál"
         Me.b_Material.UseVisualStyleBackColor = True
-        Me.b_Material.Visible = False
         '
         'l_UlohaCislo
         '
@@ -305,7 +309,7 @@ Partial Class Ziadanky_sprava
         'll_PridatOdd
         '
         Me.ll_PridatOdd.AutoSize = True
-        Me.ll_PridatOdd.Location = New System.Drawing.Point(227, 110)
+        Me.ll_PridatOdd.Location = New System.Drawing.Point(273, 116)
         Me.ll_PridatOdd.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.ll_PridatOdd.Name = "ll_PridatOdd"
         Me.ll_PridatOdd.Size = New System.Drawing.Size(35, 13)
@@ -324,11 +328,33 @@ Partial Class Ziadanky_sprava
         Me.l_Vymazat.Text = "Vymazať"
         Me.l_Vymazat.Visible = False
         '
+        'chb_Zeny
+        '
+        Me.chb_Zeny.AutoSize = True
+        Me.chb_Zeny.Location = New System.Drawing.Point(226, 115)
+        Me.chb_Zeny.Name = "chb_Zeny"
+        Me.chb_Zeny.Size = New System.Drawing.Size(50, 17)
+        Me.chb_Zeny.TabIndex = 38
+        Me.chb_Zeny.Text = "Ženy"
+        Me.chb_Zeny.UseVisualStyleBackColor = True
+        '
+        'chb_Muzi
+        '
+        Me.chb_Muzi.AutoSize = True
+        Me.chb_Muzi.Location = New System.Drawing.Point(226, 101)
+        Me.chb_Muzi.Name = "chb_Muzi"
+        Me.chb_Muzi.Size = New System.Drawing.Size(48, 17)
+        Me.chb_Muzi.TabIndex = 37
+        Me.chb_Muzi.Text = "Muži"
+        Me.chb_Muzi.UseVisualStyleBackColor = True
+        '
         'Ziadanky_sprava
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(479, 463)
+        Me.Controls.Add(Me.chb_Zeny)
+        Me.Controls.Add(Me.chb_Muzi)
         Me.Controls.Add(Me.l_Vymazat)
         Me.Controls.Add(Me.ll_PridatOdd)
         Me.Controls.Add(Me.b_Pridat)
@@ -396,4 +422,6 @@ Partial Class Ziadanky_sprava
     Friend WithEvents b_Pridat As Button
     Friend WithEvents ll_PridatOdd As LinkLabel
     Friend WithEvents l_Vymazat As Label
+    Friend WithEvents chb_Zeny As CheckBox
+    Friend WithEvents chb_Muzi As CheckBox
 End Class
