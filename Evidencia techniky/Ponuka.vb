@@ -4,6 +4,7 @@ Imports Evidencia_techniky.pripojenie
 Public Class Ponuka
 
     Public Shared id_uzivatela As String
+    Public Shared Id_uzivatelaOdd As String
     Public Shared PridajSQL As String
     Public Shared Druh_zariadenia As String
     Public Shared Meno_uzivatela As String
@@ -11,6 +12,7 @@ Public Class Ponuka
     Public Shared HladajCo As String
     Public Shared Zariadenie As String
     Public Shared ZiadankySprava As String
+    Public Shared Email As String
 
     Dim MyDataAdapter As New MySqlDataAdapter()
     Dim MyDataset As DataSet = New DataSet()
@@ -37,7 +39,9 @@ Public Class Ponuka
         If data.HasRows Then
             While data.Read()
                 id_uzivatela = data("id_uzivatela").ToString()
+                Id_uzivatelaOdd = id_uzivatela
                 Meno_uzivatela = data("UzivatelMeno").ToString()
+                Email = data("Email").ToString()
                 ZiadankySprava = data("ZiadankySprava").ToString()
 
                 If data("Admin").ToString = 1 Then 'Admin
@@ -175,4 +179,7 @@ Public Class Ponuka
         Zoznam_zadanych_prac.Show()
     End Sub
 
+    Private Sub PriradiťToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PriradiťToolStripMenuItem.Click
+        Software_priprad.Show()
+    End Sub
 End Class

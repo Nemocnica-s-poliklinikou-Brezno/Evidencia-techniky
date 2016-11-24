@@ -94,7 +94,7 @@ Public Class Prace_zadanie
     Private Sub B_Priradit_Click(sender As Object, e As EventArgs) Handles B_Priradit.Click
 
         Dim QueryPriradenie As String
-        QueryPriradenie = "INSERT INTO prace(Cislo_prace, id_uzivatela, Druh_prace, Popis_prace, Odovzdat_do, Prijate, Vlozil_meno, Vlozil_dna) VALUES ('" & tb_CisloPrace.Text & "','" & uzivatel(cb_Priradene.Text) & "', '" & ciselnik(1, 9, cb_TypPrace.Text) & "', '" & rtb_PopisPrace.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', now(), '" & Ponuka.Meno_uzivatela & "', now());"
+        QueryPriradenie = "INSERT INTO prace(Cislo_prace, Druh_prace, Popis_prace, Odovzdat_do, Prijate, Vlozil_meno, Vlozil_dna) VALUES ('" & tb_CisloPrace.Text & "', '" & ciselnik(1, 9, cb_TypPrace.Text) & "', '" & rtb_PopisPrace.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', now(), '" & Ponuka.Meno_uzivatela & "', now());"
         con.Open()
         Dim sqlPriradenie As MySqlCommand = New MySqlCommand(QueryPriradenie, con)
         Try
@@ -105,6 +105,20 @@ Public Class Prace_zadanie
         Catch ex As Exception
             con.Close()
             MessageBox.Show(ex.Message, "Pridelenie práce pracovníkovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
+
+        Dim QueryPracaUzivatel As String
+        QueryPracaUzivatel = "INSERT INTO prace_x_uzivatel(id_prace, id_uzivatela, stav, Vlozil_meno, Vlozil_dna) VALUES ('" & Praca_Cislo("ID", 0) & "', '" & uzivatel(cb_Priradene.Text) & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        con.Open()
+        Dim sqlPracaUzivatel As MySqlCommand = New MySqlCommand(QueryPracaUzivatel, con)
+        Try
+            sqlPracaUzivatel.ExecuteNonQuery()
+            con.Close()
+            logy(15, 1, "")
+        Catch ex As Exception
+            con.Close()
+            MessageBox.Show(ex.Message, "Pridelenie práce pracovníkovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            logy(15, 2, ex.Message)
         End Try
 
         Dim QueryUloha As String

@@ -69,7 +69,7 @@ Partial Class Pridat_oddelenie
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.Name = "Pridat_oddelenie"
-        Me.Text = "Pridať oddelenie"
+        Me.Text = "Pridať vedlajšie oddelenie"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

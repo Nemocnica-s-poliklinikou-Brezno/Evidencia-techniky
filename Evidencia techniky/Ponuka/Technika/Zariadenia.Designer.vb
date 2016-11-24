@@ -22,6 +22,7 @@ Partial Class Zariadenia
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Zariadenia))
         Me.gb_ZakladneUdaje = New System.Windows.Forms.GroupBox()
         Me.cb_TypZariadenia = New System.Windows.Forms.ComboBox()
@@ -49,18 +50,22 @@ Partial Class Zariadenia
         Me.b_Software = New System.Windows.Forms.Button()
         Me.b_Hardware = New System.Windows.Forms.Button()
         Me.tp_HistoriaPresunov = New System.Windows.Forms.TabPage()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.dgv_Presun = New System.Windows.Forms.DataGridView()
         Me.tp_HistoriaOprav = New System.Windows.Forms.TabPage()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgv_Servis = New System.Windows.Forms.DataGridView()
         Me.tc_Historia = New System.Windows.Forms.TabControl()
         Me.b_Presun = New System.Windows.Forms.Button()
         Me.b_Servis = New System.Windows.Forms.Button()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmi_Upravit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmi_Vymazat = New System.Windows.Forms.ToolStripMenuItem()
         Me.gb_ZakladneUdaje.SuspendLayout()
         Me.tp_HistoriaPresunov.SuspendLayout()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgv_Presun, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tp_HistoriaOprav.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgv_Servis, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tc_Historia.SuspendLayout()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'gb_ZakladneUdaje
@@ -181,6 +186,7 @@ Partial Class Zariadenia
         Me.l_Vyradeny.Size = New System.Drawing.Size(51, 13)
         Me.l_Vyradeny.TabIndex = 6
         Me.l_Vyradeny.Text = "Vyradený"
+        Me.l_Vyradeny.Visible = False
         '
         'l_EvidencneCislo
         '
@@ -305,7 +311,7 @@ Partial Class Zariadenia
         '
         'tp_HistoriaPresunov
         '
-        Me.tp_HistoriaPresunov.Controls.Add(Me.DataGridView2)
+        Me.tp_HistoriaPresunov.Controls.Add(Me.dgv_Presun)
         Me.tp_HistoriaPresunov.Location = New System.Drawing.Point(4, 22)
         Me.tp_HistoriaPresunov.Name = "tp_HistoriaPresunov"
         Me.tp_HistoriaPresunov.Padding = New System.Windows.Forms.Padding(3)
@@ -314,20 +320,20 @@ Partial Class Zariadenia
         Me.tp_HistoriaPresunov.Text = "História presunov"
         Me.tp_HistoriaPresunov.UseVisualStyleBackColor = True
         '
-        'DataGridView2
+        'dgv_Presun
         '
-        Me.DataGridView2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgv_Presun.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(6, 7)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(443, 164)
-        Me.DataGridView2.TabIndex = 9
+        Me.dgv_Presun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_Presun.Location = New System.Drawing.Point(6, 7)
+        Me.dgv_Presun.Name = "dgv_Presun"
+        Me.dgv_Presun.Size = New System.Drawing.Size(443, 164)
+        Me.dgv_Presun.TabIndex = 9
         '
         'tp_HistoriaOprav
         '
-        Me.tp_HistoriaOprav.Controls.Add(Me.DataGridView1)
+        Me.tp_HistoriaOprav.Controls.Add(Me.dgv_Servis)
         Me.tp_HistoriaOprav.Location = New System.Drawing.Point(4, 22)
         Me.tp_HistoriaOprav.Name = "tp_HistoriaOprav"
         Me.tp_HistoriaOprav.Padding = New System.Windows.Forms.Padding(3)
@@ -336,16 +342,16 @@ Partial Class Zariadenia
         Me.tp_HistoriaOprav.Text = "Historia opráv"
         Me.tp_HistoriaOprav.UseVisualStyleBackColor = True
         '
-        'DataGridView1
+        'dgv_Servis
         '
-        Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgv_Servis.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(7, 8)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(473, 164)
-        Me.DataGridView1.TabIndex = 10
+        Me.dgv_Servis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_Servis.Location = New System.Drawing.Point(7, 8)
+        Me.dgv_Servis.Name = "dgv_Servis"
+        Me.dgv_Servis.Size = New System.Drawing.Size(473, 164)
+        Me.dgv_Servis.TabIndex = 10
         '
         'tc_Historia
         '
@@ -377,6 +383,24 @@ Partial Class Zariadenia
         Me.b_Servis.Text = "Servis"
         Me.b_Servis.UseVisualStyleBackColor = True
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi_Upravit, Me.tsmi_Vymazat})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(121, 48)
+        '
+        'tsmi_Upravit
+        '
+        Me.tsmi_Upravit.Name = "tsmi_Upravit"
+        Me.tsmi_Upravit.Size = New System.Drawing.Size(120, 22)
+        Me.tsmi_Upravit.Text = "Upraviť"
+        '
+        'tsmi_Vymazat
+        '
+        Me.tsmi_Vymazat.Name = "tsmi_Vymazat"
+        Me.tsmi_Vymazat.Size = New System.Drawing.Size(120, 22)
+        Me.tsmi_Vymazat.Text = "Vymazať"
+        '
         'Zariadenia
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -401,10 +425,11 @@ Partial Class Zariadenia
         Me.gb_ZakladneUdaje.ResumeLayout(False)
         Me.gb_ZakladneUdaje.PerformLayout()
         Me.tp_HistoriaPresunov.ResumeLayout(False)
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgv_Presun, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp_HistoriaOprav.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgv_Servis, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tc_Historia.ResumeLayout(False)
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -433,8 +458,8 @@ Partial Class Zariadenia
     Friend WithEvents tp_HistoriaPresunov As TabPage
     Friend WithEvents tp_HistoriaOprav As TabPage
     Friend WithEvents tc_Historia As TabControl
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents dgv_Servis As DataGridView
+    Friend WithEvents dgv_Presun As DataGridView
     Friend WithEvents b_Presun As Button
     Friend WithEvents b_Servis As Button
     Friend WithEvents l_p_Teamviewer As Label
@@ -442,4 +467,7 @@ Partial Class Zariadenia
     Friend WithEvents cb_Vyrobca As ComboBox
     Friend WithEvents cb_TypZariadenia As ComboBox
     Friend WithEvents l_TypZariadenia As Label
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents tsmi_Upravit As ToolStripMenuItem
+    Friend WithEvents tsmi_Vymazat As ToolStripMenuItem
 End Class

@@ -26,6 +26,7 @@ Partial Class Ziadanky
         Me.cb_ZOddelenia = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.gb_Zadavatel = New System.Windows.Forms.GroupBox()
+        Me.ll_PridatOdd = New System.Windows.Forms.LinkLabel()
         Me.chb_Zeny = New System.Windows.Forms.CheckBox()
         Me.chb_Muzi = New System.Windows.Forms.CheckBox()
         Me.l_TypPrace = New System.Windows.Forms.Label()
@@ -42,7 +43,6 @@ Partial Class Ziadanky
         Me.b_Zadat = New System.Windows.Forms.Button()
         Me.chb_Urgentne = New System.Windows.Forms.CheckBox()
         Me.MessageQueue1 = New System.Messaging.MessageQueue()
-        Me.ll_PridatOdd = New System.Windows.Forms.LinkLabel()
         Me.gb_Zadavatel.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -89,6 +89,18 @@ Partial Class Ziadanky
         Me.gb_Zadavatel.TabIndex = 2
         Me.gb_Zadavatel.TabStop = False
         Me.gb_Zadavatel.Text = "Zadávateľ"
+        '
+        'll_PridatOdd
+        '
+        Me.ll_PridatOdd.AutoSize = True
+        Me.ll_PridatOdd.Location = New System.Drawing.Point(250, 238)
+        Me.ll_PridatOdd.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.ll_PridatOdd.Name = "ll_PridatOdd"
+        Me.ll_PridatOdd.Size = New System.Drawing.Size(35, 13)
+        Me.ll_PridatOdd.TabIndex = 36
+        Me.ll_PridatOdd.TabStop = True
+        Me.ll_PridatOdd.Text = "Pridať"
+        Me.ll_PridatOdd.Visible = False
         '
         'chb_Zeny
         '
@@ -233,18 +245,6 @@ Partial Class Ziadanky
         '
         Me.MessageQueue1.MessageReadPropertyFilter.LookupId = True
         Me.MessageQueue1.SynchronizingObject = Me
-        '
-        'll_PridatOdd
-        '
-        Me.ll_PridatOdd.AutoSize = True
-        Me.ll_PridatOdd.Location = New System.Drawing.Point(332, 222)
-        Me.ll_PridatOdd.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.ll_PridatOdd.Name = "ll_PridatOdd"
-        Me.ll_PridatOdd.Size = New System.Drawing.Size(35, 13)
-        Me.ll_PridatOdd.TabIndex = 36
-        Me.ll_PridatOdd.TabStop = True
-        Me.ll_PridatOdd.Text = "Pridať"
-        Me.ll_PridatOdd.Visible = False
         '
         'Ziadanky
         '

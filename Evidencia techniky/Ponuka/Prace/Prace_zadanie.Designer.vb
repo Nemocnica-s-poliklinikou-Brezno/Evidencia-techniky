@@ -50,6 +50,7 @@ Partial Class Prace_zadanie
         '
         'cb_TypPrace
         '
+        Me.cb_TypPrace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cb_TypPrace.FormattingEnabled = True
         Me.cb_TypPrace.Location = New System.Drawing.Point(91, 12)
         Me.cb_TypPrace.Name = "cb_TypPrace"
@@ -65,6 +66,7 @@ Partial Class Prace_zadanie
         '
         'cb_Priradene
         '
+        Me.cb_Priradene.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cb_Priradene.FormattingEnabled = True
         Me.cb_Priradene.Location = New System.Drawing.Point(91, 67)
         Me.cb_Priradene.Name = "cb_Priradene"

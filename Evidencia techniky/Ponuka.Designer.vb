@@ -31,8 +31,11 @@ Partial Class Ponuka
         Me.tsm_Pocitac = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_Monitor = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_Tlaciaren = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsm_Ostatne = New System.Windows.Forms.ToolStripMenuItem()
         Me.HardwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SoftwareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PridaťToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PriradiťToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SkladToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DenníkToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_Prace = New System.Windows.Forms.ToolStripMenuItem()
@@ -62,7 +65,7 @@ Partial Class Ponuka
         Me.TESTMAILToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OdlásiťToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.tsm_Ostatne = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrehľadyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,7 +89,7 @@ Partial Class Ponuka
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsm_Technika, Me.tsm_Prace, Me.tsm_Ziadanky, Me.tsm_Doprava, Me.tsm_Labaky, Me.PriestupkyToolStripMenuItem, Me.NastaveniaToolStripMenuItem, Me.OdlásiťToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsm_Technika, Me.tsm_Prace, Me.tsm_Ziadanky, Me.tsm_Doprava, Me.tsm_Labaky, Me.PriestupkyToolStripMenuItem, Me.PrehľadyToolStripMenuItem, Me.NastaveniaToolStripMenuItem, Me.OdlásiťToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(719, 24)
@@ -105,50 +108,73 @@ Partial Class Ponuka
         'tsm_Zostava
         '
         Me.tsm_Zostava.Name = "tsm_Zostava"
-        Me.tsm_Zostava.Size = New System.Drawing.Size(152, 22)
+        Me.tsm_Zostava.Size = New System.Drawing.Size(125, 22)
         Me.tsm_Zostava.Text = "Zostava"
+        Me.tsm_Zostava.Visible = False
         '
         'tsm_Pocitac
         '
         Me.tsm_Pocitac.Name = "tsm_Pocitac"
-        Me.tsm_Pocitac.Size = New System.Drawing.Size(152, 22)
+        Me.tsm_Pocitac.Size = New System.Drawing.Size(125, 22)
         Me.tsm_Pocitac.Text = "Počítač"
         '
         'tsm_Monitor
         '
         Me.tsm_Monitor.Name = "tsm_Monitor"
-        Me.tsm_Monitor.Size = New System.Drawing.Size(152, 22)
+        Me.tsm_Monitor.Size = New System.Drawing.Size(125, 22)
         Me.tsm_Monitor.Text = "Monitor"
         '
         'tsm_Tlaciaren
         '
         Me.tsm_Tlaciaren.Name = "tsm_Tlaciaren"
-        Me.tsm_Tlaciaren.Size = New System.Drawing.Size(152, 22)
+        Me.tsm_Tlaciaren.Size = New System.Drawing.Size(125, 22)
         Me.tsm_Tlaciaren.Text = "Tlačiareň"
+        '
+        'tsm_Ostatne
+        '
+        Me.tsm_Ostatne.Name = "tsm_Ostatne"
+        Me.tsm_Ostatne.Size = New System.Drawing.Size(125, 22)
+        Me.tsm_Ostatne.Text = "Ostatné"
         '
         'HardwareToolStripMenuItem
         '
         Me.HardwareToolStripMenuItem.Name = "HardwareToolStripMenuItem"
-        Me.HardwareToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.HardwareToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.HardwareToolStripMenuItem.Text = "Hardware"
+        Me.HardwareToolStripMenuItem.Visible = False
         '
         'SoftwareToolStripMenuItem
         '
+        Me.SoftwareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PridaťToolStripMenuItem, Me.PriradiťToolStripMenuItem})
         Me.SoftwareToolStripMenuItem.Name = "SoftwareToolStripMenuItem"
-        Me.SoftwareToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SoftwareToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.SoftwareToolStripMenuItem.Text = "Software"
+        '
+        'PridaťToolStripMenuItem
+        '
+        Me.PridaťToolStripMenuItem.Name = "PridaťToolStripMenuItem"
+        Me.PridaťToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.PridaťToolStripMenuItem.Text = "Pridať"
+        '
+        'PriradiťToolStripMenuItem
+        '
+        Me.PriradiťToolStripMenuItem.Name = "PriradiťToolStripMenuItem"
+        Me.PriradiťToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.PriradiťToolStripMenuItem.Text = "Priradiť"
         '
         'SkladToolStripMenuItem
         '
         Me.SkladToolStripMenuItem.Name = "SkladToolStripMenuItem"
-        Me.SkladToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SkladToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.SkladToolStripMenuItem.Text = "Sklad"
+        Me.SkladToolStripMenuItem.Visible = False
         '
         'DenníkToolStripMenuItem
         '
         Me.DenníkToolStripMenuItem.Name = "DenníkToolStripMenuItem"
-        Me.DenníkToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DenníkToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
         Me.DenníkToolStripMenuItem.Text = "Denník"
+        Me.DenníkToolStripMenuItem.Visible = False
         '
         'tsm_Prace
         '
@@ -190,13 +216,13 @@ Partial Class Ponuka
         'ZadanieToolStripMenuItem
         '
         Me.ZadanieToolStripMenuItem.Name = "ZadanieToolStripMenuItem"
-        Me.ZadanieToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ZadanieToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.ZadanieToolStripMenuItem.Text = "Zadanie"
         '
         'SprávaToolStripMenuItem
         '
         Me.SprávaToolStripMenuItem.Name = "SprávaToolStripMenuItem"
-        Me.SprávaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SprávaToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
         Me.SprávaToolStripMenuItem.Text = "Evidencia"
         '
         'tsm_Doprava
@@ -301,12 +327,14 @@ Partial Class Ponuka
         Me.VerziaToolStripMenuItem.Name = "VerziaToolStripMenuItem"
         Me.VerziaToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
         Me.VerziaToolStripMenuItem.Text = "Verzia"
+        Me.VerziaToolStripMenuItem.Visible = False
         '
         'ČíselníkyToolStripMenuItem
         '
         Me.ČíselníkyToolStripMenuItem.Name = "ČíselníkyToolStripMenuItem"
         Me.ČíselníkyToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
         Me.ČíselníkyToolStripMenuItem.Text = "Číselníky"
+        Me.ČíselníkyToolStripMenuItem.Visible = False
         '
         'OProgrameToolStripMenuItem
         '
@@ -337,11 +365,12 @@ Partial Class Ponuka
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
-        'tsm_Ostatne
+        'PrehľadyToolStripMenuItem
         '
-        Me.tsm_Ostatne.Name = "tsm_Ostatne"
-        Me.tsm_Ostatne.Size = New System.Drawing.Size(152, 22)
-        Me.tsm_Ostatne.Text = "Ostatné"
+        Me.PrehľadyToolStripMenuItem.Name = "PrehľadyToolStripMenuItem"
+        Me.PrehľadyToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.PrehľadyToolStripMenuItem.Text = "Prehľady"
+        Me.PrehľadyToolStripMenuItem.Visible = False
         '
         'Ponuka
         '
@@ -408,4 +437,7 @@ Partial Class Ponuka
     Friend WithEvents NahlásenieToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EvidenciaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents tsm_Ostatne As ToolStripMenuItem
+    Friend WithEvents PridaťToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PriradiťToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PrehľadyToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -43,4 +43,9 @@ Public Class Prihlasenie
     Private Sub tb_Meno_TextChanged(sender As Object, e As EventArgs) Handles tb_Meno.TextChanged
         tb_Meno.CharacterCasing = CharacterCasing.Upper
     End Sub
+    Private Sub txtPassword_PreviewKeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PreviewKeyDownEventArgs) Handles tb_Heslo.PreviewKeyDown
+        If e.KeyCode = Keys.Enter Then
+            btPrihlasit_Click(sender, e)
+        End If
+    End Sub
 End Class

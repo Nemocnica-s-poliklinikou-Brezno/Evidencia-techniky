@@ -1,10 +1,13 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Evidencia_techniky.pripojenieTest
+Imports Evidencia_techniky.pripojenie
 Imports Evidencia_techniky.Zariadenia
 Public Class ZariadeniaPresunVloz
 
     Public Sub Zariadenia_presun_vloz_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
+
+        dtp_PresunutyDna.Text = Now()
+
         con.Open()
         Dim cmd As String = "SELECT o.Nazov_oddelenia, pxo.Miestnost from zariadenia_x_oddelenie pxo join oddelenia o On o.id_oddelenia = pxo.id_oddelenia where id_zariadenia = '" & id_zariadenia & "' and pxo.stav = 0;"
         Dim data As MySqlDataReader
@@ -87,6 +90,7 @@ Public Class ZariadeniaPresunVloz
             Try
                 sqlINT.ExecuteNonQuery()
                 con.Close()
+                Me.Close()
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "ETECH - Zápis nového oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 con.Close()

@@ -34,8 +34,8 @@
     <SuiteName>Nemocnica s Poliklinou Brezno n.o.</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>26</ApplicationRevision>
-    <ApplicationVersion>1.0.3.%2a</ApplicationVersion>
+    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationVersion>1.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -116,10 +116,12 @@
       <HintPath>..\..\..\..\..\..\Program Files\MySQL\MySQL Connector Net 6.9.7\Assemblies\v4.0\MySql.Fabric.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -141,6 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Funkcie\Cislo_zariadenia.vb" />
+    <Compile Include="Funkcie\Pocet_uloha.vb" />
     <Compile Include="Funkcie\Notifikacia.vb" />
     <Compile Include="Funkcie\UpravaDatumu.vb" />
     <Compile Include="Funkcie\HashHeslo.vb" />
@@ -205,6 +209,18 @@
     <Compile Include="Pripomienky.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ProjectInstaller.Designer.vb">
+      <DependentUpon>ProjectInstaller.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInstaller.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Software_priprad.Designer.vb">
+      <DependentUpon>Software_priprad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Software_priprad.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Spracovanie_dat.Designer.vb">
       <DependentUpon>Spracovanie_dat.vb</DependentUpon>
     </Compile>
@@ -223,16 +239,22 @@
     <Compile Include="Ponuka\Prace\ZadanePrace_zoznam.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Uprava_Presun.Designer.vb">
+      <DependentUpon>Uprava_Presun.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Uprava_Presun.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Verzie.Designer.vb">
       <DependentUpon>Verzie.vb</DependentUpon>
     </Compile>
     <Compile Include="Verzie.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VstupneDataTextBox.Designer.vb">
+    <Compile Include="Ponuka\Ziadanky\VstupneDataTextBox.Designer.vb">
       <DependentUpon>VstupneDataTextBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="VstupneDataTextBox.vb">
+    <Compile Include="Ponuka\Ziadanky\VstupneDataTextBox.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ponuka\Ziadanky\Vykaz_materialu.Designer.vb">
@@ -241,10 +263,10 @@
     <Compile Include="Ponuka\Ziadanky\Vykaz_materialu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ZariadeniaServisVloz.Designer.vb">
+    <Compile Include="Ponuka\Technika\ZariadeniaServisVloz.Designer.vb">
       <DependentUpon>ZariadeniaServisVloz.vb</DependentUpon>
     </Compile>
-    <Compile Include="ZariadeniaServisVloz.vb">
+    <Compile Include="Ponuka\Technika\ZariadeniaServisVloz.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ponuka\Doprava\Doprava_Limity.Designer.vb">
@@ -269,16 +291,16 @@
     <Compile Include="Ponuka\Nastavenia\NastavenieUzivatela.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Zariadenia.Designer.vb">
+    <Compile Include="Ponuka\Technika\Zariadenia.Designer.vb">
       <DependentUpon>Zariadenia.vb</DependentUpon>
     </Compile>
-    <Compile Include="Zariadenia.vb">
+    <Compile Include="Ponuka\Technika\Zariadenia.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ZariadeniaPresunVloz.Designer.vb">
+    <Compile Include="Ponuka\Technika\ZariadeniaPresunVloz.Designer.vb">
       <DependentUpon>ZariadeniaPresunVloz.vb</DependentUpon>
     </Compile>
-    <Compile Include="ZariadeniaPresunVloz.vb">
+    <Compile Include="Ponuka\Technika\ZariadeniaPresunVloz.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ponuka.Designer.vb">
@@ -371,6 +393,12 @@
     <EmbeddedResource Include="Pripomienky.resx">
       <DependentUpon>Pripomienky.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Software_priprad.resx">
+      <DependentUpon>Software_priprad.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Spracovanie_dat.resx">
       <DependentUpon>Spracovanie_dat.vb</DependentUpon>
     </EmbeddedResource>
@@ -380,16 +408,19 @@
     <EmbeddedResource Include="Ponuka\Prace\ZadanePrace_zoznam.resx">
       <DependentUpon>ZadanePrace_zoznam.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Uprava_Presun.resx">
+      <DependentUpon>Uprava_Presun.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Verzie.resx">
       <DependentUpon>Verzie.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VstupneDataTextBox.resx">
+    <EmbeddedResource Include="Ponuka\Ziadanky\VstupneDataTextBox.resx">
       <DependentUpon>VstupneDataTextBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ponuka\Ziadanky\Vykaz_materialu.resx">
       <DependentUpon>Vykaz_materialu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZariadeniaServisVloz.resx">
+    <EmbeddedResource Include="Ponuka\Technika\ZariadeniaServisVloz.resx">
       <DependentUpon>ZariadeniaServisVloz.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ponuka\Doprava\Doprava_Limity.resx">
@@ -401,10 +432,10 @@
     <EmbeddedResource Include="Ponuka\Nastavenia\NastavenieUzivatela.resx">
       <DependentUpon>NastavenieUzivatela.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Zariadenia.resx">
+    <EmbeddedResource Include="Ponuka\Technika\Zariadenia.resx">
       <DependentUpon>Zariadenia.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZariadeniaPresunVloz.resx">
+    <EmbeddedResource Include="Ponuka\Technika\ZariadeniaPresunVloz.resx">
       <DependentUpon>ZariadeniaPresunVloz.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ponuka.resx">

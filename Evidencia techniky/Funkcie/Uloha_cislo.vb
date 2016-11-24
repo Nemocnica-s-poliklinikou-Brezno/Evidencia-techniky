@@ -12,11 +12,11 @@ Module Uloha_Cislo_funk
         CisloUlohaSQL.CommandTimeout = 1200
         Try
             CisloUloha = CisloUlohaSQL.ExecuteScalar()
+            con.Close()
         Catch ex As Exception
             MessageBox.Show(ex.Message, "ETECH - Vytiahnutie čísla úlohy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            con.Close()
         End Try
-
-        con.Close()
 
         Return CisloUloha
 

@@ -15,6 +15,7 @@ Public Class Ziadanky_sprava
     Dim PMiestnost As String
     Dim PPopisUlohy As String
     Dim PZadavatel As String
+    Dim Email As String
 
     Public Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
@@ -31,7 +32,7 @@ Public Class Ziadanky_sprava
 
         con.Open()
         Dim sqlquery As String =
-        "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon
+        "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon, uz.Email
         FROM uloha u
         join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav = 0
         join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
@@ -51,6 +52,7 @@ Public Class Ziadanky_sprava
             If data.HasRows Then
                 While data.Read()
                     id_ulohy = data("id_ulohy").ToString
+                    Email = data("Email").ToString()
                     PUlohaCislo = data("Uloha_cislo").ToString
                     PNahlaseneDna = data("Nasladene dna").ToString
                     PUrgencia = data("Urgencia").ToString
@@ -308,7 +310,7 @@ Public Class Ziadanky_sprava
         ElseIf chb_Muzi.Checked = True And chb_Zeny.Checked = False Then
             Cast = "Muži"
         End If
-        MsgBox(UCase(Ponuka.Meno_uzivatela))
+
         Dim QueryUloha As String
         QueryUloha = "UPDATE uloha SET Typ_poziadavky = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), Typ_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), Popis_ulohy = '" & rtb_PopisPoziadavky.Text & "', Oddelenie = (SELECT id_oddelenia FROM oddelenia WHERE Nazov_oddelenia = '" & cb_ZOddelenia.Text & "' and stav = 0), Cast = '" & Cast & "', Miestnost = '" & tb_Miestnost.Text & "', Typ_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 10 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypUlohy.Text & "'), Stav_ulohy = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavUlohy.Text & "'), Urgencia = '" & Urgencia & "', Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
         con.Open()
@@ -318,6 +320,15 @@ Public Class Ziadanky_sprava
             con.Close()
             MessageBox.Show("Údaje BOLI upravené!", "ETECH - Zmena údajov v žiadanke", MessageBoxButtons.OK, MessageBoxIcon.Information)
             logy(10, 1, "")
+            If cb_StavUlohy.Text = "Vrátená - zadávateľovi" Then
+                Notifikacia(1, Email, 3)
+            End If
+            If cb_StavUlohy.Text = "Ukončenie zadávateľom" Then
+                Notifikacia(1, Email, 4)
+            End If
+            If cb_StavUlohy.Text = "Vrátená - údržbe" Then
+                Notifikacia(1, "prsanec@nspbr.sk", 4)
+            End If
         Catch ex As Exception
             con.Close()
             MessageBox.Show(ex.Message, "Zmena údajov v žiadanke", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -352,7 +363,7 @@ Public Class Ziadanky_sprava
         System.Diagnostics.Process.Start(Path)
     End Sub
 
-    Private Sub ll_PridatOdd_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_PridatOdd.LinkClicked
+    Public Sub ll_PridatOdd_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_PridatOdd.LinkClicked
         Pridat_oddelenie.Show()
     End Sub
 

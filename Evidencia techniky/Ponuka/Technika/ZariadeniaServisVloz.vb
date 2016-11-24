@@ -37,4 +37,18 @@ Public Class ZariadeniaServisVloz
         End Try
     End Sub
 
+    Private Sub b_Zapisat_Click(sender As Object, e As EventArgs) Handles b_Zapisat.Click
+        Dim QueryPC As String
+        QueryPC = "INSERT INTO zariadenia_servis(id_zariadenia, datum_vybavenia, popis_problemu, sposob_vyriesenia, stav, Vlozil_meno, Vlozil_dna) VALUES ('" & Zariadenia.id_zariadenia & "', '" & uprava_datumu(dtp_DatumVybavenia.Text) & "', '" & tb_PopisChyby.Text & "', '" & cb_DruhOpravy.Text & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        con.Open()
+        Dim sqlPC As MySqlCommand = New MySqlCommand(QueryPC, con)
+        Try
+            sqlPC.ExecuteNonQuery()
+            MessageBox.Show("Údaje BOLI vložené!", "ETECH - Zápis servisu do databázy", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            con.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Zápis servisu do databázy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            con.Close()
+        End Try
+    End Sub
 End Class

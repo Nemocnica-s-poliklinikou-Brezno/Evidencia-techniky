@@ -13,8 +13,8 @@ Module Logy_funk
             sqlZAZNAM.ExecuteScalar()
             con.Close()
         Catch ex As Exception
-            ErrorText = MessageBox.Show(ex.Message, "ETECH - Zápis logov do databázy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             con.Close()
+            ErrorText = MessageBox.Show(ex.Message, "ETECH - Zápis logov do databázy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
 
         Return ErrorText.ToString

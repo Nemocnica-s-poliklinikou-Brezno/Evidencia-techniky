@@ -3,6 +3,7 @@ Imports Evidencia_techniky.pripojenie
 
 Public Class NastavenieUzivatela
 
+    Public Shared Novy_id_uzivatel As String
     Dim PIdUzivatela As String
     Dim PMeno As String
     Dim PPriezvisko As String
@@ -219,8 +220,20 @@ Public Class NastavenieUzivatela
                                                                 Admin = 0
                                                             End If
 
+                                                            Dim QueryID As String
+                                                            QueryID = "Select id_uzivatela from uzivatelia where zablokovany = 0 order by 1 desc limit 1;"
+                                                            con.Open()
+                                                            Dim sqlID As MySqlCommand = New MySqlCommand(QueryID, con)
+                                                            Try
+                                                                Novy_id_uzivatel = sqlID.ExecuteNonQuery()
+                                                                con.Close()
+                                                            Catch ex As Exception
+                                                                con.Close()
+                                                                MessageBox.Show(ex.Message, "ETECH - Ziskanie id_uzivatela", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                                                            End Try
+
                                                             Dim QueryINS As String
-                                                            QueryINS = "INSERT INTO prava(id_uzivatela, Admin, Pocitace, Prace, Ziadanky, Doprava, DopravaOdosielatelia, Labaky, Skumavky, Vlozil_meno, Vlozil_dna) values ((Select id_uzivatela from uzivatelia where zablokovany = 0 order by 1 desc limit 1), '" & Admin & "', (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Pocitace.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Prace.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Ziadanky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Doprava.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DopravaOdosielatelia.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Labaky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Skumavky.Text & "'), '" & Ponuka.Meno_uzivatela & "', now());"
+                                                            QueryINS = "INSERT INTO prava(id_uzivatela, Admin, Pocitace, Prace, Ziadanky, Doprava, DopravaOdosielatelia, Labaky, Skumavky, Vlozil_meno, Vlozil_dna) values ('" & Novy_id_uzivatel & "', '" & Admin & "', (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Pocitace.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Prace.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Ziadanky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Doprava.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DopravaOdosielatelia.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Labaky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 1 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_Skumavky.Text & "'), '" & Ponuka.Meno_uzivatela & "', now());"
                                                             con.Open()
                                                             Dim sqlINT As MySqlCommand = New MySqlCommand(QueryINS, con)
                                                             Try
@@ -233,7 +246,7 @@ Public Class NastavenieUzivatela
                                                             End Try
 
                                                             Dim QueryODD As String
-                                                            QueryODD = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, hlavne, Vlozil_meno, Vlozil_dna) values ((Select id_uzivatela from uzivatelia where zablokovany = 0 order by 1 desc limit 1), '" & oddelenie(cb_Oddelenie.Text) & "', 1, '" & Ponuka.Meno_uzivatela & "', now());"
+                                                            QueryODD = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, hlavne, Vlozil_meno, Vlozil_dna) values ('" & Novy_id_uzivatel & "', '" & oddelenie(cb_Oddelenie.Text) & "', 1, '" & Ponuka.Meno_uzivatela & "', now());"
                                                             con.Open()
                                                             Dim sqlODD As MySqlCommand = New MySqlCommand(QueryODD, con)
                                                             Try
@@ -245,30 +258,44 @@ Public Class NastavenieUzivatela
                                                                 MessageBox.Show(ex.Message, "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                             End Try
 
-                                                            tb_Hladaj.Text = ""
-                                                            tb_UzivatelMeno.Text = ""
-                                                            tb_Priezvisko.Text = ""
-                                                            tb_Meno.Text = ""
-                                                            tb_Heslo.Text = ""
-                                                            tb_Email.Text = ""
-                                                            tb_Tel.Text = ""
-                                                            tb_OsobneCislo.Text = ""
-                                                            cb_Oddelenie.Text = ""
-                                                            cb_Pocitace.Text = ""
-                                                            cb_Ziadanky.Text = ""
-                                                            cb_Prace.Text = ""
-                                                            cb_Doprava.Text = ""
-                                                            cb_DopravaOdosielatelia.Text = ""
-                                                            cb_Labaky.Text = ""
-                                                            cb_Skumavky.Text = ""
-                                                            CHB_Admin.Checked = False
-                                                            CHB_Zablokovany.Checked = False
-                                                            b_Vymazat.Enabled = False
-                                                            b_Ulozit.Enabled = False
-                                                            b_Vytvorit.Enabled = False
+                                                            If cb_Ziadanky.Text = "Čítanie" Then
+                                                                Dim QueryPROC As String
+                                                                QueryPROC = "call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 11, 4); call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 11, 6); call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 10, 0);"
+                                                                con.Open()
+                                                                Dim sqlPROC As MySqlCommand = New MySqlCommand(QueryPROC, con)
+                                                                Try
+                                                                    sqlPROC.ExecuteNonQuery()
+                                                                    con.Close()
+                                                                Catch ex As Exception
+                                                                    con.Close()
+                                                                    MessageBox.Show(ex.Message, "ETECH - Procedura na žiadanky stav", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                                                                End Try
+                                                            End If
 
-                                                        Else
-                                                            MessageBox.Show("Nenastavil si práva k: " & UCase(l_Skumavky.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                                                            tb_Hladaj.Text = ""
+                                                                tb_UzivatelMeno.Text = ""
+                                                                tb_Priezvisko.Text = ""
+                                                                tb_Meno.Text = ""
+                                                                tb_Heslo.Text = ""
+                                                                tb_Email.Text = ""
+                                                                tb_Tel.Text = ""
+                                                                tb_OsobneCislo.Text = ""
+                                                                cb_Oddelenie.Text = ""
+                                                                cb_Pocitace.Text = ""
+                                                                cb_Ziadanky.Text = ""
+                                                                cb_Prace.Text = ""
+                                                                cb_Doprava.Text = ""
+                                                                cb_DopravaOdosielatelia.Text = ""
+                                                                cb_Labaky.Text = ""
+                                                                cb_Skumavky.Text = ""
+                                                                CHB_Admin.Checked = False
+                                                                CHB_Zablokovany.Checked = False
+                                                                b_Vymazat.Enabled = False
+                                                                b_Ulozit.Enabled = False
+                                                                b_Vytvorit.Enabled = False
+
+                                                            Else
+                                                                MessageBox.Show("Nenastavil si práva k: " & UCase(l_Skumavky.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                                                         End If
                                                     Else
                                                         MessageBox.Show("Nenastavil si práva k: " & UCase(l_Labaky.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -292,7 +319,7 @@ Public Class NastavenieUzivatela
                                 MessageBox.Show("Nevyplnil si " & UCase(l_Oddelenie.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
                         Else
-                                MessageBox.Show("Nevyplnil si " & UCase(l_Heslo.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            MessageBox.Show("Nevyplnil si " & UCase(l_Heslo.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         End If
                     Else
                         MessageBox.Show("Nevyplnil si " & UCase(l_UzivatelMeno.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -468,6 +495,7 @@ Public Class NastavenieUzivatela
     End Sub
 
     Private Sub ll_Oddelenia_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_Oddelenia.LinkClicked
+        Ponuka.Id_uzivatelaOdd = PIdUzivatela
         Pridat_oddelenie.Show()
     End Sub
 End Class

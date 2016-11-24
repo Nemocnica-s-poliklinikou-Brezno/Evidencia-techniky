@@ -24,13 +24,13 @@ Public Class ZmenaHesla
             Try
                 cmd.ExecuteNonQuery()
                 MessageBox.Show("Heslo bolo zmenené", "ETECH - Zmena Hesla", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                con.Close()
                 logy(1, 1, "Užívateľom")
                 Me.Close()
-                con.Close()
             Catch ex As Exception
                 MessageBox.Show(ex.Message, "ETECH - Zmena Hesla", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                logy(1, 2, ex.Message)
                 con.Close()
+                logy(1, 2, ex.Message)
             End Try
 
         Else

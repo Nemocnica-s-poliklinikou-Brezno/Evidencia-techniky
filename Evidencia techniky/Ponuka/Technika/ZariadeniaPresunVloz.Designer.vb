@@ -64,7 +64,7 @@ Partial Class ZariadeniaPresunVloz
         Me.Chlb_ZapozikaServisny.Location = New System.Drawing.Point(297, 97)
         Me.Chlb_ZapozikaServisny.Name = "Chlb_ZapozikaServisny"
         Me.Chlb_ZapozikaServisny.Size = New System.Drawing.Size(79, 34)
-        Me.Chlb_ZapozikaServisny.TabIndex = 10
+        Me.Chlb_ZapozikaServisny.TabIndex = 4
         '
         'dtp_PresunutyDna
         '
@@ -73,7 +73,7 @@ Partial Class ZariadeniaPresunVloz
         Me.dtp_PresunutyDna.Location = New System.Drawing.Point(91, 103)
         Me.dtp_PresunutyDna.Name = "dtp_PresunutyDna"
         Me.dtp_PresunutyDna.Size = New System.Drawing.Size(200, 20)
-        Me.dtp_PresunutyDna.TabIndex = 9
+        Me.dtp_PresunutyDna.TabIndex = 3
         Me.dtp_PresunutyDna.Value = New Date(2016, 3, 17, 0, 0, 0, 0)
         '
         'l_PresunutyDna
@@ -91,7 +91,7 @@ Partial Class ZariadeniaPresunVloz
         Me.tb_ZOddelenia.Name = "tb_ZOddelenia"
         Me.tb_ZOddelenia.ReadOnly = True
         Me.tb_ZOddelenia.Size = New System.Drawing.Size(121, 20)
-        Me.tb_ZOddelenia.TabIndex = 7
+        Me.tb_ZOddelenia.TabIndex = 6
         '
         'l_Miestnost
         '
@@ -107,7 +107,7 @@ Partial Class ZariadeniaPresunVloz
         Me.tb_NaOddelenieMiestnost.Location = New System.Drawing.Point(209, 71)
         Me.tb_NaOddelenieMiestnost.Name = "tb_NaOddelenieMiestnost"
         Me.tb_NaOddelenieMiestnost.Size = New System.Drawing.Size(121, 20)
-        Me.tb_NaOddelenieMiestnost.TabIndex = 5
+        Me.tb_NaOddelenieMiestnost.TabIndex = 2
         '
         'tb_ZOddeleniaMiestnost
         '
@@ -115,7 +115,7 @@ Partial Class ZariadeniaPresunVloz
         Me.tb_ZOddeleniaMiestnost.Name = "tb_ZOddeleniaMiestnost"
         Me.tb_ZOddeleniaMiestnost.ReadOnly = True
         Me.tb_ZOddeleniaMiestnost.Size = New System.Drawing.Size(121, 20)
-        Me.tb_ZOddeleniaMiestnost.TabIndex = 4
+        Me.tb_ZOddeleniaMiestnost.TabIndex = 7
         '
         'cb_NaOddelenie
         '
@@ -123,7 +123,7 @@ Partial Class ZariadeniaPresunVloz
         Me.cb_NaOddelenie.Location = New System.Drawing.Point(82, 70)
         Me.cb_NaOddelenie.Name = "cb_NaOddelenie"
         Me.cb_NaOddelenie.Size = New System.Drawing.Size(121, 21)
-        Me.cb_NaOddelenie.TabIndex = 3
+        Me.cb_NaOddelenie.TabIndex = 1
         '
         'l_NaOddelenie
         '
@@ -146,10 +146,10 @@ Partial Class ZariadeniaPresunVloz
         'b_Presun
         '
         Me.b_Presun.Enabled = False
-        Me.b_Presun.Location = New System.Drawing.Point(291, 163)
+        Me.b_Presun.Location = New System.Drawing.Point(326, 163)
         Me.b_Presun.Name = "b_Presun"
         Me.b_Presun.Size = New System.Drawing.Size(75, 23)
-        Me.b_Presun.TabIndex = 7
+        Me.b_Presun.TabIndex = 5
         Me.b_Presun.Text = "Presun"
         Me.b_Presun.UseVisualStyleBackColor = True
         '

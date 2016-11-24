@@ -7,10 +7,21 @@ Public Class Ziadanky_zoznam
 
     Private Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
+        b_NacitatData_Click(sender, e)
     End Sub
     Public Sub b_NacitatData_Click(sender As Object, e As EventArgs) Handles b_NacitatData.Click
         ProgressBar1.Maximum = 0
         Spracovanie_dat.Show()
+
+        'Načítanie počtu žiadanie do hlavičky záložky
+        tp_Nove.Text = "Nové ( " & Pocet_uloha(0, 0) & " )"
+        tp_Rozpracovane.Text = "Rozpracovane ( " & Pocet_uloha(0, 1) & " )"
+        tp_Odlozene.Text = "Odlozene ( " & Pocet_uloha(0, 2) & " )"
+        tp_VrateneZadavatelovi.Text = "Vrátené zadávateľovi ( " & Pocet_uloha(0, 3) & " )"
+        tp_VrateneUdrzbe.Text = "Vrátené údržbe ( " & Pocet_uloha(0, 4) & " )"
+        tp_UkoncenieZadavatelom.Text = "Ukončenie zadávateľom ( " & Pocet_uloha(0, 5) & " )"
+        tp_UkonceneUdrzba.Text = "Ukončené ( " & Pocet_uloha(0, 6) & " )"
+        tp_Investicie.Text = "Investície ( " & Pocet_uloha(1, 0) & " )"
 
         'Vyčistenie vyslednej tabuliek
         dgv_Nove.Rows.Clear()
@@ -24,7 +35,7 @@ Public Class Ziadanky_zoznam
 
         'Data pre naplnenie tabulky NOVE
         Using cmd As New MySqlCommand("Select
-	            Uloha_cislo as 'Žiadanka číslo',
+                Uloha_cislo as 'Žiadanka číslo',
                 cd_poziadavka.Nazov_hodnoty as 'Typ požiadavky', 
 	            cd_prace.Nazov_hodnoty as 'Typ práce', 
 	            date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Dátum', 
@@ -40,7 +51,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 0 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 0 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -110,13 +121,14 @@ Public Class Ziadanky_zoznam
             From uloha u
             left join uloha_x_prace uxp on u.id_ulohy = uxp.id_uloha and uxp.stav = 0
             left join prace p on uxp.id_prace = p.id_prace and p.stav = 0
+            left join prace_x_uzivatel    pxu on p.id_prace = pxu.id_prace
             Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
             Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0 and oddelenia.stav = 0
-            left join uzivatelia up on p.id_uzivatela = up.id_uzivatela
+            left join uzivatelia up on pxu.id_uzivatela = up.id_uzivatela
             left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             order by 11 desc
             ;")
             cmd.Connection = con
@@ -192,7 +204,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 2 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 2 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -264,7 +276,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and u.Stav_ulohy = 3 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and u.Stav_ulohy = 3 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -335,7 +347,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 4 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 4 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -405,7 +417,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 5 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 5 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -475,7 +487,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 0 and Stav_ulohy = 6 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 0 and Stav_ulohy = 6 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200
@@ -545,7 +557,7 @@ Public Class Ziadanky_zoznam
             Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
             Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
-            Typ_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7, 2))
+            Typ_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
             cmd.Connection = con
             cmd.CommandTimeout = 1200

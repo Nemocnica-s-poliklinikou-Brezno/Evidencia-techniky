@@ -42,6 +42,7 @@ Partial Class ZadanePrace_sprava
         Me.b_Spracovane = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.rtb_PopisPrace = New System.Windows.Forms.RichTextBox()
+        Me.b_Kopiruj = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -197,6 +198,7 @@ Partial Class ZadanePrace_sprava
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.b_Kopiruj)
         Me.GroupBox1.Controls.Add(Me.rtb_PopisPrace)
         Me.GroupBox1.Location = New System.Drawing.Point(11, 5)
         Me.GroupBox1.Name = "GroupBox1"
@@ -211,6 +213,15 @@ Partial Class ZadanePrace_sprava
         Me.rtb_PopisPrace.Size = New System.Drawing.Size(256, 83)
         Me.rtb_PopisPrace.TabIndex = 23
         Me.rtb_PopisPrace.Text = ""
+        '
+        'b_Kopiruj
+        '
+        Me.b_Kopiruj.Location = New System.Drawing.Point(203, 308)
+        Me.b_Kopiruj.Name = "b_Kopiruj"
+        Me.b_Kopiruj.Size = New System.Drawing.Size(75, 23)
+        Me.b_Kopiruj.TabIndex = 24
+        Me.b_Kopiruj.Text = "Kopíruj"
+        Me.b_Kopiruj.UseVisualStyleBackColor = True
         '
         'ZadanePrace_sprava
         '
@@ -265,4 +276,5 @@ Partial Class ZadanePrace_sprava
     Friend WithEvents b_Spracovane As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents rtb_PopisPrace As RichTextBox
+    Friend WithEvents b_Kopiruj As Button
 End Class

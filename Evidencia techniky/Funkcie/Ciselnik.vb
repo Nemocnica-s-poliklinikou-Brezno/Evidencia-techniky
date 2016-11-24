@@ -12,7 +12,7 @@ Module Ciselnik_funk
             sqlCiselnik.CommandTimeout = 1200
             Try
                 Using odd As MySqlDataReader = sqlCiselnik.ExecuteReader()
-
+                    con.Close()
                     'Vytvorenie tabulky.
                     Dim dtOddlenia As New DataTable("Oddelenia")
                     Dim ds2 As New DataSet()
@@ -25,6 +25,7 @@ Module Ciselnik_funk
 
                 End Using
             Catch ex As Exception
+                con.Close()
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             End Try
             con.Close()
@@ -37,7 +38,9 @@ Module Ciselnik_funk
             sqlCiselnik.CommandTimeout = 1200
             Try
                 PCiselnik = sqlCiselnik.ExecuteScalar()
+                con.Close()
             Catch ex As Exception
+                con.Close()
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             End Try
             con.Close()
@@ -50,7 +53,9 @@ Module Ciselnik_funk
             sqlCiselnik.CommandTimeout = 1200
             Try
                 PCiselnik = sqlCiselnik.ExecuteScalar()
+                con.Close()
             Catch ex As Exception
+                con.Close()
                 MessageBox.Show(ex.Message, "ETECH - Zistenie práv pre užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             End Try
             con.Close()

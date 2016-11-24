@@ -5,6 +5,7 @@ Public Class ZadanePrace_sprava
 
     Public Shared id_prace
     Public Shared PPracaCislo As String
+
     Dim PPrijatedna As String
     Dim POdovzdatDo As String
     Dim PSpracovane As String
@@ -12,17 +13,19 @@ Public Class ZadanePrace_sprava
     Dim PStavPrace As String
     Dim PPopisPrace As String
     Dim PPriradene As String
+    Dim PPracaCislo2 As String
 
     Public Sub ZadanePrace_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
 
         con.Open()
         Dim sqlquery As String =
-        "SELECT p.ID_prace, CONCAT_WS('', cd2.Popis, p.Cislo_prace) as 'Cislo_prace', date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Datum zadania prace', date_format(p.Odovzdat_do, GET_FORMAT(DATE,'EUR')) as 'Odovzdat pracu do', date_format(p.Spracovane, GET_FORMAT(DATE,'EUR')) as 'Praca spracovana', cd2.Nazov_hodnoty as Typ_prace, cd4.Nazov_hodnoty as Stav_prace, p.Popis_prace, CONCAT_WS(' ', uz.Priezvisko, uz.meno) as 'Priradene'
+        "SELECT p.ID_prace, CONCAT_WS('', cd2.Popis, p.Cislo_prace) as 'Cislo_prace', p.Cislo_prace as 'Cislo_prace2', date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Datum zadania prace', date_format(p.Odovzdat_do, GET_FORMAT(DATE,'EUR')) as 'Odovzdat pracu do', date_format(p.Spracovane, GET_FORMAT(DATE,'EUR')) as 'Praca spracovana', cd2.Nazov_hodnoty as Typ_prace, cd4.Nazov_hodnoty as Stav_prace, p.Popis_prace, CONCAT_WS(' ', uz.Priezvisko, uz.meno) as 'Priradene'
         FROM prace p
         join ciselnik_data cd2 on p.Druh_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
         join ciselnik_data cd4 on p.stav_prace = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
-        join uzivatelia uz on p.id_uzivatela = uz.id_uzivatela
+        left join prace_x_uzivatel pxu on p.ID_prace = pxu.id_prace
+        left join uzivatelia uz on pxu.id_uzivatela = uz.id_uzivatela
         WHERE p.id_prace = '" & Zoznam_zadanych_prac.id_prace & "' and p.stav = 0"
         Dim data As MySqlDataReader
         Dim adapter As New MySqlDataAdapter
@@ -36,6 +39,7 @@ Public Class ZadanePrace_sprava
                 While data.Read()
                     id_prace = data("id_prace").ToString
                     PPracaCislo = data("Cislo_prace").ToString
+                    PPracaCislo2 = data("Cislo_prace2").ToString
                     PPrijatedna = data("Datum zadania prace").ToString
                     POdovzdatDo = data("Odovzdat pracu do").ToString
                     PSpracovane = data("Praca spracovana").ToString
@@ -178,18 +182,18 @@ Public Class ZadanePrace_sprava
     Private Sub b_Ulozit_Click(sender As Object, e As EventArgs) Handles b_Ulozit.Click
 
         Dim QueryPrace As String
-        QueryPrace = "UPDATE prace SET Odovzdat_do = '" & uprava_datumu(dtp_OdovzdatDo.Text) & "', id_uzivatela = '" & uzivatel(cb_Priradene.Text) & "', Druh_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DruhPrace.Text & "'), Popis_prace = '" & rtb_PopisPrace.Text & "', Stav_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavPrace.Text & "'), Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_prace = '" & Zoznam_zadanych_prac.id_prace & "';"
+        QueryPrace = "UPDATE prace SET Odovzdat_do = '" & uprava_datumu(dtp_OdovzdatDo.Text) & "', Druh_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_DruhPrace.Text & "'), Popis_prace = '" & rtb_PopisPrace.Text & "', Stav_prace = (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 11 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_StavPrace.Text & "'), Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_prace = '" & Zoznam_zadanych_prac.id_prace & "';"
         con.Open()
         Dim sqlPrace As MySqlCommand = New MySqlCommand(QueryPrace, con)
         Try
             sqlPrace.ExecuteNonQuery()
             con.Close()
-            MessageBox.Show("Údaje BOLI upravené!", "ETECH - Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Information)
             logy(11, 1, "")
+            MessageBox.Show("Údaje BOLI upravené!", "ETECH - Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             con.Close()
-            MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             logy(11, 2, ex.Message)
+            MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
 
         If PSpracovane <> "" Then
@@ -202,10 +206,23 @@ Public Class ZadanePrace_sprava
                 con.Close()
             Catch ex As Exception
                 con.Close()
-                MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 logy(11, 2, ex.Message)
+                MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             End Try
         End If
+
+        Dim QueryUzivatel As String
+        QueryUzivatel = "UPDATE prace_x_uzivatel SET id_uzivatela = '" & uzivatel(cb_Priradene.Text) & "', Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_prace = '" & Zoznam_zadanych_prac.id_prace & "' and id_uzivatela = '" & PPriradene & "';"
+        con.Open()
+        Dim sqlUzivatel As MySqlCommand = New MySqlCommand(QueryUzivatel, con)
+        Try
+            sqlUzivatel.ExecuteNonQuery()
+            con.Close()
+        Catch ex As Exception
+            con.Close()
+            logy(11, 2, ex.Message)
+            MessageBox.Show(ex.Message, "Zmena údajov v prace_x_uzivatel", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
 
     End Sub
 
@@ -217,15 +234,33 @@ Public Class ZadanePrace_sprava
         Try
             sqlPrace.ExecuteNonQuery()
             con.Close()
-            MessageBox.Show("Práca BOLA spracovaná!", "ETECH - Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Information)
             logy(11, 1, "")
+            MessageBox.Show("Práca BOLA spracovaná!", "ETECH - Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception
             con.Close()
-            MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             logy(11, 2, ex.Message)
+            MessageBox.Show(ex.Message, "Zmena údajov v prácach", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
 
         b_Spracovane.Visible = False
         dtp_Spracovane.Visible = True
+    End Sub
+
+    Private Sub b_Kopiruj_Click(sender As Object, e As EventArgs) Handles b_Kopiruj.Click
+
+        Dim QueryPriradenie As String
+        QueryPriradenie = "INSERT INTO prace_x_uzivatel(id_prace, id_uzivatela, stav, Vlozil_meno, Vlozil_dna) VALUES ('" & Zoznam_zadanych_prac.id_prace & "','" & uzivatel(cb_Priradene.Text) & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        con.Open()
+        Dim sqlPriradenie As MySqlCommand = New MySqlCommand(QueryPriradenie, con)
+        Try
+            sqlPriradenie.ExecuteNonQuery()
+            con.Close()
+            logy(20, 1, "")
+            MessageBox.Show("Práca BOLA skopírovaná!", "ETECH - Pridelenie užívateľa k práci", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            con.Close()
+            logy(20, 2, ex.Message)
+            MessageBox.Show(ex.Message, "Pridelenie užívateľa k práci", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
     End Sub
 End Class

@@ -10,7 +10,7 @@ Module Notifikacia_funk
         Dim ErrorText As String = ""
 
         con.Open()
-        Dim sqlquery As String = "SELECT * FROM mail_notifikacia WHERE Cislo_notifikacie = '" & CisloNotifikacie & "' and Vymazal_dna is null"
+        Dim sqlquery As String = "SELECT * FROM mail_notifikacia WHERE Cislo_notifikacie = '" & CisloNotifikacie & "' and stav = 0"
         Dim data As MySqlDataReader
         Dim adapter As New MySqlDataAdapter
         Dim command As New MySqlCommand
@@ -22,12 +22,15 @@ Module Notifikacia_funk
             While data.Read()
                 PEmail = data("Email").ToString()
                 PPredmet = data("Predmet").ToString()
-                PTelo_mailu = data("Telo_mailu").ToString()
+                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[Cislo_ziadanky]", Uloha_Cislo() + 1)
+                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[U_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
+                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[V_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
             End While
             data.Close()
             con.Close()
         Else
             MessageBox.Show("Daná šablóna nebola nájdená", "ETECH - Mailová notifikácia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            con.Close()
         End If
 
         Try
@@ -40,7 +43,7 @@ Module Notifikacia_funk
             Smtp_Server.Host = "smtp.websupport.sk"
 
             e_mail = New MailMessage()
-            e_mail.From = New MailAddress("etech@nspbr.sk")
+            e_mail.From = New MailAddress("nep@nspbr.sk")
             If TypZaslania = 0 Then
                 e_mail.To.Add(PEmail)
             ElseIf TypZaslania = 1 Then

@@ -38,13 +38,13 @@ Public Class Pridat_oddelenie
     End Sub
 
     Private Sub b_Pridat_Click(sender As Object, e As EventArgs) Handles b_Pridat.Click
-        Dim cmdINT As String = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, Hlavne, stav, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & oddelenie(cb_Oddelenia.Text) & "', 0, 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        Dim cmdINT As String = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, Hlavne, stav, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.Id_uzivatelaOdd & "', '" & oddelenie(cb_Oddelenia.Text) & "', 0, 0, '" & Ponuka.Meno_uzivatela & "', now());"
 
         con.Open()
         Dim sqlINT As MySqlCommand = New MySqlCommand(cmdINT, con)
         Try
             sqlINT.ExecuteNonQuery()
-            MessageBox.Show("Bolo pridané oddelenie", "ETECH - Zápis nového oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Bolo pridané vedlajšie oddelenie", "ETECH - Zápis nového vedlajšieho oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
             con.Close()
             logy(8, 1, "")
         Catch ex As Exception

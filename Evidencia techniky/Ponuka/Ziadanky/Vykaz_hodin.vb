@@ -79,7 +79,7 @@ Public Class Vykaz_hodin
             End Try
         ElseIf tb_SumarHodin.Text <> PSumarHodin And PSumarHodin <> "" Then
             Dim QueryPC As String
-            QueryPC = "UPDATE vykazhodin SET SumarHodin = '" & tb_SumarHodin.Text & "', Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now();"
+            QueryPC = "UPDATE vykazhodin SET SumarHodin = '" & tb_SumarHodin.Text & "', Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_ulohy = '" & Ziadanky_sprava.id_ulohy & "';"
             con.Open()
             Dim sqlPC As MySqlCommand = New MySqlCommand(QueryPC, con)
             Try
