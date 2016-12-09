@@ -59,6 +59,18 @@ Public Class Vykaz_hodin
             l_PSumarHodin.Visible = False
         Else
         End If
+
+        If l_POddelenie.Location.X + l_POddelenie.Size.Width > 380 Then
+            tb_SumarHodin.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, tb_SumarHodin.Location.Y)
+            l_PSumarHodin.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, tb_SumarHodin.Location.Y)
+            l_Sumar_hodín.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, l_Sumar_hodín.Location.Y)
+        End If
+
+        If tb_SumarHodin.Visible = True Then
+            gb_VykazaneHodiny.Size = New Size(l_Sumar_hodín.Location.X + l_Sumar_hodín.Size.Width + 20, gb_VykazaneHodiny.Size.Height)
+            Me.Size = New Size(gb_VykazaneHodiny.Location.X + gb_VykazaneHodiny.Size.Width + 30, Me.Size.Height)
+        End If
+
     End Sub
 
     Private Sub b_Ulozit_Click(sender As Object, e As EventArgs) Handles b_Ulozit.Click

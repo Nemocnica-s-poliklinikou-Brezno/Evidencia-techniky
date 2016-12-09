@@ -34,12 +34,12 @@ Public Class Ziadanky_sprava
         Dim sqlquery As String =
         "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon, uz.Email
         FROM uloha u
-        join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav = 0
-        join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
-        join ciselnik_data cd3 on u.typ_ulohy = cd3.Hodnota and cd3.idciselnik = 10 and cd3.stav = 0
-        join ciselnik_data cd4 on u.stav_ulohy = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
-        join uzivatelia uz on u.Nahlasil_ID_zamestanca = uz.id_uzivatela
-        join oddelenia odd on u.oddelenie = odd.id_oddelenia and odd.stav = 0
+        left join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav = 0
+        left join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
+        left join ciselnik_data cd3 on u.typ_ulohy = cd3.Hodnota and cd3.idciselnik = 10 and cd3.stav = 0
+        left join ciselnik_data cd4 on u.stav_ulohy = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
+        left join uzivatelia uz on u.Nahlasil_ID_zamestanca = uz.id_uzivatela
+        left join oddelenia odd on u.oddelenie = odd.id_oddelenia and odd.stav = 0
         WHERE u.Uloha_cislo = '" & Ziadanky_zoznam.Poziadavka_cislo & "' and u.stav = 0"
         Dim data As MySqlDataReader
         Dim adapter As New MySqlDataAdapter
@@ -254,8 +254,8 @@ Public Class Ziadanky_sprava
         Dim QueryOddelenia As String
         QueryOddelenia =
         "SELECT odd.Nazov_oddelenia FROM uzivatelia u 
-        join uzivatel_x_oddelenie uxo on u.id_uzivatela = uxo.id_uzivatela and uxo.stav = 0
-        join oddelenia odd on uxo.id_oddelenia = odd.id_oddelenia and odd.stav = 0
+        left join uzivatel_x_oddelenie uxo on u.id_uzivatela = uxo.id_uzivatela and uxo.stav = 0
+        left join oddelenia odd on uxo.id_oddelenia = odd.id_oddelenia and odd.stav = 0
         where u.id_uzivatela = '" & Ponuka.id_uzivatela & "';"
         con.Open()
         Dim sqlOddelenia As MySqlCommand = New MySqlCommand(QueryOddelenia, con)
@@ -329,6 +329,9 @@ Public Class Ziadanky_sprava
             If cb_StavUlohy.Text = "Vrátená - údržbe" Then
                 Notifikacia(1, "prsanec@nspbr.sk", 4)
             End If
+            If cb_StavUlohy.Text = "Ukončená" Then
+                Me.Close()
+            End If
         Catch ex As Exception
             con.Close()
             MessageBox.Show(ex.Message, "Zmena údajov v žiadanke", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -374,8 +377,8 @@ Public Class Ziadanky_sprava
         Dim QueryOddelenia As String
         QueryOddelenia =
         "SELECT odd.Nazov_oddelenia FROM uzivatelia u 
-        join uzivatel_x_oddelenie uxo on u.id_uzivatela = uxo.id_uzivatela and uxo.stav = 0
-        join oddelenia odd on uxo.id_oddelenia = odd.id_oddelenia and odd.stav = 0
+        left join uzivatel_x_oddelenie uxo on u.id_uzivatela = uxo.id_uzivatela and uxo.stav = 0
+        left join oddelenia odd on uxo.id_oddelenia = odd.id_oddelenia and odd.stav = 0
         where u.id_uzivatela = '" & Ponuka.id_uzivatela & "';"
         con.Open()
         Dim sqlOddelenia As MySqlCommand = New MySqlCommand(QueryOddelenia, con)
@@ -409,20 +412,25 @@ Public Class Ziadanky_sprava
     End Sub
 
     Private Sub l_Vymazat_Click(sender As Object, e As EventArgs) Handles l_Vymazat.Click
-        Dim QueryMazanie As String
-        QueryMazanie = "UPDATE uloha SET stav = 1, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
-        con.Open()
-        Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
-        Try
-            sqlMazanie.ExecuteNonQuery()
-            con.Close()
-            MessageBox.Show("Žiadanka bola vymazaná!", "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            logy(14, 1, "")
-        Catch ex As Exception
-            con.Close()
-            MessageBox.Show(ex.Message, "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            logy(14, 2, ex.Message)
-        End Try
+        Select Case MessageBox.Show("Naozaj chceš vymazať žiadanku ?", "ETECH - Vymazanie žiadanky", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+            Case MsgBoxResult.No
+                MessageBox.Show("Nevadí nič sa nestalo.", "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Case MsgBoxResult.Yes
+                Dim QueryMazanie As String
+                QueryMazanie = "UPDATE uloha SET stav = 1, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
+                con.Open()
+                Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
+                Try
+                    sqlMazanie.ExecuteNonQuery()
+                    con.Close()
+                    MessageBox.Show("Žiadanka bola vymazaná!", "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    logy(14, 1, "")
+                Catch ex As Exception
+                    con.Close()
+                    MessageBox.Show(ex.Message, "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    logy(14, 2, ex.Message)
+                End Try
+        End Select
     End Sub
 
     Private Sub b_Hodiny_Click(sender As Object, e As EventArgs) Handles b_Hodiny.Click

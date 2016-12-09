@@ -60,10 +60,10 @@ Partial Class ZariadeniaPresunVloz
         'Chlb_ZapozikaServisny
         '
         Me.Chlb_ZapozikaServisny.FormattingEnabled = True
-        Me.Chlb_ZapozikaServisny.Items.AddRange(New Object() {"Zápožička", "Servisný"})
-        Me.Chlb_ZapozikaServisny.Location = New System.Drawing.Point(297, 97)
+        Me.Chlb_ZapozikaServisny.Items.AddRange(New Object() {"Zápožička"})
+        Me.Chlb_ZapozikaServisny.Location = New System.Drawing.Point(297, 103)
         Me.Chlb_ZapozikaServisny.Name = "Chlb_ZapozikaServisny"
-        Me.Chlb_ZapozikaServisny.Size = New System.Drawing.Size(79, 34)
+        Me.Chlb_ZapozikaServisny.Size = New System.Drawing.Size(79, 19)
         Me.Chlb_ZapozikaServisny.TabIndex = 4
         '
         'dtp_PresunutyDna

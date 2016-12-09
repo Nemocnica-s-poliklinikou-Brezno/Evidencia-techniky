@@ -6,6 +6,8 @@ Module Notifikacia_funk
     Dim PEmail As String
     Dim PPredmet As String
     Dim PTelo_mailu As String
+    Dim Cislo_ulohy As String = Uloha_Cislo() + 1
+
     Public Function Notifikacia(ByVal TypZaslania As String, ByVal Email As String, ByVal CisloNotifikacie As String) As String
         Dim ErrorText As String = ""
 
@@ -22,7 +24,7 @@ Module Notifikacia_funk
             While data.Read()
                 PEmail = data("Email").ToString()
                 PPredmet = data("Predmet").ToString()
-                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[Cislo_ziadanky]", Uloha_Cislo() + 1)
+                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[Cislo_ziadanky]", Cislo_ulohy)
                 PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[U_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
                 PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[V_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
             End While

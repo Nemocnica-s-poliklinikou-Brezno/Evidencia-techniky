@@ -141,11 +141,14 @@ Public Class Ziadanky
                         con.Close()
                         MessageBox.Show("Požiadavka bola pridaná do systému", "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         logy(6, 1, "")
+                        con.Close()
                         Notifikacia(0, "", 1)
+                        con.Close()
                     Catch ex As Exception
                         con.Close()
                         MessageBox.Show(ex.Message, "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                         logy(6, 2, ex.Message)
+                        con.Close()
                     End Try
                     con.Close()
 
@@ -178,6 +181,7 @@ Public Class Ziadanky
                                 con.Close()
                                 MessageBox.Show(ex.Message, "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                 logy(6, 2, ex.Message)
+                                con.Close()
                             End Try
                             con.Close()
 

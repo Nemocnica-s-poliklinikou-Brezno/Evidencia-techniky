@@ -9,7 +9,7 @@ Public Class ZariadeniaPresunVloz
         dtp_PresunutyDna.Text = Now()
 
         con.Open()
-        Dim cmd As String = "SELECT o.Nazov_oddelenia, pxo.Miestnost from zariadenia_x_oddelenie pxo join oddelenia o On o.id_oddelenia = pxo.id_oddelenia where id_zariadenia = '" & id_zariadenia & "' and pxo.stav = 0;"
+        Dim cmd As String = "SELECT o.Nazov_oddelenia, pxo.Miestnost from zariadenia_x_oddelenie pxo join oddelenia o On o.id_oddelenia = pxo.id_oddelenia where id_zariadenia = '" & id_zariadenia & "' and pxo.stav in (0, 1);"
         Dim data As MySqlDataReader
         Dim adapter As New MySqlDataAdapter
         Dim command As New MySqlCommand
@@ -31,7 +31,7 @@ Public Class ZariadeniaPresunVloz
             con.Close()
         End If
 
-        Using cmdOdd As New MySqlCommand("SELECT Nazov_oddelenia from oddelenia where stav = 0;")
+        Using cmdOdd As New MySqlCommand("SELECT Nazov_oddelenia from oddelenia where stav = 0 order by 1 asc;")
             cmdOdd.Connection = con
             cmdOdd.CommandTimeout = 1200
             con.Open()
@@ -68,19 +68,14 @@ Public Class ZariadeniaPresunVloz
     End Sub
 
     Private Sub b_Presun_Click(sender As Object, e As EventArgs) Handles b_Presun.Click
-        Dim PServisny As String = ""
         Dim PZapozicka As String = ""
-
-        If Chlb_ZapozikaServisny.SelectedItem = "Servisný" Then
-            PServisny = 1
-        End If
 
         If Chlb_ZapozikaServisny.SelectedItem = "Zápožička" Then
             PZapozicka = 1
         End If
 
         Dim cmdDEL As String = "UPDATE zariadenia_x_oddelenie SET stav = 1, Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_zariadenia = " & id_zariadenia & " and stav = 0;"
-        Dim cmdINT As String = "INSERT INTO zariadenia_x_oddelenie(id_zariadenia, id_oddelenia, Miestnost, Presunute_dna, Servisny, Zapozicka, stav, Vlozil_meno, Vlozil_dna) values (" & id_zariadenia & ", '" & oddelenie(cb_NaOddelenie.Text) & "', '" & tb_NaOddelenieMiestnost.Text & "', '" & uprava_datumu(dtp_PresunutyDna.Text) & "', '" & PServisny & "', '" & PZapozicka & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
+        Dim cmdINT As String = "INSERT INTO zariadenia_x_oddelenie(id_zariadenia, id_oddelenia, Miestnost, Presunute_dna, Zapozicka, stav, Vlozil_meno, Vlozil_dna) values (" & id_zariadenia & ", '" & oddelenie(cb_NaOddelenie.Text) & "', '" & tb_NaOddelenieMiestnost.Text & "', '" & uprava_datumu(dtp_PresunutyDna.Text) & "', '" & PZapozicka & "', 0, '" & Ponuka.Meno_uzivatela & "', now());"
 
         con.Open()
         Dim sqlDEL As MySqlCommand = New MySqlCommand(cmdDEL, con)
@@ -102,5 +97,6 @@ Public Class ZariadeniaPresunVloz
         MessageBox.Show("Presun na " & cb_NaOddelenie.Text & " bol úspešný", "ETECH - Deaktivácia oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
         con.Close()
         logy(2, 1, "")
+        Me.Close()
     End Sub
 End Class

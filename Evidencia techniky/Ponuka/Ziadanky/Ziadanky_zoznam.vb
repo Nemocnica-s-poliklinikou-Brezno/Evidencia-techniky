@@ -46,10 +46,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and Stav_ulohy = 0 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -122,9 +122,9 @@ Public Class Ziadanky_zoznam
             left join uloha_x_prace uxp on u.id_ulohy = uxp.id_uloha and uxp.stav = 0
             left join prace p on uxp.id_prace = p.id_prace and p.stav = 0
             left join prace_x_uzivatel    pxu on p.id_prace = pxu.id_prace
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0 and oddelenia.stav = 0
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0 and oddelenia.stav = 0
             left join uzivatelia up on pxu.id_uzivatela = up.id_uzivatela
             left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
@@ -199,10 +199,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 (select dovod_stav from uloha_x_stav uxs where u.id_ulohy = uxs.id_ulohy and stav = 0 order by 1 desc limit 1) as 'Stav'
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and Stav_ulohy = 2 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -271,10 +271,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ',
                 (select dovod_stav from uloha_x_stav uxs where u.id_ulohy = uxs.id_ulohy and stav = 0 order by 1 desc limit 1) as 'Dôvod vrátenia'
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and u.Stav_ulohy = 3 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -342,10 +342,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and Stav_ulohy = 4 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -412,10 +412,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and Stav_ulohy = 5 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -482,10 +482,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 0 and Stav_ulohy = 6 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
@@ -552,10 +552,10 @@ Public Class Ziadanky_zoznam
 	            CONCAT_WS(' - ', oddelenia.Nazov_oddelenia, u.Cast) as 'Oddelenie',
 	            CONCAT_WS(' ', uzivatelia.meno, uzivatelia.Priezvisko) as 'Zadávateľ' 
             From uloha u
-            Join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
-            Join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
-            Join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
+            left join ciselnik_data cd_poziadavka on u.Typ_poziadavky = cd_poziadavka.Hodnota And cd_poziadavka.idciselnik = 8 and cd_poziadavka.stav = 0
+            left join ciselnik_data cd_prace on u.Typ_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
+            left join oddelenia On u.oddelenie = oddelenia.id_oddelenia and oddelenia.stav = 0
+            left join uzivatelia On u.Nahlasil_ID_zamestanca = uzivatelia.id_uzivatela
             WHERE
             Typ_ulohy = 1 and u.stav = 0 and (u.Nahlasil_ID_zamestanca = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.ZiadankySprava & "' = 1)
             ;")
