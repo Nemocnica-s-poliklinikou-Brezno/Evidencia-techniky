@@ -69,7 +69,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_Nove.ColumnCount = 7
-                dgv_Nove.Columns(0).Name = "Úloha číslo"
+                dgv_Nove.Columns(0).Name = "Požiadavka číslo"
                 dgv_Nove.Columns(1).Name = "Typ požiadavky"
                 dgv_Nove.Columns(2).Name = "Typ práce"
                 dgv_Nove.Columns(3).Name = "Dátum"
@@ -147,7 +147,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_Rozpracovane.ColumnCount = 11
-                dgv_Rozpracovane.Columns(0).Name = "Úloha číslo"
+                dgv_Rozpracovane.Columns(0).Name = "Požiadavka číslo"
                 dgv_Rozpracovane.Columns(1).Name = "Typ požiadavky"
                 dgv_Rozpracovane.Columns(2).Name = "Typ práce"
                 dgv_Rozpracovane.Columns(3).Name = "Dátum"
@@ -222,7 +222,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_Odlozene.ColumnCount = 8
-                dgv_Odlozene.Columns(0).Name = "Úloha číslo"
+                dgv_Odlozene.Columns(0).Name = "Požiadavka číslo"
                 dgv_Odlozene.Columns(1).Name = "Typ požiadavky"
                 dgv_Odlozene.Columns(2).Name = "Typ práce"
                 dgv_Odlozene.Columns(3).Name = "Dátum"
@@ -294,7 +294,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_VrateneZadavatelovi.ColumnCount = 8
-                dgv_VrateneZadavatelovi.Columns(0).Name = "Úloha číslo"
+                dgv_VrateneZadavatelovi.Columns(0).Name = "Požiadavka číslo"
                 dgv_VrateneZadavatelovi.Columns(1).Name = "Typ požiadavky"
                 dgv_VrateneZadavatelovi.Columns(2).Name = "Typ práce"
                 dgv_VrateneZadavatelovi.Columns(3).Name = "Dátum"
@@ -365,7 +365,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_VrateneUdrzbe.ColumnCount = 7
-                dgv_VrateneUdrzbe.Columns(0).Name = "Úloha číslo"
+                dgv_VrateneUdrzbe.Columns(0).Name = "Požiadavka číslo"
                 dgv_VrateneUdrzbe.Columns(1).Name = "Typ požiadavky"
                 dgv_VrateneUdrzbe.Columns(2).Name = "Typ práce"
                 dgv_VrateneUdrzbe.Columns(3).Name = "Dátum"
@@ -435,7 +435,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_UkoncenieZadavatelom.ColumnCount = 7
-                dgv_UkoncenieZadavatelom.Columns(0).Name = "Úloha číslo"
+                dgv_UkoncenieZadavatelom.Columns(0).Name = "Požiadavka číslo"
                 dgv_UkoncenieZadavatelom.Columns(1).Name = "Typ požiadavky"
                 dgv_UkoncenieZadavatelom.Columns(2).Name = "Typ práce"
                 dgv_UkoncenieZadavatelom.Columns(3).Name = "Dátum"
@@ -505,7 +505,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_UkonceneUdrzba.ColumnCount = 7
-                dgv_UkonceneUdrzba.Columns(0).Name = "Úloha číslo"
+                dgv_UkonceneUdrzba.Columns(0).Name = "Požiadavka číslo"
                 dgv_UkonceneUdrzba.Columns(1).Name = "Typ požiadavky"
                 dgv_UkonceneUdrzba.Columns(2).Name = "Typ práce"
                 dgv_UkonceneUdrzba.Columns(3).Name = "Dátum"
@@ -575,7 +575,7 @@ Public Class Ziadanky_zoznam
                 ds.Tables.Add(dtCustomers)
 
                 dgv_Investicie.ColumnCount = 7
-                dgv_Investicie.Columns(0).Name = "Úloha číslo"
+                dgv_Investicie.Columns(0).Name = "Požiadavka číslo"
                 dgv_Investicie.Columns(1).Name = "Typ požiadavky"
                 dgv_Investicie.Columns(2).Name = "Typ práce"
                 dgv_Investicie.Columns(3).Name = "Dátum"
@@ -625,41 +625,41 @@ Public Class Ziadanky_zoznam
     End Sub
 
     Public Sub selectedRowsButton_Click_Nove(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_Nove.Click
-        Poziadavka_cislo = dgv_Nove.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_Nove.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_Rozpracovane(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_Rozpracovane.Click
-        Poziadavka_cislo = dgv_Rozpracovane.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_Rozpracovane.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_Odlozene(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_Odlozene.Click
-        Poziadavka_cislo = dgv_Odlozene.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_Odlozene.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_VrateneZadavatelovi(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_VrateneZadavatelovi.Click
-        Poziadavka_cislo = dgv_VrateneZadavatelovi.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_VrateneZadavatelovi.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_VrateneUdrzba(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_VrateneUdrzbe.Click
-        Poziadavka_cislo = dgv_VrateneUdrzbe.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_VrateneUdrzbe.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
     Public Sub selectedRowsButton_Click_UkoncenieZadavatelom(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_UkoncenieZadavatelom.Click
-        Poziadavka_cislo = dgv_UkoncenieZadavatelom.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_UkoncenieZadavatelom.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_UkonceneUdrzba(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_UkonceneUdrzba.Click
-        Poziadavka_cislo = dgv_UkonceneUdrzba.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_UkonceneUdrzba.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 
     Public Sub selectedRowsButton_Click_Investicie(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgv_Investicie.Click
-        Poziadavka_cislo = dgv_Investicie.CurrentRow.Cells("Úloha číslo").Value
+        Poziadavka_cislo = dgv_Investicie.CurrentRow.Cells("Požiadavka číslo").Value
         Ziadanky_sprava.Show()
     End Sub
 

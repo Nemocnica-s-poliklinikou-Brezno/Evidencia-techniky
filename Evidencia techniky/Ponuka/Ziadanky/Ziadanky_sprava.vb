@@ -329,9 +329,6 @@ Public Class Ziadanky_sprava
             If cb_StavUlohy.Text = "Vrátená - údržbe" Then
                 Notifikacia(1, "prsanec@nspbr.sk", 4)
             End If
-            If cb_StavUlohy.Text = "Ukončená" Then
-                Me.Close()
-            End If
         Catch ex As Exception
             con.Close()
             MessageBox.Show(ex.Message, "Zmena údajov v žiadanke", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -339,6 +336,10 @@ Public Class Ziadanky_sprava
         End Try
 
         vratenie_na_oddelenie(id_ulohy, oddelenie(cb_ZOddelenia.Text), ciselnik(1, 11, cb_StavUlohy.Text), "")
+
+        If cb_StavUlohy.Text = "Ukončená" Then
+            Me.Close()
+        End If
     End Sub
 
 

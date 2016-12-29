@@ -21,7 +21,7 @@ Public Class Ziadanky
         End If
 
         Dim Query As String
-        Query = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 8 ;"
+        Query = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 8;"
         con.Open()
         Dim sql As MySqlCommand = New MySqlCommand(Query, con)
         Try
@@ -52,7 +52,7 @@ Public Class Ziadanky
         con.Close()
 
         Dim QueryPrace As String
-        QueryPrace = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 9 ;"
+        QueryPrace = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 9;"
         con.Open()
         Dim sqlPrace As MySqlCommand = New MySqlCommand(QueryPrace, con)
         Try
