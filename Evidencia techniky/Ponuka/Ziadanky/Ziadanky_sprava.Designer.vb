@@ -54,6 +54,7 @@ Partial Class Ziadanky_sprava
         Me.l_Vymazat = New System.Windows.Forms.Label()
         Me.chb_Zeny = New System.Windows.Forms.CheckBox()
         Me.chb_Muzi = New System.Windows.Forms.CheckBox()
+        Me.b_Poznamka = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cb_TypUlohy
@@ -76,6 +77,7 @@ Partial Class Ziadanky_sprava
         '
         'cb_TypPoziadavky
         '
+        Me.cb_TypPoziadavky.Enabled = False
         Me.cb_TypPoziadavky.FormattingEnabled = True
         Me.cb_TypPoziadavky.Location = New System.Drawing.Point(102, 50)
         Me.cb_TypPoziadavky.Name = "cb_TypPoziadavky"
@@ -84,6 +86,7 @@ Partial Class Ziadanky_sprava
         '
         'cb_TypPrace
         '
+        Me.cb_TypPrace.Enabled = False
         Me.cb_TypPrace.FormattingEnabled = True
         Me.cb_TypPrace.Location = New System.Drawing.Point(102, 79)
         Me.cb_TypPrace.Name = "cb_TypPrace"
@@ -160,6 +163,7 @@ Partial Class Ziadanky_sprava
         '
         'rtb_PopisPoziadavky
         '
+        Me.rtb_PopisPoziadavky.Enabled = False
         Me.rtb_PopisPoziadavky.Location = New System.Drawing.Point(102, 178)
         Me.rtb_PopisPoziadavky.Name = "rtb_PopisPoziadavky"
         Me.rtb_PopisPoziadavky.Size = New System.Drawing.Size(367, 194)
@@ -177,6 +181,7 @@ Partial Class Ziadanky_sprava
         '
         'b_Ulozit
         '
+        Me.b_Ulozit.Enabled = False
         Me.b_Ulozit.Location = New System.Drawing.Point(394, 419)
         Me.b_Ulozit.Name = "b_Ulozit"
         Me.b_Ulozit.Size = New System.Drawing.Size(75, 23)
@@ -186,6 +191,7 @@ Partial Class Ziadanky_sprava
         '
         'cb_StavUlohy
         '
+        Me.cb_StavUlohy.Enabled = False
         Me.cb_StavUlohy.FormattingEnabled = True
         Me.cb_StavUlohy.Location = New System.Drawing.Point(348, 110)
         Me.cb_StavUlohy.Name = "cb_StavUlohy"
@@ -203,7 +209,6 @@ Partial Class Ziadanky_sprava
         '
         'b_Tlac
         '
-        Me.b_Tlac.Enabled = False
         Me.b_Tlac.Location = New System.Drawing.Point(313, 419)
         Me.b_Tlac.Name = "b_Tlac"
         Me.b_Tlac.Size = New System.Drawing.Size(75, 23)
@@ -254,6 +259,7 @@ Partial Class Ziadanky_sprava
         'chb_Urgencia
         '
         Me.chb_Urgencia.AutoSize = True
+        Me.chb_Urgencia.Enabled = False
         Me.chb_Urgencia.ForeColor = System.Drawing.Color.Red
         Me.chb_Urgencia.Location = New System.Drawing.Point(372, 13)
         Me.chb_Urgencia.Name = "chb_Urgencia"
@@ -283,6 +289,7 @@ Partial Class Ziadanky_sprava
         '
         'cb_ZOddelenia
         '
+        Me.cb_ZOddelenia.Enabled = False
         Me.cb_ZOddelenia.FormattingEnabled = True
         Me.cb_ZOddelenia.Location = New System.Drawing.Point(102, 108)
         Me.cb_ZOddelenia.Name = "cb_ZOddelenia"
@@ -291,6 +298,7 @@ Partial Class Ziadanky_sprava
         '
         'tb_Miestnost
         '
+        Me.tb_Miestnost.Enabled = False
         Me.tb_Miestnost.Location = New System.Drawing.Point(102, 136)
         Me.tb_Miestnost.Name = "tb_Miestnost"
         Me.tb_Miestnost.Size = New System.Drawing.Size(121, 20)
@@ -331,6 +339,7 @@ Partial Class Ziadanky_sprava
         'chb_Zeny
         '
         Me.chb_Zeny.AutoSize = True
+        Me.chb_Zeny.Enabled = False
         Me.chb_Zeny.Location = New System.Drawing.Point(226, 115)
         Me.chb_Zeny.Name = "chb_Zeny"
         Me.chb_Zeny.Size = New System.Drawing.Size(50, 17)
@@ -341,6 +350,7 @@ Partial Class Ziadanky_sprava
         'chb_Muzi
         '
         Me.chb_Muzi.AutoSize = True
+        Me.chb_Muzi.Enabled = False
         Me.chb_Muzi.Location = New System.Drawing.Point(226, 101)
         Me.chb_Muzi.Name = "chb_Muzi"
         Me.chb_Muzi.Size = New System.Drawing.Size(48, 17)
@@ -348,11 +358,23 @@ Partial Class Ziadanky_sprava
         Me.chb_Muzi.Text = "Muži"
         Me.chb_Muzi.UseVisualStyleBackColor = True
         '
+        'b_Poznamka
+        '
+        Me.b_Poznamka.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
+        Me.b_Poznamka.Location = New System.Drawing.Point(348, 138)
+        Me.b_Poznamka.Name = "b_Poznamka"
+        Me.b_Poznamka.Size = New System.Drawing.Size(75, 23)
+        Me.b_Poznamka.TabIndex = 39
+        Me.b_Poznamka.Text = "Poznámka"
+        Me.b_Poznamka.UseVisualStyleBackColor = True
+        Me.b_Poznamka.Visible = False
+        '
         'Ziadanky_sprava
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(479, 463)
+        Me.Controls.Add(Me.b_Poznamka)
         Me.Controls.Add(Me.chb_Zeny)
         Me.Controls.Add(Me.chb_Muzi)
         Me.Controls.Add(Me.l_Vymazat)
@@ -424,4 +446,5 @@ Partial Class Ziadanky_sprava
     Friend WithEvents l_Vymazat As Label
     Friend WithEvents chb_Zeny As CheckBox
     Friend WithEvents chb_Muzi As CheckBox
+    Friend WithEvents b_Poznamka As Button
 End Class

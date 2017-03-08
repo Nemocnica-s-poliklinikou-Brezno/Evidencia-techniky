@@ -6,12 +6,15 @@ Public Class Ponuka
     Public Shared id_uzivatela As String
     Public Shared Id_uzivatelaOdd As String
     Public Shared PridajSQL As String
+    Public Shared PridajSQLP As String
     Public Shared Druh_zariadenia As String
     Public Shared Meno_uzivatela As String
     Public Shared HladajV As String
     Public Shared HladajCo As String
     Public Shared Zariadenie As String
+    Public Shared PZiadanky As String
     Public Shared ZiadankySprava As String
+    Public Shared PraceSprava As String
     Public Shared Email As String
 
     Dim MyDataAdapter As New MySqlDataAdapter()
@@ -42,7 +45,9 @@ Public Class Ponuka
                 Id_uzivatelaOdd = id_uzivatela
                 Meno_uzivatela = data("UzivatelMeno").ToString()
                 Email = data("Email").ToString()
+                PZiadanky = data("Ziadanky").ToString()
                 ZiadankySprava = data("ZiadankySprava").ToString()
+                PraceSprava = data("PraceSprava").ToString()
 
                 If data("Admin").ToString = 1 Then 'Admin
                     ADMINISTRÁCIAToolStripMenuItem.Visible = True
@@ -58,12 +63,18 @@ Public Class Ponuka
                     tsm_Prace.Visible = True
                 End If
 
-                If data("PraceSprava").ToString > 0 Then 'Práce správa
+                If data("PraceSprava").ToString > 1 Then 'Práce správa
                     tsm_PraceSprava.Visible = True
                 End If
 
                 If data("Ziadanky").ToString > 0 Then 'Ziadanky
                     tsm_Ziadanky.Visible = True
+                    stsmi_Zadanie.Visible = True
+                End If
+
+                If data("ZiadankySprava").ToString > 0 Then 'Ziadanky správa
+                    tsm_Ziadanky.Visible = True
+                    stsmi_Evidencia.Visible = True
                 End If
 
                 If data("Doprava").ToString > 0 Then 'Doprava
@@ -86,6 +97,9 @@ Public Class Ponuka
                     tsm_Skumavky.Visible = True
                 End If
 
+                If data("id_uzivatela").ToString = 2 Then
+                    TESTMAILToolStripMenuItem.Visible = True
+                End If
             End While
             data.Close()
             con.Close()
@@ -160,11 +174,11 @@ Public Class Ponuka
         Verzie.Show()
     End Sub
 
-    Private Sub ZadanieToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZadanieToolStripMenuItem.Click
+    Private Sub ZadanieToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles stsmi_Zadanie.Click
         Ziadanky.Show()
     End Sub
 
-    Private Sub SprávaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SprávaToolStripMenuItem.Click
+    Private Sub SprávaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles stsmi_Evidencia.Click
         Ziadanky_zoznam.Show()
     End Sub
 
@@ -176,6 +190,12 @@ Public Class Ponuka
     End Sub
 
     Private Sub ZadanePraceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsm_PraceSprava.Click
+        PridajSQLP = " and '" & Ponuka.PraceSprava & "' = 4"
+        Zoznam_zadanych_prac.Show()
+    End Sub
+
+    Private Sub MojeNevybavenéPráceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MojeNevybavenéPráceToolStripMenuItem.Click
+        PridajSQLP = " and pxu.id_uzivatela = '" & Ponuka.id_uzivatela & "'"
         Zoznam_zadanych_prac.Show()
     End Sub
 

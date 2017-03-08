@@ -41,13 +41,15 @@ Partial Class ZadanePrace_sprava
         Me.l_Spracovane = New System.Windows.Forms.Label()
         Me.b_Spracovane = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.rtb_PopisPrace = New System.Windows.Forms.RichTextBox()
+        Me.l_Vymazat = New System.Windows.Forms.Label()
         Me.b_Kopiruj = New System.Windows.Forms.Button()
+        Me.rtb_PopisPrace = New System.Windows.Forms.RichTextBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'b_Ulozit
         '
+        Me.b_Ulozit.Enabled = False
         Me.b_Ulozit.Location = New System.Drawing.Point(132, 313)
         Me.b_Ulozit.Name = "b_Ulozit"
         Me.b_Ulozit.Size = New System.Drawing.Size(75, 23)
@@ -85,6 +87,7 @@ Partial Class ZadanePrace_sprava
         '
         'cb_Priradene
         '
+        Me.cb_Priradene.Enabled = False
         Me.cb_Priradene.FormattingEnabled = True
         Me.cb_Priradene.Location = New System.Drawing.Point(132, 57)
         Me.cb_Priradene.Name = "cb_Priradene"
@@ -102,6 +105,7 @@ Partial Class ZadanePrace_sprava
         '
         'cb_DruhPrace
         '
+        Me.cb_DruhPrace.Enabled = False
         Me.cb_DruhPrace.FormattingEnabled = True
         Me.cb_DruhPrace.Location = New System.Drawing.Point(132, 173)
         Me.cb_DruhPrace.Name = "cb_DruhPrace"
@@ -146,6 +150,7 @@ Partial Class ZadanePrace_sprava
         '
         'dtp_OdovzdatDo
         '
+        Me.dtp_OdovzdatDo.Enabled = False
         Me.dtp_OdovzdatDo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_OdovzdatDo.Location = New System.Drawing.Point(132, 232)
         Me.dtp_OdovzdatDo.Name = "dtp_OdovzdatDo"
@@ -154,6 +159,7 @@ Partial Class ZadanePrace_sprava
         '
         'cb_StavPrace
         '
+        Me.cb_StavPrace.Enabled = False
         Me.cb_StavPrace.FormattingEnabled = True
         Me.cb_StavPrace.Location = New System.Drawing.Point(132, 286)
         Me.cb_StavPrace.Name = "cb_StavPrace"
@@ -171,6 +177,7 @@ Partial Class ZadanePrace_sprava
         '
         'dtp_Spracovane
         '
+        Me.dtp_Spracovane.Enabled = False
         Me.dtp_Spracovane.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_Spracovane.Location = New System.Drawing.Point(132, 257)
         Me.dtp_Spracovane.Name = "dtp_Spracovane"
@@ -188,6 +195,7 @@ Partial Class ZadanePrace_sprava
         '
         'b_Spracovane
         '
+        Me.b_Spracovane.Enabled = False
         Me.b_Spracovane.Location = New System.Drawing.Point(132, 257)
         Me.b_Spracovane.Name = "b_Spracovane"
         Me.b_Spracovane.Size = New System.Drawing.Size(75, 23)
@@ -198,6 +206,7 @@ Partial Class ZadanePrace_sprava
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.l_Vymazat)
         Me.GroupBox1.Controls.Add(Me.b_Kopiruj)
         Me.GroupBox1.Controls.Add(Me.rtb_PopisPrace)
         Me.GroupBox1.Location = New System.Drawing.Point(11, 5)
@@ -206,13 +215,15 @@ Partial Class ZadanePrace_sprava
         Me.GroupBox1.TabIndex = 22
         Me.GroupBox1.TabStop = False
         '
-        'rtb_PopisPrace
+        'l_Vymazat
         '
-        Me.rtb_PopisPrace.Location = New System.Drawing.Point(121, 79)
-        Me.rtb_PopisPrace.Name = "rtb_PopisPrace"
-        Me.rtb_PopisPrace.Size = New System.Drawing.Size(256, 83)
-        Me.rtb_PopisPrace.TabIndex = 23
-        Me.rtb_PopisPrace.Text = ""
+        Me.l_Vymazat.AutoSize = True
+        Me.l_Vymazat.Location = New System.Drawing.Point(284, 313)
+        Me.l_Vymazat.Name = "l_Vymazat"
+        Me.l_Vymazat.Size = New System.Drawing.Size(48, 13)
+        Me.l_Vymazat.TabIndex = 25
+        Me.l_Vymazat.Text = "Vymazať"
+        Me.l_Vymazat.Visible = False
         '
         'b_Kopiruj
         '
@@ -222,6 +233,16 @@ Partial Class ZadanePrace_sprava
         Me.b_Kopiruj.TabIndex = 24
         Me.b_Kopiruj.Text = "Kopíruj"
         Me.b_Kopiruj.UseVisualStyleBackColor = True
+        Me.b_Kopiruj.Visible = False
+        '
+        'rtb_PopisPrace
+        '
+        Me.rtb_PopisPrace.Enabled = False
+        Me.rtb_PopisPrace.Location = New System.Drawing.Point(121, 79)
+        Me.rtb_PopisPrace.Name = "rtb_PopisPrace"
+        Me.rtb_PopisPrace.Size = New System.Drawing.Size(256, 83)
+        Me.rtb_PopisPrace.TabIndex = 23
+        Me.rtb_PopisPrace.Text = ""
         '
         'ZadanePrace_sprava
         '
@@ -252,6 +273,7 @@ Partial Class ZadanePrace_sprava
         Me.Name = "ZadanePrace_sprava"
         Me.Text = "Zadané práce správa"
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -277,4 +299,5 @@ Partial Class ZadanePrace_sprava
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents rtb_PopisPrace As RichTextBox
     Friend WithEvents b_Kopiruj As Button
+    Friend WithEvents l_Vymazat As Label
 End Class

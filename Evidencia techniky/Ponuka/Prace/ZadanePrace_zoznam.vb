@@ -4,6 +4,8 @@ Public Class Zoznam_zadanych_prac
     Public Shared id_prace As String
     Private Sub Sprava_prac_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, Ponuka.Meno_uzivatela)
+
+        b_NacitatUdaje_Click(sender, e)
     End Sub
 
     Private Sub b_NacitatUdaje_Click(sender As Object, e As EventArgs) Handles b_NacitatUdaje.Click
@@ -28,12 +30,12 @@ Public Class Zoznam_zadanych_prac
             From prace p
             left join uloha_x_prace uxp on p.ID_prace = uxp.id_prace
             left join uloha u on uxp.id_uloha = u.id_ulohy
-            Join ciselnik_data cd_prace on p.Druh_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav = 0
+            Join ciselnik_data cd_prace on p.Druh_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav in (0, 1)
+            Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav in (0, 1)
             left join prace_x_uzivatel pxu on p.ID_prace = pxu.id_prace
             left Join uzivatelia On pxu.id_uzivatela = uzivatelia.id_uzivatela
             WHERE
-            p.Stav_prace != 6 and p.stav = 0 and (pxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
+            p.Stav_prace != 6 and p.stav = 0 " & Ponuka.PridajSQLP & "
             order by 3 desc            
             ;")
             cmd.Connection = con
@@ -90,12 +92,12 @@ Public Class Zoznam_zadanych_prac
             From prace p
             left join uloha_x_prace uxp on p.ID_prace = uxp.id_prace
             left join uloha u on uxp.id_uloha = u.id_ulohy
-            Join ciselnik_data cd_prace on p.Druh_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav = 0
-            Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav = 0
+            Join ciselnik_data cd_prace on p.Druh_prace = cd_prace.Hodnota And cd_prace.idciselnik = 9 and cd_prace.stav in (0, 1)
+            Join ciselnik_data cd_stav on p.Stav_prace = cd_stav.Hodnota And cd_stav.idciselnik = 11 and cd_stav.stav in (0, 1)
             left join prace_x_uzivatel pxu on p.ID_prace = pxu.id_prace
             left Join uzivatelia On pxu.id_uzivatela = uzivatelia.id_uzivatela
             WHERE
-            p.Stav_prace = 6 and p.stav = 0 and (pxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' or '" & Ponuka.id_uzivatela & "' IN (7,2))
+            p.Stav_prace = 6 and p.stav = 0 " & Ponuka.PridajSQLP & "
             order by 3 desc            
             ;")
             cmd.Connection = con

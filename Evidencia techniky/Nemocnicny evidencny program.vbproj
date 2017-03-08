@@ -34,7 +34,7 @@
     <SuiteName>Nemocnica s Poliklinou Brezno n.o.</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>33</ApplicationRevision>
+    <ApplicationRevision>49</ApplicationRevision>
     <ApplicationVersion>1.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -165,6 +165,12 @@
       <DependentUpon>Prace_zadanie.vb</DependentUpon>
     </Compile>
     <Compile Include="Ponuka\Prace\Prace_zadanie.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ponuka\Ziadanky\Poznamka.Designer.vb">
+      <DependentUpon>Poznamka.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ponuka\Ziadanky\Poznamka.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ponuka\Ziadanky\Vykaz_hodin.Designer.vb">
@@ -377,6 +383,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Ponuka\Prace\Prace_zadanie.resx">
       <DependentUpon>Prace_zadanie.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ponuka\Ziadanky\Poznamka.resx">
+      <DependentUpon>Poznamka.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ponuka\Ziadanky\Vykaz_hodin.resx">
       <DependentUpon>Vykaz_hodin.vb</DependentUpon>

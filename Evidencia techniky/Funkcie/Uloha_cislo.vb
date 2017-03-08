@@ -2,11 +2,11 @@
 Imports Evidencia_techniky.pripojenie
 Module Uloha_Cislo_funk
 
-    Public Function Uloha_Cislo() As String
+    Public Function Uloha_Cislo(TypUlohy As String) As String
         Dim CisloUloha As String = ""
 
         Dim CisloUlohaQuery As String
-        CisloUlohaQuery = "SELECT max(Uloha_cislo) FROM uloha where stav = 0;"
+        CisloUlohaQuery = "SELECT max(Uloha_cislo) FROM uloha;"
         con.Open()
         Dim CisloUlohaSQL As MySqlCommand = New MySqlCommand(CisloUlohaQuery, con)
         CisloUlohaSQL.CommandTimeout = 1200

@@ -260,7 +260,12 @@ Public Class NastavenieUzivatela
 
                                                             If cb_Ziadanky.Text = "Čítanie" Then
                                                                 Dim QueryPROC As String
-                                                                QueryPROC = "call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 11, 4); call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 11, 6); call stav_ulohy_viditelnost('" & Novy_id_uzivatel & "', 10, 0);"
+                                                                QueryPROC = "INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
+                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 11 and hodnota = 4 and stav = 0;
+                                                                             INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
+                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 11 and hodnota = 5 and stav = 0;
+                                                                             INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
+                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 10 and hodnota = 0 and stav = 0;"
                                                                 con.Open()
                                                                 Dim sqlPROC As MySqlCommand = New MySqlCommand(QueryPROC, con)
                                                                 Try

@@ -25,6 +25,7 @@ Partial Class Zariadenia
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Zariadenia))
         Me.gb_ZakladneUdaje = New System.Windows.Forms.GroupBox()
+        Me.b_Vyradit = New System.Windows.Forms.Button()
         Me.cb_TypZariadenia = New System.Windows.Forms.ComboBox()
         Me.l_TypZariadenia = New System.Windows.Forms.Label()
         Me.cb_Vyrobca = New System.Windows.Forms.ComboBox()
@@ -70,6 +71,7 @@ Partial Class Zariadenia
         '
         'gb_ZakladneUdaje
         '
+        Me.gb_ZakladneUdaje.Controls.Add(Me.b_Vyradit)
         Me.gb_ZakladneUdaje.Controls.Add(Me.cb_TypZariadenia)
         Me.gb_ZakladneUdaje.Controls.Add(Me.l_TypZariadenia)
         Me.gb_ZakladneUdaje.Controls.Add(Me.cb_Vyrobca)
@@ -92,6 +94,16 @@ Partial Class Zariadenia
         Me.gb_ZakladneUdaje.TabIndex = 18
         Me.gb_ZakladneUdaje.TabStop = False
         Me.gb_ZakladneUdaje.Text = "Základné údaje"
+        '
+        'b_Vyradit
+        '
+        Me.b_Vyradit.Location = New System.Drawing.Point(338, 45)
+        Me.b_Vyradit.Name = "b_Vyradit"
+        Me.b_Vyradit.Size = New System.Drawing.Size(75, 23)
+        Me.b_Vyradit.TabIndex = 23
+        Me.b_Vyradit.Text = "Vyradiť"
+        Me.b_Vyradit.UseVisualStyleBackColor = True
+        Me.b_Vyradit.Visible = False
         '
         'cb_TypZariadenia
         '
@@ -470,4 +482,5 @@ Partial Class Zariadenia
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents tsmi_Upravit As ToolStripMenuItem
     Friend WithEvents tsmi_Vymazat As ToolStripMenuItem
+    Friend WithEvents b_Vyradit As Button
 End Class

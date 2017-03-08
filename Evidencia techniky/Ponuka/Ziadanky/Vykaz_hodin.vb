@@ -41,7 +41,7 @@ Public Class Vykaz_hodin
                     End If
                     l_PCisloZiadanky.Text = Uloha_Cislo
                     l_PDatum.Text = Spracovane
-                    l_POddelenie.Text = Nazov_oddelenia
+                    cb_POddelenie.Text = Nazov_oddelenia
 
                 End While
                 data.Close()
@@ -52,18 +52,76 @@ Public Class Vykaz_hodin
             MessageBox.Show(ex.Message, "ETECH - Údaje k žiadanke", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
 
-        If Ponuka.ZiadankySprava = 1 Then
-            b_Export.Visible = True
+        Dim QueryOddelenia As String
+        QueryOddelenia =
+        "SELECT odd.Nazov_oddelenia FROM uzivatelia u 
+        left join uzivatel_x_oddelenie uxo on u.id_uzivatela = uxo.id_uzivatela and uxo.stav = 0
+        left join oddelenia odd on uxo.id_oddelenia = odd.id_oddelenia and odd.stav = 0
+        where u.id_uzivatela = '" & Ponuka.id_uzivatela & "';"
+        con.Open()
+        Dim sqlOddelenia As MySqlCommand = New MySqlCommand(QueryOddelenia, con)
+        Try
+            Using odd As MySqlDataReader = sqlOddelenia.ExecuteReader()
+
+                'Vytvorenie tabulky.
+                Dim dtOddelenia As New DataTable("Oddelenia")
+                Dim ds2 As New DataSet()
+
+                'Nacitanie dat
+                dtOddelenia.Load(odd)
+
+                'Pridanie dat do tabulky
+                ds2.Tables.Add(dtOddelenia)
+
+                Dim i As Integer = 0
+
+                Do Until i = ds2.Tables(0).Rows.Count
+                    cb_POddelenie.Items.Add(ds2.Tables(0).Rows(i).Item(0))
+                    i = i + 1
+                Loop
+
+            End Using
+
+            con.Close()
+        Catch ex As Exception
+            con.Close()
+            MessageBox.Show(ex.Message, "ETECH - Zoznam oddelení ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
+
+        If Ponuka.ZiadankySprava = 2 Then
+            b_Pridat.Visible = True
             b_Ulozit.Enabled = True
             tb_SumarHodin.Visible = True
             l_PSumarHodin.Visible = False
         Else
         End If
 
-        If l_POddelenie.Location.X + l_POddelenie.Size.Width > 380 Then
-            tb_SumarHodin.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, tb_SumarHodin.Location.Y)
-            l_PSumarHodin.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, tb_SumarHodin.Location.Y)
-            l_Sumar_hodín.Location = New Size(l_POddelenie.Location.X + l_POddelenie.Size.Width + 20, l_Sumar_hodín.Location.Y)
+        If Ponuka.ZiadankySprava = 4 Then
+            b_Pridat.Visible = True
+            b_Ulozit.Enabled = True
+            tb_SumarHodin.Visible = True
+            l_PSumarHodin.Visible = False
+            cb_POddelenie.Enabled = True
+        Else
+        End If
+
+        Dim g As System.Drawing.Graphics = cb_POddelenie.CreateGraphics
+        Dim maxWidth As Double = 0.0F
+        For Each o As Object In cb_POddelenie.Items
+            Dim w As Double = g.MeasureString(o.ToString(), cb_POddelenie.Font).Width
+            If (w > maxWidth) Then
+                maxWidth = w
+            End If
+        Next
+
+        g.Dispose()
+        cb_POddelenie.DropDownWidth = maxWidth
+        cb_POddelenie.Width = cb_POddelenie.CreateGraphics.MeasureString(cb_POddelenie.Text.ToString(), cb_POddelenie.Font).Width + 15
+
+        If cb_POddelenie.Location.X + cb_POddelenie.Size.Width > 297 Then
+            tb_SumarHodin.Location = New Size(cb_POddelenie.Location.X + cb_POddelenie.Size.Width + 20, tb_SumarHodin.Location.Y)
+            l_PSumarHodin.Location = New Size(cb_POddelenie.Location.X + cb_POddelenie.Size.Width + 20, l_PSumarHodin.Location.Y)
+            l_Sumar_hodín.Location = New Size(cb_POddelenie.Location.X + cb_POddelenie.Size.Width + 20, l_Sumar_hodín.Location.Y)
         End If
 
         If tb_SumarHodin.Visible = True Then
@@ -78,7 +136,7 @@ Public Class Vykaz_hodin
         If tb_SumarHodin.Text <> PSumarHodin And PSumarHodin = "" Then
             'Zapis vykazanych hodin do databazy
             Dim QueryPC As String
-            QueryPC = "INSERT INTO vykazhodin(id_ulohy, id_oddelenie, SumarHodin, Vlozil_meno, Vlozil_dna) VALUES ('" & Ziadanky_sprava.id_ulohy & "', '" & oddelenie(Ziadanky_sprava.PNazovOddelenia) & "', '" & tb_SumarHodin.Text & "', '" & Ponuka.Meno_uzivatela & "', now());"
+            QueryPC = "INSERT INTO vykazhodin(id_ulohy, id_oddelenie, SumarHodin, Vlozil_meno, Vlozil_dna) VALUES ('" & Ziadanky_sprava.id_ulohy & "', '" & oddelenie(cb_POddelenie.Text) & "', '" & tb_SumarHodin.Text & "', '" & Ponuka.Meno_uzivatela & "', now());"
             con.Open()
             Dim sqlPC As MySqlCommand = New MySqlCommand(QueryPC, con)
             Try
@@ -105,5 +163,20 @@ Public Class Vykaz_hodin
         Else
             MessageBox.Show("Nič sa nezmenilo!", "ETECH - Zmena vykazaných hodín do databázy", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
+    End Sub
+
+    Private Sub b_Pridat_Click(sender As Object, e As EventArgs) Handles b_Pridat.Click
+        Dim QueryPC As String
+        QueryPC = "INSERT INTO vykazhodin(id_ulohy, id_oddelenie, SumarHodin, Vlozil_meno, Vlozil_dna) VALUES ('" & Ziadanky_sprava.id_ulohy & "', '" & oddelenie(cb_POddelenie.Text) & "', '" & tb_SumarHodin.Text & "', '" & Ponuka.Meno_uzivatela & "', now());"
+        con.Open()
+        Dim sqlPC As MySqlCommand = New MySqlCommand(QueryPC, con)
+        Try
+            sqlPC.ExecuteNonQuery()
+            MessageBox.Show("Hodiny BOLI vložené!", "ETECH - Zápis vykazaných hodín do databázy", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            con.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "ETECH - Zápis vykazaných hodín do databázy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            con.Close()
+        End Try
     End Sub
 End Class

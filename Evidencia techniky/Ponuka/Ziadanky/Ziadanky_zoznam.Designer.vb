@@ -43,7 +43,17 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky = New System.Windows.Forms.TabControl()
         Me.tp_UkoncenieZadavatelom = New System.Windows.Forms.TabPage()
         Me.dgv_UkoncenieZadavatelom = New System.Windows.Forms.DataGridView()
+        Me.tp_Mesacna = New System.Windows.Forms.TabPage()
+        Me.dgv_Mesacna = New System.Windows.Forms.DataGridView()
+        Me.tp_MesacnaUkoncena = New System.Windows.Forms.TabPage()
+        Me.dgv_MesacnaUkoncena = New System.Windows.Forms.DataGridView()
+        Me.tp_Pohotovost = New System.Windows.Forms.TabPage()
+        Me.dgv_Pohotovost = New System.Windows.Forms.DataGridView()
+        Me.tp_PohotovostUkoncena = New System.Windows.Forms.TabPage()
+        Me.dgv_PohotovostUkoncena = New System.Windows.Forms.DataGridView()
         Me.UlohaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.tp_VeduciUkoncenie = New System.Windows.Forms.TabPage()
+        Me.dgv_VeduciUkoncenie = New System.Windows.Forms.DataGridView()
         Me.tp_Investicie.SuspendLayout()
         CType(Me.dgv_Investicie, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tp_UkonceneUdrzba.SuspendLayout()
@@ -61,7 +71,17 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky.SuspendLayout()
         Me.tp_UkoncenieZadavatelom.SuspendLayout()
         CType(Me.dgv_UkoncenieZadavatelom, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_Mesacna.SuspendLayout()
+        CType(Me.dgv_Mesacna, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_MesacnaUkoncena.SuspendLayout()
+        CType(Me.dgv_MesacnaUkoncena, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_Pohotovost.SuspendLayout()
+        CType(Me.dgv_Pohotovost, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_PohotovostUkoncena.SuspendLayout()
+        CType(Me.dgv_PohotovostUkoncena, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tp_VeduciUkoncenie.SuspendLayout()
+        CType(Me.dgv_VeduciUkoncenie, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'b_NacitatData
@@ -266,9 +286,14 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky.Controls.Add(Me.tp_Odlozene)
         Me.tb_Ziadanky.Controls.Add(Me.tp_VrateneZadavatelovi)
         Me.tb_Ziadanky.Controls.Add(Me.tp_VrateneUdrzbe)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_VeduciUkoncenie)
         Me.tb_Ziadanky.Controls.Add(Me.tp_UkoncenieZadavatelom)
         Me.tb_Ziadanky.Controls.Add(Me.tp_UkonceneUdrzba)
         Me.tb_Ziadanky.Controls.Add(Me.tp_Investicie)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_Mesacna)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_MesacnaUkoncena)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_Pohotovost)
+        Me.tb_Ziadanky.Controls.Add(Me.tp_PohotovostUkoncena)
         Me.tb_Ziadanky.Location = New System.Drawing.Point(12, 12)
         Me.tb_Ziadanky.Name = "tb_Ziadanky"
         Me.tb_Ziadanky.SelectedIndex = 0
@@ -298,6 +323,126 @@ Partial Class Ziadanky_zoznam
         Me.dgv_UkoncenieZadavatelom.ReadOnly = True
         Me.dgv_UkoncenieZadavatelom.Size = New System.Drawing.Size(988, 351)
         Me.dgv_UkoncenieZadavatelom.TabIndex = 16
+        '
+        'tp_Mesacna
+        '
+        Me.tp_Mesacna.Controls.Add(Me.dgv_Mesacna)
+        Me.tp_Mesacna.Location = New System.Drawing.Point(4, 22)
+        Me.tp_Mesacna.Name = "tp_Mesacna"
+        Me.tp_Mesacna.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_Mesacna.TabIndex = 8
+        Me.tp_Mesacna.Text = "Mesačná"
+        Me.tp_Mesacna.UseVisualStyleBackColor = True
+        '
+        'dgv_Mesacna
+        '
+        Me.dgv_Mesacna.AllowUserToAddRows = False
+        Me.dgv_Mesacna.AllowUserToDeleteRows = False
+        Me.dgv_Mesacna.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_Mesacna.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_Mesacna.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_Mesacna.Name = "dgv_Mesacna"
+        Me.dgv_Mesacna.ReadOnly = True
+        Me.dgv_Mesacna.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_Mesacna.TabIndex = 16
+        '
+        'tp_MesacnaUkoncena
+        '
+        Me.tp_MesacnaUkoncena.Controls.Add(Me.dgv_MesacnaUkoncena)
+        Me.tp_MesacnaUkoncena.Location = New System.Drawing.Point(4, 22)
+        Me.tp_MesacnaUkoncena.Name = "tp_MesacnaUkoncena"
+        Me.tp_MesacnaUkoncena.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_MesacnaUkoncena.TabIndex = 9
+        Me.tp_MesacnaUkoncena.Text = "Mesačná ukončená"
+        Me.tp_MesacnaUkoncena.UseVisualStyleBackColor = True
+        '
+        'dgv_MesacnaUkoncena
+        '
+        Me.dgv_MesacnaUkoncena.AllowUserToAddRows = False
+        Me.dgv_MesacnaUkoncena.AllowUserToDeleteRows = False
+        Me.dgv_MesacnaUkoncena.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_MesacnaUkoncena.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_MesacnaUkoncena.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_MesacnaUkoncena.Name = "dgv_MesacnaUkoncena"
+        Me.dgv_MesacnaUkoncena.ReadOnly = True
+        Me.dgv_MesacnaUkoncena.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_MesacnaUkoncena.TabIndex = 16
+        '
+        'tp_Pohotovost
+        '
+        Me.tp_Pohotovost.Controls.Add(Me.dgv_Pohotovost)
+        Me.tp_Pohotovost.Location = New System.Drawing.Point(4, 22)
+        Me.tp_Pohotovost.Name = "tp_Pohotovost"
+        Me.tp_Pohotovost.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_Pohotovost.TabIndex = 10
+        Me.tp_Pohotovost.Text = "Pohotovosť"
+        Me.tp_Pohotovost.UseVisualStyleBackColor = True
+        '
+        'dgv_Pohotovost
+        '
+        Me.dgv_Pohotovost.AllowUserToAddRows = False
+        Me.dgv_Pohotovost.AllowUserToDeleteRows = False
+        Me.dgv_Pohotovost.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_Pohotovost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_Pohotovost.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_Pohotovost.Name = "dgv_Pohotovost"
+        Me.dgv_Pohotovost.ReadOnly = True
+        Me.dgv_Pohotovost.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_Pohotovost.TabIndex = 16
+        '
+        'tp_PohotovostUkoncena
+        '
+        Me.tp_PohotovostUkoncena.Controls.Add(Me.dgv_PohotovostUkoncena)
+        Me.tp_PohotovostUkoncena.Location = New System.Drawing.Point(4, 22)
+        Me.tp_PohotovostUkoncena.Name = "tp_PohotovostUkoncena"
+        Me.tp_PohotovostUkoncena.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_PohotovostUkoncena.TabIndex = 11
+        Me.tp_PohotovostUkoncena.Text = "Pohotovosť ukončená"
+        Me.tp_PohotovostUkoncena.UseVisualStyleBackColor = True
+        '
+        'dgv_PohotovostUkoncena
+        '
+        Me.dgv_PohotovostUkoncena.AllowUserToAddRows = False
+        Me.dgv_PohotovostUkoncena.AllowUserToDeleteRows = False
+        Me.dgv_PohotovostUkoncena.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_PohotovostUkoncena.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_PohotovostUkoncena.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_PohotovostUkoncena.Name = "dgv_PohotovostUkoncena"
+        Me.dgv_PohotovostUkoncena.ReadOnly = True
+        Me.dgv_PohotovostUkoncena.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_PohotovostUkoncena.TabIndex = 17
+        '
+        'tp_VeduciUkoncenie
+        '
+        Me.tp_VeduciUkoncenie.Controls.Add(Me.dgv_VeduciUkoncenie)
+        Me.tp_VeduciUkoncenie.Location = New System.Drawing.Point(4, 22)
+        Me.tp_VeduciUkoncenie.Name = "tp_VeduciUkoncenie"
+        Me.tp_VeduciUkoncenie.Size = New System.Drawing.Size(1000, 363)
+        Me.tp_VeduciUkoncenie.TabIndex = 12
+        Me.tp_VeduciUkoncenie.Text = "Vedúci ukončenie"
+        Me.tp_VeduciUkoncenie.UseVisualStyleBackColor = True
+        '
+        'dgv_VeduciUkoncenie
+        '
+        Me.dgv_VeduciUkoncenie.AllowUserToAddRows = False
+        Me.dgv_VeduciUkoncenie.AllowUserToDeleteRows = False
+        Me.dgv_VeduciUkoncenie.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgv_VeduciUkoncenie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgv_VeduciUkoncenie.Location = New System.Drawing.Point(6, 6)
+        Me.dgv_VeduciUkoncenie.Name = "dgv_VeduciUkoncenie"
+        Me.dgv_VeduciUkoncenie.ReadOnly = True
+        Me.dgv_VeduciUkoncenie.Size = New System.Drawing.Size(988, 351)
+        Me.dgv_VeduciUkoncenie.TabIndex = 19
         '
         'Ziadanky_zoznam
         '
@@ -329,7 +474,17 @@ Partial Class Ziadanky_zoznam
         Me.tb_Ziadanky.ResumeLayout(False)
         Me.tp_UkoncenieZadavatelom.ResumeLayout(False)
         CType(Me.dgv_UkoncenieZadavatelom, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_Mesacna.ResumeLayout(False)
+        CType(Me.dgv_Mesacna, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_MesacnaUkoncena.ResumeLayout(False)
+        CType(Me.dgv_MesacnaUkoncena, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_Pohotovost.ResumeLayout(False)
+        CType(Me.dgv_Pohotovost, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_PohotovostUkoncena.ResumeLayout(False)
+        CType(Me.dgv_PohotovostUkoncena, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UlohaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tp_VeduciUkoncenie.ResumeLayout(False)
+        CType(Me.dgv_VeduciUkoncenie, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -353,4 +508,14 @@ Partial Class Ziadanky_zoznam
     Friend WithEvents tb_Ziadanky As TabControl
     Friend WithEvents tp_UkoncenieZadavatelom As TabPage
     Friend WithEvents dgv_UkoncenieZadavatelom As DataGridView
+    Friend WithEvents tp_Mesacna As TabPage
+    Friend WithEvents dgv_Mesacna As DataGridView
+    Friend WithEvents tp_MesacnaUkoncena As TabPage
+    Friend WithEvents dgv_MesacnaUkoncena As DataGridView
+    Friend WithEvents tp_Pohotovost As TabPage
+    Friend WithEvents dgv_Pohotovost As DataGridView
+    Friend WithEvents tp_PohotovostUkoncena As TabPage
+    Friend WithEvents dgv_PohotovostUkoncena As DataGridView
+    Friend WithEvents tp_VeduciUkoncenie As TabPage
+    Friend WithEvents dgv_VeduciUkoncenie As DataGridView
 End Class

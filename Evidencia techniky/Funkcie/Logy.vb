@@ -16,6 +16,7 @@ Module Logy_funk
             con.Close()
             ErrorText = MessageBox.Show(ex.Message, "ETECH - Zápis logov do databázy", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
+        con.Close()
 
         Return ErrorText.ToString
     End Function

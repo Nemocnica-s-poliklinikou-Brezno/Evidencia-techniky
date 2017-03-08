@@ -173,6 +173,7 @@ Public Class Zariadenia
                         l_Vyradeny.Visible = True
                         dtp_Vyradeny.Visible = True
                         dtp_Vyradeny.Text = data("Vyradeny_dna").ToString
+                        b_Vyradit.Visible = False
                     End If
                     If data("Cislo_licencie").ToString <> "" Then
                         l_Teamviewer.Visible = True
@@ -435,5 +436,28 @@ Public Class Zariadenia
         ElseIf tb_Vyhladat.Text <> "" And PEvidencneCislo <> tb_EvidencneCislo.Text Then
             b_Zmenit.Enabled = True
         End If
+    End Sub
+
+    Private Sub b_Vyradit_Click(sender As Object, e As EventArgs) Handles b_Vyradit.Click
+        Select Case MessageBox.Show("Naozaj chcete vyradiť zariadenie ?", "ETECH - Vyradenie zariadenia", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+            Case MsgBoxResult.No
+                MessageBox.Show("Nevadí nič sa nestalo.", "ETECH - Vyradenie zariadenia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Case MsgBoxResult.Yes
+                Dim QueryMazanie As String
+                QueryMazanie = "UPDATE uloha SET Vyradeny_dna = now(), Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE id_zariadenia = '" & id_zariadenia & "';"
+                con.Open()
+                Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
+                Try
+                    sqlMazanie.ExecuteNonQuery()
+                    con.Close()
+                    MessageBox.Show("Zariadenie bola vyradené!", "ETECH - Vyradenie zariadenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    logy(22, 1, "")
+                Catch ex As Exception
+                    con.Close()
+                    MessageBox.Show(ex.Message, "ETECH - Vyradenie zariadenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    logy(22, 2, ex.Message)
+                End Try
+        End Select
+
     End Sub
 End Class

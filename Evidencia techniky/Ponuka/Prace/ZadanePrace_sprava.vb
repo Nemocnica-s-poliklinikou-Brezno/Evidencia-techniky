@@ -18,12 +18,25 @@ Public Class ZadanePrace_sprava
     Public Sub ZadanePrace_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
 
+        If Ponuka.PraceSprava = 4 Then
+            cb_DruhPrace.Enabled = True
+            cb_StavPrace.Enabled = True
+            cb_Priradene.Enabled = True
+            rtb_PopisPrace.Enabled = True
+            dtp_Spracovane.Enabled = True
+            b_Ulozit.Enabled = True
+            b_Spracovane.Enabled = True
+            b_Kopiruj.Visible = True
+            l_Vymazat.Visible = True
+        End If
+
+
         con.Open()
         Dim sqlquery As String =
         "SELECT p.ID_prace, CONCAT_WS('', cd2.Popis, p.Cislo_prace) as 'Cislo_prace', p.Cislo_prace as 'Cislo_prace2', date_format(p.Prijate, GET_FORMAT(DATE,'EUR')) as 'Datum zadania prace', date_format(p.Odovzdat_do, GET_FORMAT(DATE,'EUR')) as 'Odovzdat pracu do', date_format(p.Spracovane, GET_FORMAT(DATE,'EUR')) as 'Praca spracovana', cd2.Nazov_hodnoty as Typ_prace, cd4.Nazov_hodnoty as Stav_prace, p.Popis_prace, CONCAT_WS(' ', uz.Priezvisko, uz.meno) as 'Priradene'
         FROM prace p
-        join ciselnik_data cd2 on p.Druh_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
-        join ciselnik_data cd4 on p.stav_prace = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
+        join ciselnik_data cd2 on p.Druh_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav in (0, 1)
+        join ciselnik_data cd4 on p.stav_prace = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav in (0, 1)
         left join prace_x_uzivatel pxu on p.ID_prace = pxu.id_prace
         left join uzivatelia uz on pxu.id_uzivatela = uz.id_uzivatela
         WHERE p.id_prace = '" & Zoznam_zadanych_prac.id_prace & "' and p.stav = 0"
@@ -76,7 +89,7 @@ Public Class ZadanePrace_sprava
         Dim QueryPrace As String
         QueryPrace =
         "SELECT cd.Nazov_hodnoty FROM uloha_x_uzivatel uxu
-        join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav = 0
+        join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav in (0, 1)
         where uxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' and uxu.idciselnik = 9 and uxu.stav = 0;"
         con.Open()
         Dim sqlPrace As MySqlCommand = New MySqlCommand(QueryPrace, con)
@@ -111,7 +124,7 @@ Public Class ZadanePrace_sprava
         Dim QueryStavUloh As String
         QueryStavUloh =
         "SELECT cd.Nazov_hodnoty FROM uloha_x_uzivatel uxu
-        join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav = 0
+        join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav in (0, 1)
         where uxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' and uxu.idciselnik = 11 and uxu.Hodnota in (0, 1, 2, 6) and uxu.stav = 0;"
         con.Open()
         Dim sqlStavUloh As MySqlCommand = New MySqlCommand(QueryStavUloh, con)
@@ -262,5 +275,27 @@ Public Class ZadanePrace_sprava
             logy(20, 2, ex.Message)
             MessageBox.Show(ex.Message, "Pridelenie užívateľa k práci", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
+    End Sub
+
+    Private Sub l_Vymazat_Click(sender As Object, e As EventArgs) Handles l_Vymazat.Click
+        Select Case MessageBox.Show("Naozaj chceš vymazať prácu ?", "ETECH - Vymazanie práce", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+            Case MsgBoxResult.No
+                MessageBox.Show("Nevadí nič sa nestalo.", "ETECH - Vymazanie práce", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Case MsgBoxResult.Yes
+                Dim QueryMazanie As String
+                QueryMazanie = "UPDATE prace SET stav = 2, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE ID_prace = '" & Zoznam_zadanych_prac.id_prace & "';"
+                con.Open()
+                Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
+                Try
+                    sqlMazanie.ExecuteNonQuery()
+                    con.Close()
+                    MessageBox.Show("Práca bola vymazaná!", "ETECH - Vymazanie práce", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    logy(22, 1, "")
+                Catch ex As Exception
+                    con.Close()
+                    MessageBox.Show(ex.Message, "ETECH - Vymazanie práce", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    logy(22, 2, ex.Message)
+                End Try
+        End Select
     End Sub
 End Class

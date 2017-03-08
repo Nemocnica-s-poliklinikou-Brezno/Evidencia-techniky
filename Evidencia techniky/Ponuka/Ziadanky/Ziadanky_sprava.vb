@@ -3,9 +3,11 @@ Imports Evidencia_techniky.pripojenie
 
 Public Class Ziadanky_sprava
     Public Shared id_ulohy
+    Public Shared Nahlasil_ID_zamestnanca
     Public Shared PUlohaCislo As String
     Dim PNahlaseneDna As String
     Dim PUrgencia As String
+    Dim PPoznamka As String
     Dim PCast As String
     Dim PTypPoziadavky As String
     Dim PTypPrace As String
@@ -20,26 +22,57 @@ Public Class Ziadanky_sprava
     Public Sub Ziadanky_sprava_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = hlavicka_programu(Me.Text, UCase(Ponuka.Meno_uzivatela))
 
-        If Ponuka.ZiadankySprava = 1 Then
+        If Ponuka.ZiadankySprava = 2 Then
+            cb_StavUlohy.Enabled = True
+            b_Poznamka.Visible = True
+            b_Ulozit.Enabled = True
+        End If
+
+        If Ponuka.ZiadankySprava = 3 Then
+            cb_TypPoziadavky.Enabled = True
+            cb_TypPrace.Enabled = True
             cb_TypUlohy.Enabled = True
+            cb_ZOddelenia.Enabled = True
+            chb_Muzi.Enabled = True
+            chb_Zeny.Enabled = True
+            chb_Urgencia.Enabled = True
+            tb_Miestnost.Enabled = True
+            cb_StavUlohy.Enabled = True
+            rtb_PopisPoziadavky.Enabled = True
+            b_Poznamka.Visible = True
+            b_Pridat.Visible = True
+            b_Ulozit.Enabled = True
+        End If
+
+        If Ponuka.ZiadankySprava = 4 Then
+            cb_TypPoziadavky.Enabled = True
+            cb_TypPrace.Enabled = True
+            cb_TypUlohy.Enabled = True
+            cb_ZOddelenia.Enabled = True
+            chb_Muzi.Enabled = True
+            chb_Zeny.Enabled = True
+            chb_Urgencia.Enabled = True
+            tb_Miestnost.Enabled = True
+            cb_StavUlohy.Enabled = True
+            rtb_PopisPoziadavky.Enabled = True
+            b_Poznamka.Visible = True
             b_Pridat.Visible = True
             b_Tlac.Visible = True
-            b_Material.Visible = True
-            b_Hodiny.Visible = True
+            b_Ulozit.Enabled = True
             ll_PridatOdd.Visible = True
             l_Vymazat.Visible = True
         End If
 
         con.Open()
         Dim sqlquery As String =
-        "SELECT u.id_ulohy, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon, uz.Email
+        "SELECT u.id_ulohy, u.Nahlasil_ID_zamestanca, u.Uloha_cislo, date_format(u.Nahlasene_dna, GET_FORMAT(DATE,'EUR')) as 'Nasladene dna', u.Urgencia, u.Poznamka, cd1.Nazov_hodnoty as Typ_poziadavky, cd2.Nazov_hodnoty as Typ_prace, cd3.Nazov_hodnoty as Typ_ulohy, cd4.Nazov_hodnoty as Stav_ulohy, odd.Nazov_oddelenia, u.Cast, u.Miestnost, u.Popis_ulohy, CONCAT_WS(' ', uz.meno, uz.Priezvisko) as 'Zadavatel', uz.Telefon, uz.Email
         FROM uloha u
-        left join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav = 0
-        left join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav = 0
-        left join ciselnik_data cd3 on u.typ_ulohy = cd3.Hodnota and cd3.idciselnik = 10 and cd3.stav = 0
-        left join ciselnik_data cd4 on u.stav_ulohy = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav = 0
+        left join ciselnik_data cd1 on u.typ_poziadavky = cd1.Hodnota and cd1.idciselnik = 8 and cd1.stav in (0, 1)
+        left join ciselnik_data cd2 on u.typ_prace = cd2.Hodnota and cd2.idciselnik = 9 and cd2.stav in (0, 1)
+        left join ciselnik_data cd3 on u.typ_ulohy = cd3.Hodnota and cd3.idciselnik = 10 and cd3.stav in (0, 1)
+        left join ciselnik_data cd4 on u.stav_ulohy = cd4.Hodnota and cd4.idciselnik = 11 and cd4.stav in (0, 1)
         left join uzivatelia uz on u.Nahlasil_ID_zamestanca = uz.id_uzivatela
-        left join oddelenia odd on u.oddelenie = odd.id_oddelenia and odd.stav = 0
+        left join oddelenia odd on u.oddelenie = odd.id_oddelenia and odd.stav in (0, 1)
         WHERE u.Uloha_cislo = '" & Ziadanky_zoznam.Poziadavka_cislo & "' and u.stav = 0"
         Dim data As MySqlDataReader
         Dim adapter As New MySqlDataAdapter
@@ -52,10 +85,12 @@ Public Class Ziadanky_sprava
             If data.HasRows Then
                 While data.Read()
                     id_ulohy = data("id_ulohy").ToString
+                    Nahlasil_ID_zamestnanca = data("Nahlasil_ID_zamestanca").ToString
                     Email = data("Email").ToString()
                     PUlohaCislo = data("Uloha_cislo").ToString
                     PNahlaseneDna = data("Nasladene dna").ToString
                     PUrgencia = data("Urgencia").ToString
+                    PPoznamka = data("Poznamka").ToString
                     PTypPoziadavky = data("Typ_poziadavky").ToString
                     PTypPrace = data("Typ_prace").ToString
                     PTypUlohy = data("Typ_ulohy").ToString
@@ -77,6 +112,9 @@ Public Class Ziadanky_sprava
                     rtb_PopisPoziadavky.Text = PPopisUlohy
                     l_PZadavatel.Text = PZadavatel
 
+                    If PPoznamka <> "" Then
+                        b_Poznamka.Visible = True
+                    End If
 
                     If PUrgencia = 1 Then
                         chb_Urgencia.Checked = True
@@ -93,6 +131,19 @@ Public Class Ziadanky_sprava
                         chb_Muzi.Checked = True
                     End If
 
+                    If Nahlasil_ID_zamestnanca = Ponuka.id_uzivatela Then
+                        cb_TypPoziadavky.Enabled = True
+                        cb_TypPrace.Enabled = True
+                        cb_ZOddelenia.Enabled = True
+                        chb_Muzi.Enabled = True
+                        chb_Zeny.Enabled = True
+                        chb_Urgencia.Enabled = True
+                        tb_Miestnost.Enabled = True
+                        cb_StavUlohy.Enabled = True
+                        rtb_PopisPoziadavky.Enabled = True
+                        b_Ulozit.Enabled = True
+                    End If
+
                 End While
                 data.Close()
             End If
@@ -102,7 +153,7 @@ Public Class Ziadanky_sprava
             MessageBox.Show(ex.Message, "ETECH - Vytiahnutie údajov ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
 
-        If cb_StavUlohy.Text = "Ukončená" Or cb_StavUlohy.Text = "Ukončenie zadávateľom" Then
+        If cb_StavUlohy.Text = "Ukončená" Or cb_StavUlohy.Text = "Ukončenie zadávateľom" Or cb_StavUlohy.Text = "Vedúci ukončenie" Then
             b_Hodiny.Enabled = True
             b_Material.Enabled = True
         End If
@@ -327,7 +378,10 @@ Public Class Ziadanky_sprava
                 Notifikacia(1, Email, 4)
             End If
             If cb_StavUlohy.Text = "Vrátená - údržbe" Then
-                Notifikacia(1, "prsanec@nspbr.sk", 4)
+                Notifikacia(1, "prsanec@nspbr.sk", 3)
+            End If
+            If cb_StavUlohy.Text = "Vedúci ukončenie" Then
+                Notifikacia(1, "prsanec@nspbr.sk", 5)
             End If
         Catch ex As Exception
             con.Close()
@@ -350,8 +404,11 @@ Public Class Ziadanky_sprava
     End Sub
 
     Private Sub cb_StavUlohy_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cb_StavUlohy.SelectedIndexChanged
-        If cb_StavUlohy.Text = "Vrátená - zadávateľovi" Or cb_StavUlohy.Text = "Odložené" Then
+        If cb_StavUlohy.Text = "Vrátená - zadávateľovi" Or cb_StavUlohy.Text = "Odložené" Or cb_StavUlohy.Text = "Vrátená - údržbe" Or cb_StavUlohy.Text = "Vedúci ukončenie" Then
             VstupneDataTextBox.Show()
+            b_Hodiny.Enabled = True
+            b_Material.Enabled = True
+            b_Ulozit.Enabled = True
         End If
         If cb_StavUlohy.Text = "Ukončená" Or cb_StavUlohy.Text = "Ukončenie zadávateľom" Then
             b_Hodiny.Enabled = True
@@ -418,7 +475,7 @@ Public Class Ziadanky_sprava
                 MessageBox.Show("Nevadí nič sa nestalo.", "ETECH - Vymazanie žiadanky", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Case MsgBoxResult.Yes
                 Dim QueryMazanie As String
-                QueryMazanie = "UPDATE uloha SET stav = 1, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
+                QueryMazanie = "UPDATE uloha SET stav = 2, Upravil_meno = '" & UCase(Ponuka.Meno_uzivatela) & "', Upravil_dna = now() WHERE Uloha_cislo = '" & l_PUlohaCislo.Text & "';"
                 con.Open()
                 Dim sqlMazanie As MySqlCommand = New MySqlCommand(QueryMazanie, con)
                 Try
@@ -441,4 +498,9 @@ Public Class Ziadanky_sprava
     Private Sub b_Material_Click(sender As Object, e As EventArgs) Handles b_Material.Click
         Vykaz_materialu.Show()
     End Sub
+
+    Private Sub b_Poznamka_Click(sender As Object, e As EventArgs) Handles b_Poznamka.Click
+        Poznamka.Show()
+    End Sub
+
 End Class

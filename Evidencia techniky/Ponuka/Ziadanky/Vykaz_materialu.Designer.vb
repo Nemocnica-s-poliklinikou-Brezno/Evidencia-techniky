@@ -22,17 +22,22 @@ Partial Class Vykaz_materialu
     'Neupravovat pomocí editoru kódu
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Vykaz_materialu))
         Me.b_Ulozit = New System.Windows.Forms.Button()
         Me.dgv_VykazMaterialu = New System.Windows.Forms.DataGridView()
+        Me.b_Kopiruj = New System.Windows.Forms.Button()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.tsmi_Vymazat = New System.Windows.Forms.ToolStripMenuItem()
+        Me.idvykazmaterialu = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Datum = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Cislo_ziadanky = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Cislo_vydajky = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Kusy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nazov_materialu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.b_Kopiruj = New System.Windows.Forms.Button()
         CType(Me.dgv_VykazMaterialu, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'b_Ulozit
@@ -52,17 +57,47 @@ Partial Class Vykaz_materialu
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv_VykazMaterialu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv_VykazMaterialu.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Datum, Me.Cislo_ziadanky, Me.Cislo_vydajky, Me.Kusy, Me.Nazov_materialu})
+        Me.dgv_VykazMaterialu.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.idvykazmaterialu, Me.Datum, Me.Cislo_ziadanky, Me.Cislo_vydajky, Me.Kusy, Me.Nazov_materialu})
         Me.dgv_VykazMaterialu.Location = New System.Drawing.Point(13, 13)
         Me.dgv_VykazMaterialu.Name = "dgv_VykazMaterialu"
         Me.dgv_VykazMaterialu.Size = New System.Drawing.Size(724, 179)
         Me.dgv_VykazMaterialu.TabIndex = 1
         '
+        'b_Kopiruj
+        '
+        Me.b_Kopiruj.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.b_Kopiruj.Location = New System.Drawing.Point(579, 198)
+        Me.b_Kopiruj.Name = "b_Kopiruj"
+        Me.b_Kopiruj.Size = New System.Drawing.Size(75, 23)
+        Me.b_Kopiruj.TabIndex = 2
+        Me.b_Kopiruj.Text = "Kopíruj"
+        Me.b_Kopiruj.UseVisualStyleBackColor = True
+        Me.b_Kopiruj.Visible = False
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmi_Vymazat})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 48)
+        '
+        'tsmi_Vymazat
+        '
+        Me.tsmi_Vymazat.Name = "tsmi_Vymazat"
+        Me.tsmi_Vymazat.Size = New System.Drawing.Size(152, 22)
+        Me.tsmi_Vymazat.Text = "Vymazať"
+        Me.tsmi_Vymazat.Visible = False
+        '
+        'idvykazmaterialu
+        '
+        Me.idvykazmaterialu.HeaderText = "idvykazmaterialu"
+        Me.idvykazmaterialu.Name = "idvykazmaterialu"
+        Me.idvykazmaterialu.Visible = False
+        '
         'Datum
         '
-        DataGridViewCellStyle1.Format = "d"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Datum.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Format = "d"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Datum.DefaultCellStyle = DataGridViewCellStyle2
         Me.Datum.HeaderText = "Dátum"
         Me.Datum.Name = "Datum"
         '
@@ -86,17 +121,6 @@ Partial Class Vykaz_materialu
         Me.Nazov_materialu.HeaderText = "Názov materiálu"
         Me.Nazov_materialu.Name = "Nazov_materialu"
         '
-        'b_Kopiruj
-        '
-        Me.b_Kopiruj.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.b_Kopiruj.Location = New System.Drawing.Point(579, 198)
-        Me.b_Kopiruj.Name = "b_Kopiruj"
-        Me.b_Kopiruj.Size = New System.Drawing.Size(75, 23)
-        Me.b_Kopiruj.TabIndex = 2
-        Me.b_Kopiruj.Text = "Kopíruj"
-        Me.b_Kopiruj.UseVisualStyleBackColor = True
-        Me.b_Kopiruj.Visible = False
-        '
         'Vykaz_materialu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -109,6 +133,7 @@ Partial Class Vykaz_materialu
         Me.Name = "Vykaz_materialu"
         Me.Text = "Výkaz materiálu"
         CType(Me.dgv_VykazMaterialu, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -116,6 +141,9 @@ Partial Class Vykaz_materialu
     Friend WithEvents b_Ulozit As Button
     Friend WithEvents dgv_VykazMaterialu As DataGridView
     Friend WithEvents b_Kopiruj As Button
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents tsmi_Vymazat As ToolStripMenuItem
+    Friend WithEvents idvykazmaterialu As DataGridViewTextBoxColumn
     Friend WithEvents Datum As DataGridViewTextBoxColumn
     Friend WithEvents Cislo_ziadanky As DataGridViewTextBoxColumn
     Friend WithEvents Cislo_vydajky As DataGridViewTextBoxColumn

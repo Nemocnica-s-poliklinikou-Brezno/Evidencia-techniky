@@ -16,9 +16,13 @@ Public Class Ziadanky
 
         dtp_SpracovatDo.Text = Now
 
-        If Ponuka.ZiadankySprava = 1 Then
+        If Ponuka.ZiadankySprava = 4 Then
             ll_PridatOdd.Visible = True
+            cb_TypUlohy.Visible = True
+            l_TypUlohy.Visible = True
         End If
+
+        cb_TypPoziadavky.Items.Clear()
 
         Dim Query As String
         Query = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 8;"
@@ -50,6 +54,8 @@ Public Class Ziadanky
             MessageBox.Show(ex.Message, "ETECH - Zistenie typu požiadavky", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End Try
         con.Close()
+
+        cb_TypPrace.Items.Clear()
 
         Dim QueryPrace As String
         QueryPrace = "SELECT Nazov_hodnoty FROM ciselnik_data WHERE stav = 0 AND idciselnik = 9;"
@@ -100,6 +106,43 @@ Public Class Ziadanky
 
         End If
 
+        cb_TypUlohy.Items.Clear()
+
+        Dim QueryTypyUloh As String
+        QueryTypyUloh =
+        "SELECT cd.Nazov_hodnoty FROM uloha_x_uzivatel uxu
+        join ciselnik_data cd on uxu.hodnota = cd.hodnota and uxu.idciselnik = cd.idciselnik and cd.stav = 0
+        where uxu.id_uzivatela = '" & Ponuka.id_uzivatela & "' and uxu.idciselnik = 10 and uxu.stav = 0;"
+        con.Open()
+        Dim sqlTypyUloh As MySqlCommand = New MySqlCommand(QueryTypyUloh, con)
+        Try
+            Using odd As MySqlDataReader = sqlTypyUloh.ExecuteReader()
+
+                'Vytvorenie tabulky.
+                Dim dtTypyUloh As New DataTable("TypyUloh")
+                Dim ds3 As New DataSet()
+
+                'Nacitanie dat
+                dtTypyUloh.Load(odd)
+
+                'Pridanie dat do tabulky
+                ds3.Tables.Add(dtTypyUloh)
+
+                Dim i As Integer = 0
+
+                Do Until i = ds3.Tables(0).Rows.Count
+                    cb_TypUlohy.Items.Add(ds3.Tables(0).Rows(i).Item(0))
+                    i = i + 1
+                Loop
+
+            End Using
+            con.Close()
+        Catch ex As Exception
+            con.Close()
+            MessageBox.Show(ex.Message, "ETECH - Zistenie typov úloh", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End Try
+
+        cb_TypUlohy.SelectedIndex = 0
     End Sub
 
     Private Sub ll_Zoznam_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_Zoznam.LinkClicked
@@ -128,12 +171,12 @@ Public Class Ziadanky
             Cast = "Muži"
         End If
 
-        Dim UlohaCislo As String = Uloha_Cislo() + 1
+        Dim UlohaCislo As String = Uloha_Cislo(cb_TypUlohy.SelectedIndex.ToString) + 1
         If cb_TypPrace.Text <> "" Then
             If rtb_Popis.Text <> "" Then
                 If cb_TypPoziadavky.Text <> "" And cb_TypPoziadavky.Text <> "Žiadanka na montáž" Then
                     Dim Query As String
-                    Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Cast, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & Cast & "', '" & tb_Miestnost.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
+                    Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Cast, Miestnost, Odovzdat_do, Typ_ulohy, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & Cast & "', '" & tb_Miestnost.Text & "', '" & uprava_datumu(dtp_SpracovatDo.Text) & "', (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 10 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypUlohy.Text & "'), '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
                     con.Open()
                     Dim sql As MySqlCommand = New MySqlCommand(Query, con)
                     Try
@@ -166,7 +209,7 @@ Public Class Ziadanky
                             MessageBox.Show("Žiadanka nebola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         Case MsgBoxResult.Yes
                             Dim Query As String
-                            Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Miestnost, Odovzdat_do, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & tb_Miestnost.Text & "', '" & dtp_SpracovatDo.Text & "', '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
+                            Query = "INSERT INTO uloha(Nahlasil_ID_zamestanca, Uloha_cislo, Nahlasene_dna, Typ_poziadavky, Typ_prace, Popis_ulohy, Oddelenie, Miestnost, Odovzdat_do, Typ_ulohy, Urgencia, Vlozil_meno, Vlozil_dna) values ('" & Ponuka.id_uzivatela & "', '" & UlohaCislo & "', now(), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 8 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPoziadavky.Text & "'), (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 9 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypPrace.Text & "'), '" & rtb_Popis.Text & "', '" & oddelenie(cb_ZOddelenia.Text) & "', '" & tb_Miestnost.Text & "', '" & dtp_SpracovatDo.Text & "', (select Hodnota from ciselnik_data where stav = 0 and idciselnik = 10 and CONVERT(Nazov_hodnoty USING utf8) = '" & cb_TypUlohy.Text & "'), '" & Urgencia & "', '" & UCase(Ponuka.Meno_uzivatela) & "', now());"
                             con.Open()
                             Dim sql As MySqlCommand = New MySqlCommand(Query, con)
                             Try
@@ -174,9 +217,7 @@ Public Class Ziadanky
                                 con.Close()
                                 MessageBox.Show("Žiadanka bola pridaná do systému", "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                 logy(6, 1, "")
-                                con.Close()
                                 Notifikacia(0, "", 1)
-                                con.Close()
                             Catch ex As Exception
                                 con.Close()
                                 MessageBox.Show(ex.Message, "ETECH - Pridanie žiadanky do systému", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -210,7 +251,7 @@ Public Class Ziadanky
         Pridat_oddelenie.Show()
     End Sub
 
-    Private Sub Ziadanky_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles cb_ZOddelenia.KeyDown
+    Private Sub Ziadanky_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.F5 Then
             Ziadanky_Load(sender, e)
         End If

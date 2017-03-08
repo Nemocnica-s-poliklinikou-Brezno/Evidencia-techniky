@@ -136,7 +136,7 @@ Partial Class Prihlasenie
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Prihlasenie"
-        Me.Text = "ETECH - Prihlásenie"
+        Me.Text = "NEP - Prihlásenie"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()

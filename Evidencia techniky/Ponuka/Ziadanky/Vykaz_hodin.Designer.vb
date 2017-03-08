@@ -26,15 +26,15 @@ Partial Class Vykaz_hodin
         Me.b_Ulozit = New System.Windows.Forms.Button()
         Me.tb_SumarHodin = New System.Windows.Forms.TextBox()
         Me.gb_VykazaneHodiny = New System.Windows.Forms.GroupBox()
+        Me.cb_POddelenie = New System.Windows.Forms.ComboBox()
         Me.l_PSumarHodin = New System.Windows.Forms.Label()
         Me.l_CisloZiadanky = New System.Windows.Forms.Label()
         Me.l_PCisloZiadanky = New System.Windows.Forms.Label()
         Me.l_Sumar_hodín = New System.Windows.Forms.Label()
         Me.l_Oddelenie = New System.Windows.Forms.Label()
         Me.l_Datum = New System.Windows.Forms.Label()
-        Me.l_POddelenie = New System.Windows.Forms.Label()
         Me.l_PDatum = New System.Windows.Forms.Label()
-        Me.b_Export = New System.Windows.Forms.Button()
+        Me.b_Pridat = New System.Windows.Forms.Button()
         Me.gb_VykazaneHodiny.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -42,7 +42,7 @@ Partial Class Vykaz_hodin
         '
         Me.b_Ulozit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.b_Ulozit.Enabled = False
-        Me.b_Ulozit.Location = New System.Drawing.Point(442, 110)
+        Me.b_Ulozit.Location = New System.Drawing.Point(375, 106)
         Me.b_Ulozit.Name = "b_Ulozit"
         Me.b_Ulozit.Size = New System.Drawing.Size(75, 23)
         Me.b_Ulozit.TabIndex = 0
@@ -52,7 +52,7 @@ Partial Class Vykaz_hodin
         'tb_SumarHodin
         '
         Me.tb_SumarHodin.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.tb_SumarHodin.Location = New System.Drawing.Point(386, 47)
+        Me.tb_SumarHodin.Location = New System.Drawing.Point(314, 47)
         Me.tb_SumarHodin.Name = "tb_SumarHodin"
         Me.tb_SumarHodin.Size = New System.Drawing.Size(100, 26)
         Me.tb_SumarHodin.TabIndex = 1
@@ -60,27 +60,36 @@ Partial Class Vykaz_hodin
         '
         'gb_VykazaneHodiny
         '
+        Me.gb_VykazaneHodiny.Controls.Add(Me.cb_POddelenie)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_PSumarHodin)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_CisloZiadanky)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_PCisloZiadanky)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_Sumar_hodín)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_Oddelenie)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_Datum)
-        Me.gb_VykazaneHodiny.Controls.Add(Me.l_POddelenie)
         Me.gb_VykazaneHodiny.Controls.Add(Me.l_PDatum)
         Me.gb_VykazaneHodiny.Controls.Add(Me.tb_SumarHodin)
         Me.gb_VykazaneHodiny.Location = New System.Drawing.Point(13, 13)
         Me.gb_VykazaneHodiny.Name = "gb_VykazaneHodiny"
-        Me.gb_VykazaneHodiny.Size = New System.Drawing.Size(504, 91)
+        Me.gb_VykazaneHodiny.Size = New System.Drawing.Size(437, 91)
         Me.gb_VykazaneHodiny.TabIndex = 2
         Me.gb_VykazaneHodiny.TabStop = False
         Me.gb_VykazaneHodiny.Text = "Vykázané hodiny"
+        '
+        'cb_POddelenie
+        '
+        Me.cb_POddelenie.DropDownWidth = 200
+        Me.cb_POddelenie.FormattingEnabled = True
+        Me.cb_POddelenie.Location = New System.Drawing.Point(217, 50)
+        Me.cb_POddelenie.Name = "cb_POddelenie"
+        Me.cb_POddelenie.Size = New System.Drawing.Size(77, 21)
+        Me.cb_POddelenie.TabIndex = 10
         '
         'l_PSumarHodin
         '
         Me.l_PSumarHodin.AutoSize = True
         Me.l_PSumarHodin.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.l_PSumarHodin.Location = New System.Drawing.Point(384, 50)
+        Me.l_PSumarHodin.Location = New System.Drawing.Point(312, 50)
         Me.l_PSumarHodin.Name = "l_PSumarHodin"
         Me.l_PSumarHodin.Size = New System.Drawing.Size(114, 20)
         Me.l_PSumarHodin.TabIndex = 9
@@ -111,7 +120,7 @@ Partial Class Vykaz_hodin
         '
         Me.l_Sumar_hodín.AutoSize = True
         Me.l_Sumar_hodín.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.l_Sumar_hodín.Location = New System.Drawing.Point(382, 21)
+        Me.l_Sumar_hodín.Location = New System.Drawing.Point(310, 21)
         Me.l_Sumar_hodín.Name = "l_Sumar_hodín"
         Me.l_Sumar_hodín.Size = New System.Drawing.Size(99, 20)
         Me.l_Sumar_hodín.TabIndex = 6
@@ -137,16 +146,6 @@ Partial Class Vykaz_hodin
         Me.l_Datum.TabIndex = 4
         Me.l_Datum.Text = "Dátum"
         '
-        'l_POddelenie
-        '
-        Me.l_POddelenie.AutoSize = True
-        Me.l_POddelenie.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(238, Byte))
-        Me.l_POddelenie.Location = New System.Drawing.Point(213, 50)
-        Me.l_POddelenie.Name = "l_POddelenie"
-        Me.l_POddelenie.Size = New System.Drawing.Size(97, 20)
-        Me.l_POddelenie.TabIndex = 3
-        Me.l_POddelenie.Text = "@Oddelenie"
-        '
         'l_PDatum
         '
         Me.l_PDatum.AutoSize = True
@@ -157,26 +156,22 @@ Partial Class Vykaz_hodin
         Me.l_PDatum.TabIndex = 2
         Me.l_PDatum.Text = "@Dátum"
         '
-        'b_Export
+        'b_Pridat
         '
-        Me.b_Export.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.b_Export.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.b_Export.Cursor = System.Windows.Forms.Cursors.Default
-        Me.b_Export.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.b_Export.Location = New System.Drawing.Point(361, 111)
-        Me.b_Export.Name = "b_Export"
-        Me.b_Export.Size = New System.Drawing.Size(75, 23)
-        Me.b_Export.TabIndex = 3
-        Me.b_Export.Text = "Export"
-        Me.b_Export.UseVisualStyleBackColor = False
-        Me.b_Export.Visible = False
+        Me.b_Pridat.Enabled = False
+        Me.b_Pridat.Location = New System.Drawing.Point(294, 106)
+        Me.b_Pridat.Name = "b_Pridat"
+        Me.b_Pridat.Size = New System.Drawing.Size(75, 23)
+        Me.b_Pridat.TabIndex = 3
+        Me.b_Pridat.Text = "Pridať"
+        Me.b_Pridat.UseVisualStyleBackColor = True
         '
         'Vykaz_hodin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(529, 141)
-        Me.Controls.Add(Me.b_Export)
+        Me.ClientSize = New System.Drawing.Size(463, 141)
+        Me.Controls.Add(Me.b_Pridat)
         Me.Controls.Add(Me.gb_VykazaneHodiny)
         Me.Controls.Add(Me.b_Ulozit)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -191,13 +186,13 @@ Partial Class Vykaz_hodin
     Friend WithEvents b_Ulozit As Button
     Friend WithEvents tb_SumarHodin As TextBox
     Friend WithEvents gb_VykazaneHodiny As GroupBox
-    Friend WithEvents l_POddelenie As Label
     Friend WithEvents l_PDatum As Label
-    Friend WithEvents b_Export As Button
     Friend WithEvents l_Sumar_hodín As Label
     Friend WithEvents l_Oddelenie As Label
     Friend WithEvents l_Datum As Label
     Friend WithEvents l_CisloZiadanky As Label
     Friend WithEvents l_PCisloZiadanky As Label
     Friend WithEvents l_PSumarHodin As Label
+    Friend WithEvents cb_POddelenie As ComboBox
+    Friend WithEvents b_Pridat As Button
 End Class

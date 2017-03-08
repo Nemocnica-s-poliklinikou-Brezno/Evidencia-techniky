@@ -6,7 +6,7 @@ Module Notifikacia_funk
     Dim PEmail As String
     Dim PPredmet As String
     Dim PTelo_mailu As String
-
+    Dim PUloha_cislo As String = Uloha_Cislo(Ziadanky.cb_TypUlohy.SelectedIndex.ToString) + 1
     Public Function Notifikacia(ByVal TypZaslania As String, ByVal Email As String, ByVal CisloNotifikacie As String) As String
         Dim ErrorText As String = ""
 
@@ -23,9 +23,11 @@ Module Notifikacia_funk
             While data.Read()
                 PEmail = data("Email").ToString()
                 PPredmet = data("Predmet").ToString()
-                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[Cislo_ziadanky]", Uloha_Cislo() + 1)
-                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[U_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
-                PTelo_mailu = Replace(data("Telo_mailu").ToString(), "[V_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
+                PTelo_mailu = data("Telo_mailu").ToString()
+                PTelo_mailu = Replace(PTelo_mailu, "[Cislo_ziadanky]", PUloha_cislo)
+                PTelo_mailu = Replace(PTelo_mailu, "[U_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
+                PTelo_mailu = Replace(PTelo_mailu, "[V_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
+                PTelo_mailu = Replace(PTelo_mailu, "[VU_Cislo_ziadanky]", Ziadanky_sprava.PUlohaCislo)
             End While
             data.Close()
             con.Close()

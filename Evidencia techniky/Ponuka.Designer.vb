@@ -43,8 +43,8 @@ Partial Class Ponuka
         Me.tsm_PraceSprava = New System.Windows.Forms.ToolStripMenuItem()
         Me.VýkazPráceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_Ziadanky = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ZadanieToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SprávaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.stsmi_Zadanie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.stsmi_Evidencia = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_Doprava = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_PrehladPodlaOdosielatela = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsm_DopravaPoistovne = New System.Windows.Forms.ToolStripMenuItem()
@@ -54,6 +54,7 @@ Partial Class Ponuka
         Me.PriestupkyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NahlásenieToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EvidenciaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrehľadyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NastaveniaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ZmenaHeslaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PripomienkyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,7 +66,6 @@ Partial Class Ponuka
         Me.TESTMAILToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OdlásiťToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PrehľadyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -186,7 +186,6 @@ Partial Class Ponuka
         '
         'MojeNevybavenéPráceToolStripMenuItem
         '
-        Me.MojeNevybavenéPráceToolStripMenuItem.Enabled = False
         Me.MojeNevybavenéPráceToolStripMenuItem.Name = "MojeNevybavenéPráceToolStripMenuItem"
         Me.MojeNevybavenéPráceToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
         Me.MojeNevybavenéPráceToolStripMenuItem.Text = "Moje nevybavené práce"
@@ -207,23 +206,25 @@ Partial Class Ponuka
         '
         'tsm_Ziadanky
         '
-        Me.tsm_Ziadanky.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZadanieToolStripMenuItem, Me.SprávaToolStripMenuItem})
+        Me.tsm_Ziadanky.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.stsmi_Zadanie, Me.stsmi_Evidencia})
         Me.tsm_Ziadanky.Name = "tsm_Ziadanky"
         Me.tsm_Ziadanky.Size = New System.Drawing.Size(67, 20)
         Me.tsm_Ziadanky.Text = "Žiadanky"
         Me.tsm_Ziadanky.Visible = False
         '
-        'ZadanieToolStripMenuItem
+        'stsmi_Zadanie
         '
-        Me.ZadanieToolStripMenuItem.Name = "ZadanieToolStripMenuItem"
-        Me.ZadanieToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.ZadanieToolStripMenuItem.Text = "Zadanie"
+        Me.stsmi_Zadanie.Name = "stsmi_Zadanie"
+        Me.stsmi_Zadanie.Size = New System.Drawing.Size(152, 22)
+        Me.stsmi_Zadanie.Text = "Zadanie"
+        Me.stsmi_Zadanie.Visible = False
         '
-        'SprávaToolStripMenuItem
+        'stsmi_Evidencia
         '
-        Me.SprávaToolStripMenuItem.Name = "SprávaToolStripMenuItem"
-        Me.SprávaToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
-        Me.SprávaToolStripMenuItem.Text = "Evidencia"
+        Me.stsmi_Evidencia.Name = "stsmi_Evidencia"
+        Me.stsmi_Evidencia.Size = New System.Drawing.Size(152, 22)
+        Me.stsmi_Evidencia.Text = "Evidencia"
+        Me.stsmi_Evidencia.Visible = False
         '
         'tsm_Doprava
         '
@@ -288,6 +289,13 @@ Partial Class Ponuka
         Me.EvidenciaToolStripMenuItem.Name = "EvidenciaToolStripMenuItem"
         Me.EvidenciaToolStripMenuItem.Size = New System.Drawing.Size(132, 22)
         Me.EvidenciaToolStripMenuItem.Text = "Evidencia"
+        '
+        'PrehľadyToolStripMenuItem
+        '
+        Me.PrehľadyToolStripMenuItem.Name = "PrehľadyToolStripMenuItem"
+        Me.PrehľadyToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.PrehľadyToolStripMenuItem.Text = "Prehľady"
+        Me.PrehľadyToolStripMenuItem.Visible = False
         '
         'NastaveniaToolStripMenuItem
         '
@@ -365,13 +373,6 @@ Partial Class Ponuka
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
-        'PrehľadyToolStripMenuItem
-        '
-        Me.PrehľadyToolStripMenuItem.Name = "PrehľadyToolStripMenuItem"
-        Me.PrehľadyToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
-        Me.PrehľadyToolStripMenuItem.Text = "Prehľady"
-        Me.PrehľadyToolStripMenuItem.Visible = False
-        '
         'Ponuka
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -418,8 +419,8 @@ Partial Class Ponuka
     Friend WithEvents OdlásiťToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents tsm_Ziadanky As ToolStripMenuItem
-    Friend WithEvents ZadanieToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SprávaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents stsmi_Zadanie As ToolStripMenuItem
+    Friend WithEvents stsmi_Evidencia As ToolStripMenuItem
     Friend WithEvents tsm_Labaky As ToolStripMenuItem
     Friend WithEvents tsm_Skumavky As ToolStripMenuItem
     Friend WithEvents TransfúzneToolStripMenuItem As ToolStripMenuItem
