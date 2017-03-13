@@ -408,7 +408,7 @@ Public Class Ziadanky_zoznam
                 Dim i As Integer = 0
 
                 Do Until i = ds.Tables(0).Rows.Count
-                    dgv_VrateneUdrzbe.Rows.Add(ds.Tables(0).Rows(i).Item(0).ToString, ds.Tables(0).Rows(i).Item(1).ToString, ds.Tables(0).Rows(i).Item(2).ToString, ds.Tables(0).Rows(i).Item(3).ToString, ds.Tables(0).Rows(i).Item(4).ToString, ds.Tables(0).Rows(i).Item(5).ToString, ds.Tables(0).Rows(i).Item(6).ToString)
+                    dgv_VrateneUdrzbe.Rows.Add(ds.Tables(0).Rows(i).Item(0).ToString, ds.Tables(0).Rows(i).Item(1).ToString, ds.Tables(0).Rows(i).Item(2).ToString, ds.Tables(0).Rows(i).Item(3).ToString, ds.Tables(0).Rows(i).Item(4).ToString, ds.Tables(0).Rows(i).Item(5).ToString, ds.Tables(0).Rows(i).Item(6).ToString, ds.Tables(0).Rows(i).Item(7).ToString)
                     ProgressBar1.Maximum = ProgressBar1.Maximum + 1
                     ProgressBar1.Value = ProgressBar1.Value + 1
                     i = i + 1

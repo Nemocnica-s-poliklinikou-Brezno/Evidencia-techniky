@@ -186,7 +186,13 @@ Public Class Ponuka
     End Sub
 
     Private Sub TESTMAILToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TESTMAILToolStripMenuItem.Click
-        Notifikacia(1, "lasut@nspbr.sk", 1)
+        MsgBox(("Jméno sestavení:" & My.Application.Info.AssemblyName) &
+        ("Jméno společnosti:" & My.Application.Info.CompanyName) &
+        ("Autorská práva:" & My.Application.Info.Copyright) &
+       ("Popis:" & My.Application.Info.Description) &
+        ("Produkt:" & My.Application.Info.ProductName) &
+        ("Ochranná známka:" & My.Application.Info.Trademark) &
+       ("Verze:" & My.Application.Info.Version.ToString()))
     End Sub
 
     Private Sub ZadanePraceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles tsm_PraceSprava.Click

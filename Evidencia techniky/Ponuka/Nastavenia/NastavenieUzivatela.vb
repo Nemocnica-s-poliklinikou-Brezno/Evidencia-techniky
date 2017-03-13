@@ -258,48 +258,29 @@ Public Class NastavenieUzivatela
                                                                 MessageBox.Show(ex.Message, "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                                                             End Try
 
-                                                            If cb_Ziadanky.Text = "Čítanie" Then
-                                                                Dim QueryPROC As String
-                                                                QueryPROC = "INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
-                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 11 and hodnota = 4 and stav = 0;
-                                                                             INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
-                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 11 and hodnota = 5 and stav = 0;
-                                                                             INSERT INTO uloha_x_uzivatel (id_uzivatela, idciselnik, hodnota, Vlozil_meno, Vlozil_dna)
-                                                                             select '" & QueryID & "', idciselnik, Hodnota, 'ADMIN', now() from ciselnik_data where idciselnik = 10 and hodnota = 0 and stav = 0;"
-                                                                con.Open()
-                                                                Dim sqlPROC As MySqlCommand = New MySqlCommand(QueryPROC, con)
-                                                                Try
-                                                                    sqlPROC.ExecuteNonQuery()
-                                                                    con.Close()
-                                                                Catch ex As Exception
-                                                                    con.Close()
-                                                                    MessageBox.Show(ex.Message, "ETECH - Procedura na žiadanky stav", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                                                                End Try
-                                                            End If
-
                                                             tb_Hladaj.Text = ""
-                                                                tb_UzivatelMeno.Text = ""
-                                                                tb_Priezvisko.Text = ""
-                                                                tb_Meno.Text = ""
-                                                                tb_Heslo.Text = ""
-                                                                tb_Email.Text = ""
-                                                                tb_Tel.Text = ""
-                                                                tb_OsobneCislo.Text = ""
-                                                                cb_Oddelenie.Text = ""
-                                                                cb_Pocitace.Text = ""
-                                                                cb_Ziadanky.Text = ""
-                                                                cb_Prace.Text = ""
-                                                                cb_Doprava.Text = ""
-                                                                cb_DopravaOdosielatelia.Text = ""
-                                                                cb_Labaky.Text = ""
-                                                                cb_Skumavky.Text = ""
-                                                                CHB_Admin.Checked = False
-                                                                CHB_Zablokovany.Checked = False
-                                                                b_Vymazat.Enabled = False
-                                                                b_Ulozit.Enabled = False
-                                                                b_Vytvorit.Enabled = False
+                                                            tb_UzivatelMeno.Text = ""
+                                                            tb_Priezvisko.Text = ""
+                                                            tb_Meno.Text = ""
+                                                            tb_Heslo.Text = ""
+                                                            tb_Email.Text = ""
+                                                            tb_Tel.Text = ""
+                                                            tb_OsobneCislo.Text = ""
+                                                            cb_Oddelenie.Text = ""
+                                                            cb_Pocitace.Text = ""
+                                                            cb_Ziadanky.Text = ""
+                                                            cb_Prace.Text = ""
+                                                            cb_Doprava.Text = ""
+                                                            cb_DopravaOdosielatelia.Text = ""
+                                                            cb_Labaky.Text = ""
+                                                            cb_Skumavky.Text = ""
+                                                            CHB_Admin.Checked = False
+                                                            CHB_Zablokovany.Checked = False
+                                                            b_Vymazat.Enabled = False
+                                                            b_Ulozit.Enabled = False
+                                                            b_Vytvorit.Enabled = False
 
-                                                            Else
+                                                        Else
                                                                 MessageBox.Show("Nenastavil si práva k: " & UCase(l_Skumavky.Text), "ETECH - Pridanie užívateľa", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                                                         End If
                                                     Else
@@ -476,7 +457,7 @@ Public Class NastavenieUzivatela
             Else
             End If
 
-            If cb_Oddelenie.Text <> POddelenie Then
+            If cb_Oddelenie.Text <> POddelenie And POddelenie <> "" Then
 
                 Dim QueryPRA As String
                 QueryPRA = "UPDATE uzivatel_x_oddelenie set id_oddelenia = '" & oddelenie(cb_Oddelenie.Text) & "', Upravil_meno = '" & Ponuka.Meno_uzivatela & "', Upravil_dna = now() WHERE id_uzivatela = '" & PIdUzivatela & "';"
@@ -492,7 +473,20 @@ Public Class NastavenieUzivatela
                     MessageBox.Show(ex.Message, "Zmena oddelenia pri užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     logy(13, 2, ex.Message)
                 End Try
-            Else
+            ElseIf POddelenie = "" Then
+
+                Dim QueryODD As String
+                QueryODD = "INSERT INTO uzivatel_x_oddelenie(id_uzivatela, id_oddelenia, hlavne, Vlozil_meno, Vlozil_dna) values ('" & PIdUzivatela & "', '" & oddelenie(cb_Oddelenie.Text) & "', 1, '" & Ponuka.Meno_uzivatela & "', now());"
+                con.Open()
+                Dim sqlODD As MySqlCommand = New MySqlCommand(QueryODD, con)
+                Try
+                    sqlODD.ExecuteNonQuery()
+                    con.Close()
+                    MessageBox.Show("Oddelenie bolo pridadené k užívateľovi", "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Catch ex As Exception
+                    con.Close()
+                    MessageBox.Show(ex.Message, "ETECH - Pridanie oddelenia", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                End Try
             End If
         Else
             MessageBox.Show("Nezmenil si žiadne údaje, nie je čo meniť!", "ETECH - Zmena údajov v užívateľovi", MessageBoxButtons.OK, MessageBoxIcon.Information)

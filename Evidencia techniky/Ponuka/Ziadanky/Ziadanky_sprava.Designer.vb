@@ -281,7 +281,7 @@ Partial Class Ziadanky_sprava
         'l_NahlaseneDna
         '
         Me.l_NahlaseneDna.AutoSize = True
-        Me.l_NahlaseneDna.Location = New System.Drawing.Point(224, 15)
+        Me.l_NahlaseneDna.Location = New System.Drawing.Point(220, 13)
         Me.l_NahlaseneDna.Name = "l_NahlaseneDna"
         Me.l_NahlaseneDna.Size = New System.Drawing.Size(90, 13)
         Me.l_NahlaseneDna.TabIndex = 31
@@ -340,7 +340,7 @@ Partial Class Ziadanky_sprava
         '
         Me.chb_Zeny.AutoSize = True
         Me.chb_Zeny.Enabled = False
-        Me.chb_Zeny.Location = New System.Drawing.Point(226, 115)
+        Me.chb_Zeny.Location = New System.Drawing.Point(226, 118)
         Me.chb_Zeny.Name = "chb_Zeny"
         Me.chb_Zeny.Size = New System.Drawing.Size(50, 17)
         Me.chb_Zeny.TabIndex = 38
@@ -351,7 +351,7 @@ Partial Class Ziadanky_sprava
         '
         Me.chb_Muzi.AutoSize = True
         Me.chb_Muzi.Enabled = False
-        Me.chb_Muzi.Location = New System.Drawing.Point(226, 101)
+        Me.chb_Muzi.Location = New System.Drawing.Point(226, 104)
         Me.chb_Muzi.Name = "chb_Muzi"
         Me.chb_Muzi.Size = New System.Drawing.Size(48, 17)
         Me.chb_Muzi.TabIndex = 37
@@ -373,7 +373,7 @@ Partial Class Ziadanky_sprava
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(479, 463)
+        Me.ClientSize = New System.Drawing.Size(479, 455)
         Me.Controls.Add(Me.b_Poznamka)
         Me.Controls.Add(Me.chb_Zeny)
         Me.Controls.Add(Me.chb_Muzi)

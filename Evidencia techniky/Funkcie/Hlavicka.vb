@@ -16,7 +16,7 @@ Module hlavicka
 
         con.Close()
 
-        myHlavicka_full = myHlavicka & okno & " | Užívateľ: " & Meno_uzivatel & " " & Verzia_programu()
+        myHlavicka_full = myHlavicka & okno & " | Užívateľ: " & Meno_uzivatel & " " & My.Application.Info.Version.ToString()
 
         Return myHlavicka_full
     End Function

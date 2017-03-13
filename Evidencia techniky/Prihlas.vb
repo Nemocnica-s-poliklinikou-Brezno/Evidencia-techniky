@@ -8,7 +8,7 @@ Public Class Prihlasenie
 
     Public Sub Prihlasenie_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Me.Text = Me.Text & " | " & Verzia_programu()
+        Me.Text = Me.Text & " | " & My.Application.Info.Version.ToString()
         pata_text.Text = pata_programu()
 
     End Sub

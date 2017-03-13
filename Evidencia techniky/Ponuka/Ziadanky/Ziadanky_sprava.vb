@@ -420,8 +420,13 @@ Public Class Ziadanky_sprava
     End Sub
 
     Private Sub b_Tlac_Click(sender As Object, e As EventArgs) Handles b_Tlac.Click
-        Dim Path = "\\10.10.0.20\etech\doc\Ziadanka.xlsm"
-        System.Diagnostics.Process.Start(Path)
+        If cb_TypUlohy.Text = "Žiadanka" Or cb_TypUlohy.Text = "Investícia" Then
+            Dim Path = "\\10.10.0.20\etech\doc\Ziadanka.xlsm"
+            System.Diagnostics.Process.Start(Path)
+        ElseIf cb_TypUlohy.Text = "Mesačná" Or cb_TypUlohy.Text = "Pohotovosť" Then
+            Dim Path = "\\10.10.0.20\etech\doc\Mesacna_ziadanka.xlsm"
+            System.Diagnostics.Process.Start(Path)
+        End If
     End Sub
 
     Public Sub ll_PridatOdd_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles ll_PridatOdd.LinkClicked
